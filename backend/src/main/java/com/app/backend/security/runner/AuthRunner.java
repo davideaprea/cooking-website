@@ -39,6 +39,12 @@ public class AuthRunner implements ApplicationRunner {
 			moderator.setRoleName(ERole.ROLE_MODERATOR);
 			roleRepository.save(moderator);
 		}
+
+		if(roleRepository.findByRoleName(ERole.ROLE_CREATOR).isEmpty()){
+			Role creator = new Role();
+			creator.setRoleName(ERole.ROLE_CREATOR);
+			roleRepository.save(creator);
+		}
 	}
 
 }
