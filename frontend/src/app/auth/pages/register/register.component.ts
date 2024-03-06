@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent {
   form!: FormGroup;
@@ -16,15 +17,19 @@ export class RegisterComponent {
       email: new FormControl("", [Validators.required, Validators.email]),
       password: new FormControl("", Validators.required),
       username: new FormControl("", Validators.required),
-      name: new FormControl("")
+      name: new FormControl(""),
+      newsletter: new FormControl(false)
     });
   }
 
+  get newsletter(){
+    return this.form.get("newsletter");
+  }
+
   submit() {
-    this.authService.register(this.form.value)
-      .subscribe({
-        next: res => {},
-        error: e => this.error = e,
-      });
+    this.authService.register(this.form.value).subscribe({
+      next: res => { },
+      error: e => this.error = e,
+    });
   }
 }

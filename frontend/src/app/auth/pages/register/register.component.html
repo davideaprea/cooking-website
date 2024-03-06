@@ -1,1 +1,3 @@
-<p>register works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <app-input-checkbox [id]="'ns'" [label]="'Ciao'" [group]="form" [control]="$any(newsletter)"></app-input-checkbox>
+</form>

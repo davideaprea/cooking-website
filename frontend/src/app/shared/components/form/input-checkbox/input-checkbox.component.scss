@@ -1,0 +1,39 @@
+@import "../../../../../styles/abstracts/variables";
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 1.5rem;
+}
+
+input[type="checkbox"] {
+  $checkbox-size: 3rem;
+  appearance: none;
+  height: $checkbox-size;
+  width: $checkbox-size;
+  background-color: transparent;
+  border: 2px solid $orange-400;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border-radius: .3em;
+
+  &::after {
+    content: "v";
+    color: $orange-400;
+    font-family: 'Jost', sans-serif;
+    font-size: 2rem;
+    display: none;
+  }
+
+  &:checked {
+    background-color: rgba($orange-400, 0.2);
+
+    &::after {
+      display: block;
+    }
+  }
+}
