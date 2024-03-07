@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { BaseFormInput } from 'src/app/shared/models/base-form-input';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,12 @@ export class RegisterComponent {
   form!: FormGroup;
   error?: string;
 
+  readonly checkboxes: BaseFormInput<boolean>[] = [
+    { id: "info", label: "Dichiaro di aver preso visione dell’Informativa fornita ai sensi dell'art. 13 del Regolamento (UE) 2016/679", control: this.newsletter },
+    { id: "terms", label: "Dichiaro di aver preso visione delle Condizioni e Termini d'Uso del sito", control: this.newsletter },
+    { id: "ns", label: "Subscribe to our newsletter", control: this.newsletter },
+  ];
+
   constructor(private authService: AuthService) {
     this.form = new FormGroup({
       email: new FormControl("", [Validators.required, Validators.email]),
@@ -22,8 +29,8 @@ export class RegisterComponent {
     });
   }
 
-  get newsletter(){
-    return this.form.get("newsletter");
+  get newsletter() {
+    return this.form.get("newsletter")!;
   }
 
   submit() {

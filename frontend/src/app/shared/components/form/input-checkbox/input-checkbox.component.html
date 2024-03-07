@@ -1,3 +1,2 @@
-<input type="checkbox" [formGroup]="group" [formControl]="control" [id]="id" [readOnly]="readonly" [disabled]="disabled"
-  [checked]="value">
-<label [for]="id">{{label}}</label>
+<input type="checkbox" [formGroup]="group" [formControl]="control" [id]="id" [readOnly]="readonly">
+<label *ngIf="label" [for]="id">{{label}}</label>

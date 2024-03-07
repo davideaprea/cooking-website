@@ -1,7 +1,9 @@
+@import '../abstracts/variables';
+
 body {
   font-family: "Jost", sans-serif;
   font-optical-sizing: auto;
-  color: rgb($purple-900);
+  color: $purple-900;
 }
 
 a {
