@@ -1,1 +1,2 @@
-<p>input-text works!</p>
+<label *ngIf="label" [for]="id">{{label}}</label>
+<input type="text" [formGroup]="group" [formControl]="control" [id]="id">

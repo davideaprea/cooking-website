@@ -8,6 +8,6 @@ import { BaseFormInput } from 'src/app/shared/models/base-form-input';
   styleUrls: ['./input-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputCheckboxComponent extends BaseFormInput<boolean>{
+export class InputCheckboxComponent extends BaseFormInput{
   readonly checkIcon = faCheck;
 }

@@ -1,7 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { BaseFormInput } from 'src/app/shared/models/base-form-input';
+import { Form } from 'src/app/core/models/form';
+import { formGroupGetters } from 'src/app/shared/decorators/form-group-getters.decorator';
+
+/* const Mixin = formGroupGetters(
+  class implements Form {
+    form: FormGroup = new FormGroup({
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", Validators.required),
+      username: new FormControl("", Validators.required),
+      name: new FormControl(""),
+      newsletter: new FormControl(false)
+    });
+  }
+); */
 
 @Component({
   selector: 'app-register',
@@ -10,27 +24,35 @@ import { BaseFormInput } from 'src/app/shared/models/base-form-input';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent {
-  form!: FormGroup;
+  form: FormGroup = new FormGroup({
+    email: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$")]),
+    confirmPassword: new FormControl("", [Validators.required, (control: AbstractControl): ValidationErrors | null => {
+      const password = control.parent?.get('password')?.value;
+      return control.value === password ? null : { notEqualPasswords: true };
+    }]),
+    username: new FormControl("", Validators.required),
+    name: new FormControl(""),
+    newsletter: new FormControl(false),
+    info: new FormControl(false),
+    terms: new FormControl(false)
+  });
   error?: string;
 
-  readonly checkboxes: BaseFormInput<boolean>[] = [
-    { id: "info", label: "Dichiaro di aver preso visione dell’Informativa fornita ai sensi dell'art. 13 del Regolamento (UE) 2016/679", control: this.newsletter },
-    { id: "terms", label: "Dichiaro di aver preso visione delle Condizioni e Termini d'Uso del sito", control: this.newsletter },
-    { id: "ns", label: "Subscribe to our newsletter", control: this.newsletter },
+  readonly checkboxes: Partial<BaseFormInput>[] = [
+    { id: "info", label: "Dichiaro di aver preso visione dell’Informativa fornita ai sensi dell'art. 13 del Regolamento (UE) 2016/679*", control: this.form.controls["info"] as FormControl },
+    { id: "terms", label: "Dichiaro di aver preso visione delle Condizioni e Termini d'Uso del sito*", control: this.form.controls["terms"] as FormControl },
+    { id: "ns", label: "Subscribe to our newsletter", control: this.form.controls["newsletter"] as FormControl },
   ];
 
-  constructor(private authService: AuthService) {
-    this.form = new FormGroup({
-      email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", Validators.required),
-      username: new FormControl("", Validators.required),
-      name: new FormControl(""),
-      newsletter: new FormControl(false)
-    });
+  constructor(private authService: AuthService) { }
+
+  get confirmPasswordControl(){
+    return this.form.get("confirmPassword") as FormControl;
   }
 
-  get newsletter() {
-    return this.form.get("newsletter")!;
+  get passwordControl(){
+    return this.form.get("password") as FormControl;
   }
 
   submit() {

@@ -5,12 +5,14 @@ import { InputPasswordComponent } from './components/form/input-password/input-p
 import { InputCheckboxComponent } from './components/form/input-checkbox/input-checkbox.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputEmailComponent } from './components/form/input-email/input-email.component';
 
 @NgModule({
   declarations: [
     InputTextComponent,
     InputPasswordComponent,
-    InputCheckboxComponent
+    InputCheckboxComponent,
+    InputEmailComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   exports: [
-    InputCheckboxComponent
+    InputCheckboxComponent,
+    InputPasswordComponent,
+    InputTextComponent,
+    InputEmailComponent
   ]
 })
 export class SharedModule { }

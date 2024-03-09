@@ -1,11 +1,23 @@
 @import '../abstracts/variables';
 
-body {
+* {
   font-family: "Jost", sans-serif;
-  font-optical-sizing: auto;
   color: $purple-900;
+}
+
+body {
+  font-optical-sizing: auto;
 }
 
 a {
   text-decoration: none;
+}
+
+.error {
+  color: rgb(255,66,0);
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
 }

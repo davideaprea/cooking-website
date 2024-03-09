@@ -44,6 +44,7 @@ body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
+  font-size: 1.6rem;
 }
 
 /* A elements that don't have a class get default styles */
@@ -64,6 +65,22 @@ button,
 textarea,
 select {
   font: inherit;
+  outline: 0;
+  border: 0;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border-radius: .3em;
+  padding: .5em .8em;
+  background-color: rgb( 242,240,244 );
+  border: 2px solid rgb( 233,229,238 );
+}
+
+label {
+  font-weight: bold;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
