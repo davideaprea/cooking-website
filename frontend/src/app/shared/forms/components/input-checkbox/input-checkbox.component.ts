@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { BaseFormInput } from 'src/app/shared/models/base-form-input';
+import { BaseFormInput } from '../../models/base-form-input';
+
 
 @Component({
   selector: 'app-input-checkbox',

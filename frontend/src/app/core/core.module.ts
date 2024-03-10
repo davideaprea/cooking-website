@@ -2,11 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    NavbarComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   providers: [
     {
@@ -14,6 +19,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
       useClass: ErrorInterceptor,
       multi: true
     }
+  ],
+  exports: [
+    NavbarComponent
   ]
 })
 export class CoreModule { }

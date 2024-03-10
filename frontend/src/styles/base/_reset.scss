@@ -45,6 +45,7 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-size: 1.6rem;
+  background-color: rgb(247, 246, 248);
 }
 
 /* A elements that don't have a class get default styles */
@@ -75,8 +76,8 @@ select {
   width: 100%;
   border-radius: .3em;
   padding: .5em .8em;
-  background-color: rgb( 242,240,244 );
-  border: 2px solid rgb( 233,229,238 );
+  background-color: rgb(242, 240, 244);
+  border: 2px solid rgb(233, 229, 238);
 }
 
 label {

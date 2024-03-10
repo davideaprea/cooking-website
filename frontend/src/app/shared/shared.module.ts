@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputTextComponent } from './components/form/input-text/input-text.component';
-import { InputPasswordComponent } from './components/form/input-password/input-password.component';
-import { InputCheckboxComponent } from './components/form/input-checkbox/input-checkbox.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputEmailComponent } from './components/form/input-email/input-email.component';
+import { InputCheckboxComponent } from './forms/components/input-checkbox/input-checkbox.component';
+import { InputEmailComponent } from './forms/components/input-email/input-email.component';
+import { InputPasswordComponent } from './forms/components/input-password/input-password.component';
+import { InputTextComponent } from './forms/components/input-text/input-text.component';
+import { DialogComponent } from './ui/dialog/dialog.component';
 
 @NgModule({
   declarations: [
     InputTextComponent,
     InputPasswordComponent,
     InputCheckboxComponent,
-    InputEmailComponent
+    InputEmailComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { InputEmailComponent } from './components/form/input-email/input-email.c
     InputCheckboxComponent,
     InputPasswordComponent,
     InputTextComponent,
-    InputEmailComponent
+    InputEmailComponent,
+    DialogComponent
   ]
 })
 export class SharedModule { }

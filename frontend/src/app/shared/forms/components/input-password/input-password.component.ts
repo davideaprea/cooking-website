@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
-import { BaseFormInput } from 'src/app/shared/models/base-form-input';
+import { BaseFormInput } from '../../models/base-form-input';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { ControlContainer } from '@angular/forms';
