@@ -1,21 +1,22 @@
-<h2>Register</h2>
+<h1 class="text-center">Register</h1>
 
 <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
-  <app-input-text [group]="form" [control]="$any(form.get('username'))" [label]="'Username*'" [id]="'username'"></app-input-text>
+  <app-input-text [control]="$any(form.get('username'))" [label]="'Username*'"
+    [id]="'username'"></app-input-text>
 
-  <app-input-email [group]="form" [control]="$any(form.get('email'))" [label]="'Email*'" [id]="'email'"></app-input-email>
+  <app-input-email [control]="$any(form.get('email'))" [label]="'Email*'"
+    [id]="'email'"></app-input-email>
 
-  <div>
-    <app-input-password [group]="form" [control]="passwordControl" [label]="'Password*'" [id]="'psw'"></app-input-password>
-    <p *ngIf="passwordControl.dirty && passwordControl.touched && passwordControl.invalid" class="error">At least 8 characters, one uppercase, one lowercase, and one number.</p>
+  <app-input-password [control]="passwordControl" [label]="'Password*'" [id]="'psw'"
+    errorMessage="At least 8 characters, one uppercase, one lowercase, and one number."></app-input-password>
+
+  <app-input-password [control]="confirmPasswordControl" [label]="'Confirm password*'" [id]="'confPsw'"
+    errorMessage="The given passwords are not equal."></app-input-password>
+
+  <app-input-checkbox *ngFor="let cb of checkboxes" [id]="cb.id" [label]="cb.label"
+    [control]="cb.control!"></app-input-checkbox>
+
+  <div class="text-center">
+    <button class="submit-button">Submit</button>
   </div>
-
-  <div>
-    <app-input-password [group]="form" [control]="confirmPasswordControl" [label]="'Confirm password*'" [id]="'confPsw'"></app-input-password>
-    <p *ngIf="confirmPasswordControl.dirty && confirmPasswordControl.touched && confirmPasswordControl.invalid" class="error">The given passwords are not equal.</p>
-  </div>
-
-  <app-input-checkbox *ngFor="let cb of checkboxes" [id]="cb.id" [label]="cb.label" [group]="form" [control]="cb.control!"></app-input-checkbox>
-
-  <button class="submit-button">Submit</button>
 </form>

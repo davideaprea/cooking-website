@@ -1,1 +1,13 @@
-<p>login works!</p>
+<h1 class="text-center">Log in</h1>
+
+<form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
+  <app-input-email [control]="$any(form.get('email'))" [label]="'Email'" [id]="'email'"></app-input-email>
+
+  <app-input-password [control]="$any(form.get('remember'))" [label]="'Password'" [id]="'psw'"></app-input-password>
+
+  <app-input-checkbox [id]="'remember'" [label]="'Remember me'" [control]="$any(form.get('remember'))"></app-input-checkbox>
+
+  <div class="text-center">
+    <button class="submit-button">Submit</button>
+  </div>
+</form>

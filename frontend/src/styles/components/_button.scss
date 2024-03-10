@@ -1,6 +1,11 @@
+@import '../abstracts/variables';
+
 .submit-button {
   padding: .3em 2em;
   color: white;
   background-color: $orange-400;
   border-radius: 1em;
+  font-size: 2rem;
+  display: inline;
+  width: min-content;
 }
