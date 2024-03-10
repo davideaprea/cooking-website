@@ -7,6 +7,7 @@ import { InputEmailComponent } from './forms/components/input-email/input-email.
 import { InputPasswordComponent } from './forms/components/input-password/input-password.component';
 import { InputTextComponent } from './forms/components/input-text/input-text.component';
 import { DialogComponent } from './ui/dialog/dialog.component';
+import { ElementBlurDirective } from './directives/element-blur.directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DialogComponent } from './ui/dialog/dialog.component';
     InputPasswordComponent,
     InputCheckboxComponent,
     InputEmailComponent,
-    DialogComponent
+    DialogComponent,
+    ElementBlurDirective
   ],
   imports: [
     CommonModule,

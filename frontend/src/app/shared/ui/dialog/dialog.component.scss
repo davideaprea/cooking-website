@@ -4,6 +4,16 @@ dialog {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   width: Min(360px, 100%);
   border: 0;
+  position: relative;
+  padding: 1.5em;
+  outline: 0;
+
+  fa-icon{
+    position: absolute;
+    right: 18px;
+    top: 8px;
+    font-size: 2rem;
+  }
 
   &::backdrop {
     background-color: rgba(82, 59, 104, 0.7);

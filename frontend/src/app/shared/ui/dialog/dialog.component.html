@@ -1,3 +1,4 @@
-<dialog #modal>
+<dialog (close)="closeModal()" (elementBlur)="closeModal()" #modal>
+  <fa-icon [icon]="markIcon" (click)="closeModal()"></fa-icon>
   <ng-content></ng-content>
 </dialog>

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dialog',
@@ -8,12 +9,25 @@ import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, Simpl
 })
 export class DialogComponent implements OnChanges {
   @ViewChild("modal") private modal!: ElementRef<HTMLDialogElement>;
-  @Input({ required: true }) openModal: boolean = false;
+  @Input({ required: true }) open: boolean = false;
+  @Output() openChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  protected markIcon = faXmark;
 
   ngOnChanges(): void {
     if (this.modal) {
-      const modal = this.modal.nativeElement;
-      this.openModal ? modal.showModal() : modal.close();
+      this.open ? this.openModal() : this.closeModal();
     }
+  }
+
+  closeModal() {
+    this.open = false;
+    this.openChange.emit(false);
+    this.modal.nativeElement.close();
+  }
+
+  openModal() {
+    this.open = true;
+    this.openChange.emit(true);
+    this.modal.nativeElement.showModal();
   }
 }

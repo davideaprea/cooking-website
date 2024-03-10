@@ -29,6 +29,9 @@ import { SharedModule } from '../shared/shared.module';
       useClass: TokenInterceptor,
       multi: true
     }
+  ],
+  exports: [
+    LoginComponent
   ]
 })
 export class AuthModule { }
