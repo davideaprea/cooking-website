@@ -50,7 +50,7 @@ export class AuthService {
 
             if (remember) localStorage.setItem("user", JSON.stringify(user));
             else sessionStorage.setItem("user", JSON.stringify(user));
-            this.router.navigate(["/home", ""]);
+            this.router.navigate(["/profile"]);
           }
         )
       )

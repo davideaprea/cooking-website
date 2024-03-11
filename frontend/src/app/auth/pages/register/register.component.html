@@ -1,6 +1,6 @@
 <h1 class="text-center">Register</h1>
 
-<form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
+<form class="grid-row-flow" [formGroup]="form" (ngSubmit)="submit()">
   <app-input-text [control]="$any(form.get('username'))" [label]="'Username*'"
     [id]="'username'"></app-input-text>
 

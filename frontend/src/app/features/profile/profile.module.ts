@@ -3,15 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
+import { RecipeFormComponent } from './components/recipe-form/recipe-form.component';
+import { ProfileNavbarComponent } from './components/profile-navbar/profile-navbar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   declarations: [
-    ProfileComponent
+    ProfileComponent,
+    RecipeFormComponent,
+    ProfileNavbarComponent,
   ],
   imports: [
     CommonModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    FontAwesomeModule
   ]
 })
 export class ProfileModule { }
