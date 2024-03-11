@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { faPlus, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faUtensils, faGear } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile-navbar',
@@ -10,4 +10,5 @@ import { faPlus, faUtensils } from '@fortawesome/free-solid-svg-icons';
 export class ProfileNavbarComponent {
   readonly plusIcon = faPlus;
   readonly utensilsIcon = faUtensils;
+  readonly gearIcon = faGear;
 }

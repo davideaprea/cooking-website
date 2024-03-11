@@ -1,14 +1,19 @@
-<nav>
-    <ul>
+<nav class="fluid-container-1200">
+    <ul class="grid-row-flow">
         <li><img src="" alt="Profile pic"></li>
         <li>
-            <a [routerLink]="['/new-recipe']">
+            <a data-tooltip="Create a new recipe" class="tooltip" [routerLink]="['/new-recipe']">
                 <fa-icon [icon]="plusIcon"></fa-icon>
             </a>
         </li>
         <li>
-            <a href="">
+            <a data-tooltip="Your recipes" class="tooltip" href="">
                 <fa-icon [icon]="utensilsIcon"></fa-icon>
+            </a>
+        </li>
+        <li>
+            <a data-tooltip="Settings" class="tooltip" href="">
+                <fa-icon [icon]="gearIcon"></fa-icon>
             </a>
         </li>
     </ul>
