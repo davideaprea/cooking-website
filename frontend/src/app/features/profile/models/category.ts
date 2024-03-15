@@ -1,0 +1,14 @@
+export enum Category {
+  MEAT,
+  FISH,
+  VEGETABLE,
+  FRUIT,
+  DAIRY,
+  EGG,
+  SEASONING,
+  LEGUME,
+  SWEETENER,
+  LEAVENER,
+  ALCOHOLIC,
+  CEREAL
+}

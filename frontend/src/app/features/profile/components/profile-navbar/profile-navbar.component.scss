@@ -5,6 +5,15 @@ nav {
   border-radius: 1em;
   position: sticky;
   top: 80px;
+
+  img {
+    height: 6rem;
+    border-radius: 50%;
+  }
+
+  ul {
+    place-items: center;
+  }
 }
 
 a {
