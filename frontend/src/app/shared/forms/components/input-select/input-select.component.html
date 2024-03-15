@@ -1,0 +1,8 @@
+<!-- <input (input)="input($event)" *ngIf="isFilterActive" type="text"> -->
+
+<div class="container" (click)="toggleSelect($event)">
+  <span>{{value ? value : options[0]}}</span>
+  <ul *ngIf="open">
+    <li (click)="setValue($event, option)" *ngFor="let option of options">{{option}}</li>
+  </ul>
+</div>

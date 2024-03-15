@@ -1,3 +1,7 @@
-<form>
-  <app-input-text></app-input-text>
+<form [formGroup]="form">
+  <app-input-text [control]="nameControl"></app-input-text>
+
+  <app-input-select elementBlur formControlName="course" [options]="['Si', 'No', 'Forse', 'Non lo so']"></app-input-select>
+
+  <app-input-file [control]="thumbnailImageControl"></app-input-file>
 </form>

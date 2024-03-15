@@ -7,6 +7,7 @@ import { RecipeFormComponent } from './components/recipe-form/recipe-form.compon
 import { ProfileNavbarComponent } from './components/profile-navbar/profile-navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     ProfileRoutingModule,
     FontAwesomeModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ProfileModule { }

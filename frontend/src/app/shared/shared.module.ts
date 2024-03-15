@@ -8,6 +8,8 @@ import { InputPasswordComponent } from './forms/components/input-password/input-
 import { InputTextComponent } from './forms/components/input-text/input-text.component';
 import { DialogComponent } from './ui/dialog/dialog.component';
 import { ElementBlurDirective } from './directives/element-blur.directive';
+import { InputSelectComponent } from './forms/components/input-select/input-select.component';
+import { InputFileComponent } from './forms/components/input-file/input-file.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ElementBlurDirective } from './directives/element-blur.directive';
     InputCheckboxComponent,
     InputEmailComponent,
     DialogComponent,
-    ElementBlurDirective
+    ElementBlurDirective,
+    InputSelectComponent,
+    InputFileComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +33,10 @@ import { ElementBlurDirective } from './directives/element-blur.directive';
     InputPasswordComponent,
     InputTextComponent,
     InputEmailComponent,
-    DialogComponent
+    DialogComponent,
+    InputSelectComponent,
+    ElementBlurDirective,
+    InputFileComponent
   ]
 })
 export class SharedModule { }

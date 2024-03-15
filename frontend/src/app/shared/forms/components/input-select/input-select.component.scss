@@ -1,0 +1,29 @@
+@import "../../../../../styles/abstracts/variables";
+
+:host {
+  display: block;
+}
+
+.container {
+  position: relative;
+}
+
+ul {
+  left: 0;
+  position: absolute;
+  border-radius: 1em;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+}
+
+li, .container {
+  cursor: pointer;
+  padding: .3em .8em;
+  font-weight: bold;
+
+  &:hover {
+    color: white;
+    background-color: $orange-400;
+  }
+}
