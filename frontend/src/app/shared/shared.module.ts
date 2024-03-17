@@ -7,9 +7,10 @@ import { InputEmailComponent } from './forms/components/input-email/input-email.
 import { InputPasswordComponent } from './forms/components/input-password/input-password.component';
 import { InputTextComponent } from './forms/components/input-text/input-text.component';
 import { DialogComponent } from './ui/dialog/dialog.component';
-import { ElementBlurDirective } from './directives/element-blur.directive';
 import { InputSelectComponent } from './forms/components/input-select/input-select.component';
 import { InputFileComponent } from './forms/components/input-file/input-file.component';
+import { CardComponent } from './ui/card/card.component';
+import { ElementBlurDirective } from './directives/element-blur.directive';
 
 @NgModule({
   declarations: [
@@ -18,15 +19,16 @@ import { InputFileComponent } from './forms/components/input-file/input-file.com
     InputCheckboxComponent,
     InputEmailComponent,
     DialogComponent,
-    ElementBlurDirective,
     InputSelectComponent,
-    InputFileComponent
+    InputFileComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ElementBlurDirective
   ],
   exports: [
     InputCheckboxComponent,
@@ -35,7 +37,6 @@ import { InputFileComponent } from './forms/components/input-file/input-file.com
     InputEmailComponent,
     DialogComponent,
     InputSelectComponent,
-    ElementBlurDirective,
     InputFileComponent
   ]
 })

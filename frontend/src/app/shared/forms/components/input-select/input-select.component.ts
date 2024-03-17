@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Openable } from '../../models/openable';
+import { ElementBlurDirective } from 'src/app/shared/directives/element-blur.directive';
 
 @Component({
   selector: 'app-input-select',
@@ -11,31 +13,40 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       provide: NG_VALUE_ACCESSOR,
       useExisting: InputSelectComponent,
       multi: true
+    },
+    {
+      provide: Openable,
+      useExisting: InputSelectComponent
     }
-  ]
+  ],
+  hostDirectives: [ElementBlurDirective]
 })
-export class InputSelectComponent<T> implements ControlValueAccessor {
+export class InputSelectComponent<T> extends Openable implements ControlValueAccessor {
   value?: T;
   @Input({ required: true }) options!: T[];
   onChange!: (value: T) => void;
   onTouched!: () => void;
-  private _open: boolean = false;
   private disabled: boolean = false;
-
-  get open(): boolean {
-    return this._open;
-  }
 
   toggleSelect(event: Event): void {
     event.stopPropagation();
-    this._open = !this._open;
+    this.open = !this.open;
+  }
+
+  constructor() {
+    super();
+    /* setInterval(() => console.log(this.open), 1000) */
+  }
+
+  override close(): void {
+    this.open = false;
   }
 
   setValue(event: Event, value: T): void {
-    if(this.disabled) return;
+    if (this.disabled) return;
     event.stopPropagation();
     this.value = value;
-    this._open = false;
+    this.open = false;
     this.onChange(value);
     this.onTouched();
   }
