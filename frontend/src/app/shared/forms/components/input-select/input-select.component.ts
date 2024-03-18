@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Openable } from '../../models/openable';
-import { ElementBlurDirective } from 'src/app/shared/directives/element-blur.directive';
+import { blurrable } from 'src/app/shared/mixins/element-blur';
 
 @Component({
   selector: 'app-input-select',
@@ -13,15 +12,10 @@ import { ElementBlurDirective } from 'src/app/shared/directives/element-blur.dir
       provide: NG_VALUE_ACCESSOR,
       useExisting: InputSelectComponent,
       multi: true
-    },
-    {
-      provide: Openable,
-      useExisting: InputSelectComponent
     }
-  ],
-  hostDirectives: [ElementBlurDirective]
+  ]
 })
-export class InputSelectComponent<T> extends Openable implements ControlValueAccessor {
+export class InputSelectComponent<T> extends blurrable(Object) implements ControlValueAccessor {
   value?: T;
   @Input({ required: true }) options!: T[];
   onChange!: (value: T) => void;
@@ -35,11 +29,6 @@ export class InputSelectComponent<T> extends Openable implements ControlValueAcc
 
   constructor() {
     super();
-    /* setInterval(() => console.log(this.open), 1000) */
-  }
-
-  override close(): void {
-    this.open = false;
   }
 
   setValue(event: Event, value: T): void {

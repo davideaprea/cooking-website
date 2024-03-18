@@ -10,7 +10,6 @@ import { DialogComponent } from './ui/dialog/dialog.component';
 import { InputSelectComponent } from './forms/components/input-select/input-select.component';
 import { InputFileComponent } from './forms/components/input-file/input-file.component';
 import { CardComponent } from './ui/card/card.component';
-import { ElementBlurDirective } from './directives/element-blur.directive';
 
 @NgModule({
   declarations: [
@@ -27,8 +26,7 @@ import { ElementBlurDirective } from './directives/element-blur.directive';
     CommonModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule,
-    ElementBlurDirective
+    ReactiveFormsModule
   ],
   exports: [
     InputCheckboxComponent,
