@@ -1,4 +1,4 @@
-<dialog (close)="closeModal()" (elementBlur)="closeModal()" #modal>
+<dialog class="shadow-sm" (close)="closeModal()" #modal>
   <fa-icon [icon]="markIcon" (click)="closeModal()"></fa-icon>
   <ng-content></ng-content>
 </dialog>

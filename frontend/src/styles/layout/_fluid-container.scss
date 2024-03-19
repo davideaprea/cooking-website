@@ -1,0 +1,8 @@
+@import '../abstracts/variables';
+
+@each $key, $value in $breakpoints {
+  .fluid-container-#{$key} {
+    margin-inline: auto;
+    width: Min(#{$value}, 100%);
+  }
+}
