@@ -1,1 +1,3 @@
-<input type="file" [formControl]="control">
+<fa-icon [icon]="cameraIcon"></fa-icon>
+<label *ngIf="label" [for]="id">{{label}}</label>
+<input (input)="fileInput($event)" type="file" [formControl]="control" [id]="id" [accept]="accept">

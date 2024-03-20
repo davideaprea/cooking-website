@@ -16,6 +16,6 @@ import { BaseFormInput } from '../../models/base-form-input';
     }
   ]
 })
-export class InputCheckboxComponent extends BaseFormInput {
+export class InputCheckboxComponent extends BaseFormInput<boolean> {
   readonly checkIcon = faCheck;
 }

@@ -14,6 +14,6 @@ import { BaseFormInput } from '../../models/base-form-input';
     }
   ]
 })
-export class InputEmailComponent extends BaseFormInput {
+export class InputEmailComponent extends BaseFormInput<string> {
 
 }

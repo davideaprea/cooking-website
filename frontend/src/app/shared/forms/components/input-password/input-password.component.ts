@@ -16,7 +16,7 @@ import { ControlContainer } from '@angular/forms';
     }
   ]
 })
-export class InputPasswordComponent extends BaseFormInput{
+export class InputPasswordComponent extends BaseFormInput<string>{
   readonly closedEye = faEye;
   readonly openEye = faEyeSlash;
   view: boolean = false;

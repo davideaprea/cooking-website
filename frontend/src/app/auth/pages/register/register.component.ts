@@ -38,7 +38,7 @@ export class RegisterComponent {
   });
   error?: string;
 
-  readonly checkboxes: Partial<BaseFormInput>[] = [
+  readonly checkboxes: Partial<BaseFormInput<boolean>>[] = [
     { id: "info", label: "Dichiaro di aver preso visione dell’Informativa fornita ai sensi dell'art. 13 del Regolamento (UE) 2016/679*", control: this.form.controls["info"] as FormControl },
     { id: "terms", label: "Dichiaro di aver preso visione delle Condizioni e Termini d'Uso del sito*", control: this.form.controls["terms"] as FormControl },
     { id: "ns", label: "Subscribe to our newsletter", control: this.form.controls["newsletter"] as FormControl },

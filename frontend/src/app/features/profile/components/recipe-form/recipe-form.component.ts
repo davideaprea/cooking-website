@@ -18,8 +18,8 @@ export class RecipeFormComponent {
     difficulty: new FormControl<Difficulty | undefined>(undefined, Validators.required),
     cookingTime: new FormControl<Date | undefined>(undefined, Validators.required),
     preparationTime: new FormControl<Date | undefined>(undefined, Validators.required),
-    servings: new FormControl<number | undefined>(undefined, Validators.required),
-    caloriesPerServing: new FormControl<number | undefined>(undefined, Validators.required),
+    servings: new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(1)]),
+    caloriesPerServing: new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(1)]),
     country: new FormControl<Country | undefined>(undefined, Validators.required),
     storage: new FormControl<string>("", Validators.required),
     tips: new FormControl<string>("")

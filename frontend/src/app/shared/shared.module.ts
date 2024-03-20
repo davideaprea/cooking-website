@@ -10,6 +10,7 @@ import { DialogComponent } from './ui/dialog/dialog.component';
 import { InputSelectComponent } from './forms/components/input-select/input-select.component';
 import { InputFileComponent } from './forms/components/input-file/input-file.component';
 import { CardComponent } from './ui/card/card.component';
+import { InputNumberComponent } from './forms/components/input-number/input-number.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CardComponent } from './ui/card/card.component';
     DialogComponent,
     InputSelectComponent,
     InputFileComponent,
-    CardComponent
+    CardComponent,
+    InputNumberComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { CardComponent } from './ui/card/card.component';
     InputEmailComponent,
     DialogComponent,
     InputSelectComponent,
-    InputFileComponent
+    InputFileComponent,
+    InputNumberComponent
   ]
 })
 export class SharedModule { }

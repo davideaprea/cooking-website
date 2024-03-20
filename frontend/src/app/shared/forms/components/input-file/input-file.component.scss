@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  border-radius: .3em;
+  padding: .5em .8em;
+  background-color: rgb(242, 240, 244);
+  border: 2px solid rgb(233, 229, 238);
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
+
+input[type="file"]{
+  opacity: 0;
+  position: absolute;
+  height: 100%;
+  border: 0;
+  cursor: pointer;
+}
+
+fa-icon{
+  font-size: 5em;
+}
