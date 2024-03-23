@@ -1,0 +1,20 @@
+.ingredients {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 1em;
+}
+
+.ingredients-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+button {
+  background-color: transparent;
+}
+
+fa-icon {
+  font-size: 1.8rem;
+}

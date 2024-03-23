@@ -8,7 +8,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./input-file.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputFileComponent extends BaseFormInput<undefined | File> {
+export class InputFileComponent extends BaseFormInput<null | File> {
   @Input() accept: string = "";
   readonly cameraIcon = faCamera;
   host: ElementRef<HTMLElement> = inject(ElementRef<HTMLElement>);

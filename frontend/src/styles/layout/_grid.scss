@@ -1,5 +1,15 @@
-.grid-row-flow{
+@import '../abstracts/variables';
+
+.grid-row-flow {
   display: grid;
   grid-auto-flow: row;
   row-gap: 2.5rem;
+}
+
+@each $key, $value in $breakpoints {
+  .fluid-grid-#{$key} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(Min($value, 100%), 1fr));
+    gap: 2rem;
+  }
 }

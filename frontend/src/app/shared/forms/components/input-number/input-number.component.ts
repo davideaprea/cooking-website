@@ -7,5 +7,5 @@ import { BaseFormInput } from '../../models/base-form-input';
   styleUrls: ['./input-number.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputNumberComponent extends BaseFormInput<number | undefined> {
+export class InputNumberComponent extends BaseFormInput<number | null> {
 }

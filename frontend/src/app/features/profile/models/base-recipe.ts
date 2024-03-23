@@ -2,6 +2,7 @@ import { Country } from "./country";
 import { Course } from "./course";
 import { Difficulty } from "./difficulty";
 import { Ingredient } from "./ingredient";
+import { RecipeIngredient } from "./recipe-ingredient";
 
 export type BaseRecipe = {
   name: string,
@@ -12,7 +13,7 @@ export type BaseRecipe = {
   servings: number,
   caloriesPerServing: number,
   country: Country,
-  ingredients: Set<{ingredient: Ingredient, grams: number}>,
+  ingredients: Set<RecipeIngredient>,
   preparationSteps: Set<string>,
   storage: string,
   tips?: string,

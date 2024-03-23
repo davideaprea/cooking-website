@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { blurrable } from 'src/app/shared/mixins/element-blur';
+import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-input-select',
@@ -18,9 +19,13 @@ import { blurrable } from 'src/app/shared/mixins/element-blur';
 export class InputSelectComponent<T> extends blurrable(Object) implements ControlValueAccessor {
   value?: T;
   @Input({ required: true }) options!: T[];
+  @Input() label?: string;
+  @Input() id?: string;
   onChange!: (value: T) => void;
   onTouched!: () => void;
   private disabled: boolean = false;
+
+  readonly angleUpIcon = faAngleUp;
 
   toggleSelect(event: Event): void {
     event.stopPropagation();

@@ -13,16 +13,40 @@ ul {
   position: absolute;
   border-radius: 1em;
   background-color: white;
-  overflow: hidden;
+  overflow-y: scroll;
+  z-index: 1;
+  font-weight: bold;
+  max-height: 150px;
 }
 
-li, .container {
-  cursor: pointer;
+li {
   padding: .3em .8em;
-  font-weight: bold;
+  cursor: pointer;
 
   &:hover {
     color: white;
     background-color: $orange-400;
   }
+}
+
+.input-icon {
+  position: relative;
+
+  input {
+    padding-right: 2em;
+  }
+
+  .icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    height: min-content;
+    right: 10px;
+    transition: rotate 200ms;
+  }
+}
+
+.icon-up {
+  rotate: -180deg;
 }

@@ -1,6 +1,6 @@
 package com.app.backend.recipes.entities;
 
-import java.time.LocalTime;
+import java.time.Period;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -66,11 +66,11 @@ public class Recipe {
 
     @NotNull
     @Column(nullable = false)
-    private LocalTime preparationTime;
+    private Period preparationTime;
 
     @NotNull
     @Column(nullable = false)
-    private LocalTime cookingTime;
+    private Period cookingTime;
 
     @Min(value = 1)
     @Column(nullable = false)
@@ -108,7 +108,7 @@ public class Recipe {
     private boolean isDairyFree = true;
     private boolean isGlutenFree = true;
     
-    public Recipe(User user, String name, Course course, String thumbnailImage, Difficulty difficulty, LocalTime preparationTime, LocalTime cookingTime, byte servings, Double caloriesPerServing, Country country, Set<RecipeIngredient> ingredients, LinkedHashSet<String> preparationSteps, String storage, String tips) {
+    public Recipe(User user, String name, Course course, String thumbnailImage, Difficulty difficulty, Period preparationTime, Period cookingTime, byte servings, Double caloriesPerServing, Country country, Set<RecipeIngredient> ingredients, LinkedHashSet<String> preparationSteps, String storage, String tips) {
         this.user = user;
         this.name = name;
         this.course = course;

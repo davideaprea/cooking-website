@@ -1,16 +1,31 @@
 <form [formGroup]="form">
   <app-input-file [control]="thumbnailImageControl" id="thumbnailImage" label="Choose the thumbnail image for your recipe" accept="image/*"></app-input-file>
 
-  <app-input-text id="name" label="Name" [control]="nameControl"></app-input-text>
+  <fieldset class="fluid-grid-xs">
+    <app-input-text id="name" label="Name" [control]="nameControl"></app-input-text>
 
-  <app-input-select id="course" [formControl]="courseControl" [options]="['Si', 'No', 'Forse', 'Non lo so']"></app-input-select>
+    <app-input-select id="course" [formControl]="courseControl" [options]="courseOptions" label="Select the course type"></app-input-select>
+
+    <app-input-select id="difficulty" [formControl]="difficultyControl" [options]="difficultyOptions" label="Select the difficulty"></app-input-select>
+
+    <app-input-number [control]="servingsControl" id="servings" label="Servings"></app-input-number>
+
+    <app-input-number [control]="caloriesPerServingControl" id="caloriesPerServing" label="Calories per serving"></app-input-number>
+
+    <app-input-select id="country" [formControl]="countryControl" [options]="countryOptions" label="Select the recipe country"></app-input-select>
+  </fieldset>
 
 
-  <app-input-select id="difficulty" [formControl]="difficultyControl" [options]="['Si', 'No', 'Forse', 'Non lo so']"></app-input-select>
+  <div class="ingredients-label">
+    <h3>Ingredients</h3>
+    <button class="tooltip" data-tooltip="Add a new ingredient" (click)="addIngredient()" type="button"><fa-icon [icon]="plusIcon"></fa-icon></button>
+  </div>
 
-  <app-input-number [control]="servingsControl" id="servings" label="Servings"></app-input-number>
+  <fieldset class="ingredients" *ngFor="let group of ingredientsFormArray.controls; let i = index">
+    <button (click)="removeIngredient(i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
 
-  <app-input-number [control]="caloriesPerServingControl" id="caloriesPerServing" label="Calories per serving"></app-input-number>
+    <app-input-text id="ingredient{{i}}" label="Ingredient" [control]="getIngredientControl(i)"></app-input-text>
 
-  <app-input-select id="country" [formControl]="countryControl" [options]="['Si', 'No', 'Forse', 'Non lo so']"></app-input-select>
+    <app-input-number [control]="getGramsControl(i)" id="grams{{i}}" label="Grams"></app-input-number>
+  </fieldset>
 </form>
