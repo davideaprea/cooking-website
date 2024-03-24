@@ -11,6 +11,8 @@ import { InputSelectComponent } from './forms/components/input-select/input-sele
 import { InputFileComponent } from './forms/components/input-file/input-file.component';
 import { CardComponent } from './ui/card/card.component';
 import { InputNumberComponent } from './forms/components/input-number/input-number.component';
+import { TextEditorComponent } from './forms/components/text-editor/text-editor.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -22,13 +24,15 @@ import { InputNumberComponent } from './forms/components/input-number/input-numb
     InputSelectComponent,
     InputFileComponent,
     CardComponent,
-    InputNumberComponent
+    InputNumberComponent,
+    TextEditorComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    QuillModule
   ],
   exports: [
     InputCheckboxComponent,
@@ -38,7 +42,8 @@ import { InputNumberComponent } from './forms/components/input-number/input-numb
     DialogComponent,
     InputSelectComponent,
     InputFileComponent,
-    InputNumberComponent
+    InputNumberComponent,
+    TextEditorComponent
   ]
 })
 export class SharedModule { }

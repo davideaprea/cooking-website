@@ -8,6 +8,10 @@
   position: relative;
 }
 
+.open-select {
+  transform: scaleY(1);
+}
+
 ul {
   left: 0;
   position: absolute;
@@ -17,6 +21,9 @@ ul {
   z-index: 1;
   font-weight: bold;
   max-height: 150px;
+  transform-origin: top center;
+  transform: scaleY(0);
+  transition: transform 100ms ease;
 }
 
 li {

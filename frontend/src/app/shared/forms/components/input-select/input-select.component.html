@@ -8,7 +8,7 @@
     <fa-icon [icon]="angleDownIcon" class="icon" [ngClass]="{'icon-up': open}"></fa-icon>
   </div>
 
-  <ul class="shadow-sm" *ngIf="open">
+  <ul class="shadow-sm" [ngClass]="{'open-select': open}">
     <li (click)="setValue($event, option)" *ngFor="let option of options">{{option}}</li>
   </ul>
 </div>
