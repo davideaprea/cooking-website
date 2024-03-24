@@ -7,19 +7,21 @@
     content: attr(data-tooltip);
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scaleX(0);
     left: 100%;
     margin-left: 10px;
     padding: .3em .8em;
     border-radius: .5em;
     background-color: $purple-900;
     color: white;
-    display: none;
     font-size: 1.3rem;
     text-wrap: nowrap;
+    z-index: 1;
+    transform-origin: left center;
+    transition: transform 150ms ease;
   }
 
   &:hover::before {
-    display: block;
+    transform: translateY(-50%) scaleX(1);
   }
 }

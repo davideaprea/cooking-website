@@ -1,8 +1,7 @@
 .ingredients {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 1em;
+  display: grid;
+  grid-template-columns: min-content 1fr 1fr;
+  gap: 2rem;
 }
 
 .ingredients-label {

@@ -6,16 +6,17 @@ nav {
   background-color: white;
   padding: 1.5em;
   border-radius: 1em;
-  position: sticky;
-  top: 80px;
 
   img {
     height: 6rem;
     border-radius: 50%;
   }
 
-  ul {
+  ul{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     place-items: center;
+    gap: 2rem;
   }
 }
 

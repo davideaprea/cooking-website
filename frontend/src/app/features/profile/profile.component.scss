@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5rem;
+  padding: 2em;
+
+  app-profile-navbar{
+    flex: 1 0 auto;
+  }
+
+  div {
+    flex: 33333 0 Min(400px, 100%);
+  }
+}

@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form class="fluid-container-xl grid-row-flow" [formGroup]="form">
   <app-input-file [control]="thumbnailImageControl" id="thumbnailImage" label="Choose the thumbnail image for your recipe" accept="image/*"></app-input-file>
 
   <fieldset class="fluid-grid-xs">
@@ -15,17 +15,18 @@
     <app-input-select id="country" [formControl]="countryControl" [options]="countryOptions" label="Select the recipe country"></app-input-select>
   </fieldset>
 
+  <div class="grid-row-flow">
+    <div class="ingredients-label">
+      <h3>Ingredients</h3>
+      <button class="tooltip" data-tooltip="Add a new ingredient" (click)="addIngredient()" type="button"><fa-icon [icon]="plusIcon"></fa-icon></button>
+    </div>
 
-  <div class="ingredients-label">
-    <h3>Ingredients</h3>
-    <button class="tooltip" data-tooltip="Add a new ingredient" (click)="addIngredient()" type="button"><fa-icon [icon]="plusIcon"></fa-icon></button>
+    <fieldset class="ingredients" *ngFor="let group of ingredientsFormArray.controls; let i = index">
+      <button (click)="removeIngredient(i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
+
+      <app-input-text id="ingredient{{i}}" label="Ingredient" [control]="getIngredientControl(i)"></app-input-text>
+
+      <app-input-number [control]="getGramsControl(i)" id="grams{{i}}" label="Grams"></app-input-number>
+    </fieldset>
   </div>
-
-  <fieldset class="ingredients" *ngFor="let group of ingredientsFormArray.controls; let i = index">
-    <button (click)="removeIngredient(i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
-
-    <app-input-text id="ingredient{{i}}" label="Ingredient" [control]="getIngredientControl(i)"></app-input-text>
-
-    <app-input-number [control]="getGramsControl(i)" id="grams{{i}}" label="Grams"></app-input-number>
-  </fieldset>
 </form>
