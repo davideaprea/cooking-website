@@ -13,6 +13,8 @@ type IngredientGroup = FormGroup<{
   grams: FormControl<number | null>;
 }>;
 
+type FormArrayProperty = "stepsFormArray" | "ingredientsFormArray";
+
 @Component({
   selector: 'app-recipe-form',
   templateUrl: './recipe-form.component.html',
@@ -39,6 +41,7 @@ export class RecipeFormComponent {
     servings: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
     caloriesPerServing: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
     ingredients: new FormArray<IngredientGroup>([]),
+    preparationSteps: new FormArray<FormControl<string | null>>([]),
     country: new FormControl<Country | null>(null, Validators.required),
     storage: new FormControl<string>("", Validators.required),
     tips: new FormControl<string>("")
@@ -46,6 +49,7 @@ export class RecipeFormComponent {
 
   constructor(){
     this.addIngredient();
+    this.addStep();
   }
 
   addIngredient(): void {
@@ -57,8 +61,16 @@ export class RecipeFormComponent {
     );
   }
 
-  removeIngredient(index: number): void {
-    if (this.ingredientsFormArray.length > 1) this.ingredientsFormArray.removeAt(index);
+  addStep(): void{
+    this.stepsFormArray.push(new FormControl<string>("", [Validators.required, Validators.minLength(10)]));
+  }
+
+  removeFromFormArray(formArray: FormArrayProperty, index: number): void {
+    if (this[formArray].length > 1) this[formArray].removeAt(index);
+  }
+
+  submit(): void{
+    console.log(this.form.value)
   }
 
   get nameControl() {
@@ -74,7 +86,7 @@ export class RecipeFormComponent {
   }
 
   get difficultyControl() {
-    return this.form.get('difficulty') as FormControl<Difficulty | null>;
+    return this.form.get('difficulty') as FormControl<Difficulty>;
   }
 
   get cookingTimeControl() {
@@ -109,11 +121,19 @@ export class RecipeFormComponent {
     return this.form.get('ingredients') as FormArray<IngredientGroup>;
   }
 
+  get stepsFormArray() {
+    return this.form.get('preparationSteps') as FormArray<FormControl<string | null>>;
+  }
+
   getIngredientControl(index: number) {
     return this.ingredientsFormArray.at(index).get('ingredient') as FormControl<Ingredient | null>;
   }
 
   getGramsControl(index: number) {
     return this.ingredientsFormArray.at(index).get('grams') as FormControl<number | null>;
+  }
+
+  getStepControl(index: number) {
+    return this.stepsFormArray.at(index) as FormControl<string | null>;
   }
 }

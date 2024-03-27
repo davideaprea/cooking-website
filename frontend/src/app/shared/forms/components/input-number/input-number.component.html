@@ -1,2 +1,3 @@
 <label *ngIf="label" [for]="id">{{label}}</label>
 <input type="number" [formControl]="control" [id]="id">
+<p *ngIf="errorMessage && control.dirty && control.touched && control.invalid" class="error">{{errorMessage}}</p>

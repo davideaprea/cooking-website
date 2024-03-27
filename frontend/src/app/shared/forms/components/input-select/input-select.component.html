@@ -4,7 +4,7 @@
   <label *ngIf="label" [for]="id">{{label}}</label>
 
   <div class="input-icon">
-    <input [id]="id" type="text" [value]="value ? value : options[0]" readonly>
+    <input [id]="id" type="text" [value]="value ? value : ''" readonly>
     <fa-icon [icon]="angleDownIcon" class="icon" [ngClass]="{'icon-up': open}"></fa-icon>
   </div>
 

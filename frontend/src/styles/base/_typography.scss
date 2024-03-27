@@ -26,3 +26,11 @@ a {
   text-decoration: underline;
   text-decoration-color: inherit;
 }
+
+.semi-underline::after {
+  background-color: $orange-400;
+  height: 3px;
+  width: 50px;
+  content: "";
+  display: block;
+}

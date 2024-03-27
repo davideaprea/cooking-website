@@ -1,3 +1,4 @@
 <fa-icon [icon]="cameraIcon"></fa-icon>
 <label *ngIf="label" [for]="id">{{label}}</label>
 <input (input)="fileInput($event)" type="file" [formControl]="control" [id]="id" [accept]="accept">
+<p *ngIf="errorMessage && control.dirty && control.touched && control.invalid" class="error">{{errorMessage}}</p>

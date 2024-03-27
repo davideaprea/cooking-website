@@ -1,5 +1,9 @@
 :host {
   display: block;
+  align-self: flex-start;
+  position: sticky;
+  top: 2em;
+  z-index: 1;
 }
 
 nav {
