@@ -70,7 +70,6 @@ export class RecipeFormComponent {
   }
 
   submit(): void{
-    console.log(this.form.value)
   }
 
   get nameControl() {

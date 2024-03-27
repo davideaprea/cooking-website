@@ -1,8 +1,7 @@
+@import "../../../../../styles/abstracts/mixins";
+
 :host {
-  border-radius: .3em;
-  padding: .5em .8em;
-  background-color: rgb(242, 240, 244);
-  border: 2px solid rgb(233, 229, 238);
+  @include base-input;
   min-height: 300px;
   display: flex;
   justify-content: center;

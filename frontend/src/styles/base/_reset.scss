@@ -1,3 +1,5 @@
+@import "../abstracts/mixins";
+
 /* Box sizing rules */
 *,
 *::before,
@@ -69,7 +71,8 @@ picture {
 input,
 button,
 textarea,
-select {
+select,
+*[contenteditable] {
   font: inherit;
   outline: 0;
   border: 0;
@@ -78,15 +81,21 @@ select {
 input,
 textarea,
 select {
-  width: 100%;
-  border-radius: .3em;
-  padding: .5em .8em;
-  background-color: rgb(242, 240, 244);
-  border: 2px solid rgb(233, 229, 238);
+  @include base-input;
 }
 
 label {
   font-weight: bold;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */

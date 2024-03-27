@@ -1,0 +1,21 @@
+@import "../../../../../styles/abstracts/mixins";
+
+:host {
+  display: block;
+}
+
+.input-container {
+  @include base-input;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  div {
+    text-align: center;
+  }
+}
+
+.input {
+  display: flex;
+  gap: 1rem;
+}

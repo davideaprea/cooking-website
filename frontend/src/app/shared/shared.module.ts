@@ -13,6 +13,7 @@ import { CardComponent } from './ui/card/card.component';
 import { InputNumberComponent } from './forms/components/input-number/input-number.component';
 import { TextEditorComponent } from './forms/components/text-editor/text-editor.component';
 import { QuillModule } from 'ngx-quill';
+import { InputTimeComponent } from './forms/components/input-time/input-time.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { QuillModule } from 'ngx-quill';
     InputFileComponent,
     CardComponent,
     InputNumberComponent,
-    TextEditorComponent
+    TextEditorComponent,
+    InputTimeComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { QuillModule } from 'ngx-quill';
     InputSelectComponent,
     InputFileComponent,
     InputNumberComponent,
-    TextEditorComponent
+    TextEditorComponent,
+    InputTimeComponent
   ]
 })
 export class SharedModule { }
