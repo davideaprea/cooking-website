@@ -29,7 +29,7 @@
     <fieldset class="ingredients" *ngFor="let group of ingredientsFormArray.controls; let i = index">
       <button class="icon-button" (click)="removeFromFormArray('ingredientsFormArray', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
 
-      <app-input-text id="ingredient{{i}}" label="Ingredient" [control]="getIngredientControl(i)"></app-input-text>
+      <app-input-select [options]="['']" id="ingredient{{i}}" label="Ingredient" [formControl]="getIngredientControl(i)"></app-input-select>
 
       <app-input-number [control]="getGramsControl(i)" id="grams{{i}}" label="Grams"></app-input-number>
     </fieldset>

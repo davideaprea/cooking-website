@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Injector, Input, OnInit, inject } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR, NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { blurrable } from 'src/app/shared/mixins/element-blur';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
@@ -17,16 +17,16 @@ import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
     }
   ]
 })
-export class InputSelectComponent extends blurrable(Object) implements ControlValueAccessor {
-  value?: string;
+export class InputSelectComponent extends blurrable(DefaultValueAccessor) implements ControlValueAccessor, OnInit {
+  private readonly injector: Injector = inject(Injector);
   private _options: string[] = [];
   private options$!: BehaviorSubject<string[]>;
+
+  value?: string;
   optionsObs$!: Observable<string[]>;
+
   @Input() label?: string;
   @Input() id?: string;
-  onChange!: (value: string) => void;
-  onTouched!: () => void;
-  private disabled: boolean = false;
   @Input({ required: true }) set options(options: string[]) {
     this._options = options;
     this.options$ = new BehaviorSubject(options);
@@ -35,17 +35,23 @@ export class InputSelectComponent extends blurrable(Object) implements ControlVa
 
   readonly angleDownIcon = faAngleDown;
 
+  ngOnInit(): void {
+    this.injector.get(NgControl).control!.addValidators(
+      (control: AbstractControl): ValidationErrors | null => {
+        const valid = this._options.includes(control.value);
+        return valid ? null : { invalidValue: { value: control.value } };
+      }
+    );
+  }
+
   toggleSelect(event: Event): void {
     event.stopPropagation();
     this.open = !this.open;
   }
 
-  constructor() {
-    super();
-  }
-
   filterOptions(event: Event) {
     const value = (event.target as HTMLInputElement).value;
+    this.value = value;
     const results = this._options.filter(option => {
       const lowerCaseOption = option.toLowerCase();
       const lowerCaseValue = value.toLowerCase();
@@ -55,27 +61,10 @@ export class InputSelectComponent extends blurrable(Object) implements ControlVa
   }
 
   setValue(event: Event, value: string): void {
-    if (this.disabled) return;
     event.stopPropagation();
     this.value = value;
     this.open = false;
     this.onChange(value);
     this.onTouched();
-  }
-
-  writeValue(value: string): void {
-    this.value = value;
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
   }
 }
