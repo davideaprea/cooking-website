@@ -1,7 +1,14 @@
 @import "../../../../../styles/abstracts/mixins";
+@import "../../../../../styles/abstracts/variables";
 
 :host {
   display: block;
+}
+
+input {
+  width: 3.5em;
+  border-color: $orange-400;
+  text-align: center;
 }
 
 .input-container {
@@ -15,7 +22,12 @@
   }
 }
 
+.semi-column {
+  font-size: 3rem;
+}
+
 .input {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
 }

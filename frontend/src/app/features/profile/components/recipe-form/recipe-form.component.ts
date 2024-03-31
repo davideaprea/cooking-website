@@ -7,6 +7,7 @@ import { UtilityService } from 'src/app/core/services/utility.service';
 import { Ingredient } from '../../models/ingredient';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Time } from '@angular/common';
 
 type IngredientGroup = FormGroup<{
   ingredient: FormControl<Ingredient | null>;
@@ -36,8 +37,8 @@ export class RecipeFormComponent {
     course: new FormControl<Course | null>(null, Validators.required),
     thumbnailImage: new FormControl<File | null>(null, Validators.required),
     difficulty: new FormControl<Difficulty | null>(null, Validators.required),
-    cookingTime: new FormControl<Date | null>(null, Validators.required),
-    preparationTime: new FormControl<Date | null>(null, Validators.required),
+    cookingTime: new FormControl<Time | null>(null, Validators.required),
+    preparationTime: new FormControl<Time | null>(null, Validators.required),
     servings: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
     caloriesPerServing: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
     ingredients: new FormArray<IngredientGroup>([]),
@@ -89,11 +90,11 @@ export class RecipeFormComponent {
   }
 
   get cookingTimeControl() {
-    return this.form.get('cookingTime') as FormControl<Date | null>;
+    return this.form.get('cookingTime') as FormControl<Time | null>;
   }
 
   get preparationTimeControl() {
-    return this.form.get('preparationTime') as FormControl<Date | null>;
+    return this.form.get('preparationTime') as FormControl<Time | null>;
   }
 
   get servingsControl() {

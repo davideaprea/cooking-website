@@ -6,7 +6,8 @@
 
     <app-input-select id="course" [formControl]="courseControl" [options]="courseOptions" label="Select the course type"></app-input-select>
 
-    <app-input-time></app-input-time>
+    <app-input-time [formControl]="preparationTimeControl"></app-input-time>
+    <app-input-time [formControl]="cookingTimeControl"></app-input-time>
 
     <app-input-select id="difficulty" [formControl]="difficultyControl" [options]="difficultyOptions" label="Select the difficulty"></app-input-select>
 
@@ -37,13 +38,13 @@
       <h3 class="semi-underline">Preparation steps</h3>
       <button class="tooltip icon-button" data-tooltip="Add a new step" (click)="addStep()" type="button"><fa-icon [icon]="plusIcon"></fa-icon></button>
     </div>
+
+    <fieldset *ngFor="let group of stepsFormArray.controls; let i = index">
+      <button class="icon-button" (click)="removeFromFormArray('stepsFormArray', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
+
+      <app-text-editor id="step{{i}}" label="Step {{i+1}}" [control]="getStepControl(i)"></app-text-editor>
+    </fieldset>
   </div>
-
-  <fieldset *ngFor="let group of stepsFormArray.controls; let i = index">
-    <button class="icon-button" (click)="removeFromFormArray('stepsFormArray', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
-
-    <app-text-editor id="step{{i}}" label="Step {{i+1}}" [control]="getStepControl(i)"></app-text-editor>
-  </fieldset>
 
   <button class="submit-button">Create recipe</button>
 </form>
