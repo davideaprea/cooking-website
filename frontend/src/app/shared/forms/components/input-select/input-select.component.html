@@ -1,14 +1,12 @@
-<!-- <input (input)="input($event)" *ngIf="isFilterActive" type="text"> -->
-
 <div class="container" (click)="toggleSelect($event)">
   <label *ngIf="label" [for]="id">{{label}}</label>
 
   <div class="input-icon">
-    <input [id]="id" type="text" [value]="value ? value : ''" readonly>
+    <input [id]="id" type="text" [value]="value ? value : ''" (input)="filterOptions($event)">
     <fa-icon [icon]="angleDownIcon" class="icon" [ngClass]="{'icon-up': open}"></fa-icon>
   </div>
 
   <ul class="shadow-sm" [ngClass]="{'open-select': open}">
-    <li (click)="setValue($event, option)" *ngFor="let option of options">{{option}}</li>
+    <li (click)="setValue($event, option)" *ngFor="let option of optionsObs$ | async">{{option}}</li>
   </ul>
 </div>

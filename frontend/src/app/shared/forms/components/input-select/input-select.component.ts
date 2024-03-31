@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { blurrable } from 'src/app/shared/mixins/element-blur';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-input-select',
@@ -16,14 +17,21 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
     }
   ]
 })
-export class InputSelectComponent<T> extends blurrable(Object) implements ControlValueAccessor {
-  value?: T;
-  @Input({ required: true }) options!: T[];
+export class InputSelectComponent extends blurrable(Object) implements ControlValueAccessor {
+  value?: string;
+  private _options: string[] = [];
+  private options$!: BehaviorSubject<string[]>;
+  optionsObs$!: Observable<string[]>;
   @Input() label?: string;
   @Input() id?: string;
-  onChange!: (value: T) => void;
+  onChange!: (value: string) => void;
   onTouched!: () => void;
   private disabled: boolean = false;
+  @Input({ required: true }) set options(options: string[]) {
+    this._options = options;
+    this.options$ = new BehaviorSubject(options);
+    this.optionsObs$ = this.options$.pipe(debounceTime(300));
+  };
 
   readonly angleDownIcon = faAngleDown;
 
@@ -36,7 +44,17 @@ export class InputSelectComponent<T> extends blurrable(Object) implements Contro
     super();
   }
 
-  setValue(event: Event, value: T): void {
+  filterOptions(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    const results = this._options.filter(option => {
+      const lowerCaseOption = option.toLowerCase();
+      const lowerCaseValue = value.toLowerCase();
+      return lowerCaseOption.startsWith(lowerCaseValue);
+    });
+    this.options$.next(results);
+  }
+
+  setValue(event: Event, value: string): void {
     if (this.disabled) return;
     event.stopPropagation();
     this.value = value;
@@ -45,7 +63,7 @@ export class InputSelectComponent<T> extends blurrable(Object) implements Contro
     this.onTouched();
   }
 
-  writeValue(value: T): void {
+  writeValue(value: string): void {
     this.value = value;
   }
 

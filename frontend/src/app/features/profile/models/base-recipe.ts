@@ -1,7 +1,6 @@
 import { Country } from "./country";
 import { Course } from "./course";
 import { Difficulty } from "./difficulty";
-import { Ingredient } from "./ingredient";
 import { RecipeIngredient } from "./recipe-ingredient";
 
 export type BaseRecipe = {

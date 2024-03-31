@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Course } from '../../models/course';
 import { Difficulty } from '../../models/difficulty';
 import { Country } from '../../models/country';
@@ -25,9 +25,9 @@ type FormArrayProperty = "stepsFormArray" | "ingredientsFormArray";
 export class RecipeFormComponent {
   readonly utilityService = inject(UtilityService);
 
-  readonly difficultyOptions = this.utilityService.getEnumAsArray(Difficulty);
-  readonly courseOptions = this.utilityService.getEnumAsArray(Course);
-  readonly countryOptions = this.utilityService.getEnumAsArray(Country);
+  readonly difficultyOptions = this.utilityService.getEnumAsArray(Difficulty) as string[];
+  readonly courseOptions = this.utilityService.getEnumAsArray(Course) as string[];
+  readonly countryOptions = this.utilityService.getEnumAsArray(Country) as string[];
 
   readonly trashIcon = faTrash;
   readonly plusIcon = faPlus;
@@ -71,6 +71,7 @@ export class RecipeFormComponent {
   }
 
   submit(): void{
+    console.log(this.courseControl.valid, this.courseControl.value)
   }
 
   get nameControl() {
