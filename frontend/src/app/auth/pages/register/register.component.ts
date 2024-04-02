@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Form } from 'src/app/core/models/form';
+import { FormComponent } from 'src/app/core/models/form-component';
 import { BaseFormInput } from 'src/app/shared/forms/models/base-form-input';
 
 /* const Mixin = formGroupGetters(

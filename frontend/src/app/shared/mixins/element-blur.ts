@@ -10,7 +10,12 @@ export const blurrable = <T extends { new(...args: any[]): any }>(constructor: T
     private handleMouseDown(event: Event): void {
       const target = event.target as HTMLElement;
       const host = this.host.nativeElement as HTMLElement;
-      if (host && !host.contains(target)) this.open = false;
+      if (!host.contains(target)) this.open = false;
+    }
+
+    @HostListener('document:keydown.escape', ['$event'])
+    private onEscape(event: KeyboardEvent) {
+      if (this.open) this.open = false;
     }
   }
 

@@ -1,5 +1,6 @@
 import { FormGroup } from "@angular/forms";
 
-export interface Form {
+export interface FormComponent {
   form: FormGroup;
+  submit: () => void;
 }

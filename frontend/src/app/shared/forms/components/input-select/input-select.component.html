@@ -1,12 +1,34 @@
-<div class="container" (click)="toggleSelect($event)">
+<div class="container">
   <label *ngIf="label" [for]="id">{{label}}</label>
 
   <div class="input-icon">
-    <input [id]="id" type="text" [value]="value ? value : ''" (input)="filterOptions($event)">
+    <input
+      #input
+      [id]="id"
+      type="text"
+      role="combobox"
+      aria-controls="select"
+      aria-haspopup="listbox"
+      [attr.aria-expanded]="open"
+      [value]="value"
+      (focus)="toggleSelect($event)"
+      (input)="filterOptions($event)">
     <fa-icon [icon]="angleDownIcon" class="icon" [ngClass]="{'icon-up': open}"></fa-icon>
   </div>
 
-  <ul class="shadow-sm" [ngClass]="{'open-select': open}">
-    <li (click)="setValue($event, option)" *ngFor="let option of optionsObs$ | async">{{option}}</li>
+  <ul
+    role="listbox"
+    id="select"
+    class="shadow-sm"
+    [ngClass]="{'open-select': open}">
+    <li
+      #option
+      *ngFor="let option of optionsObs$ | async"
+      role="option"
+      [id]="option"
+      (focus)="setValue($event, option)"
+      (click)="setValue($event, option)">
+      {{option}}
+    </li>
   </ul>
 </div>

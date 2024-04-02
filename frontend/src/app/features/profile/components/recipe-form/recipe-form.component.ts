@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Course } from '../../models/course';
 import { Difficulty } from '../../models/difficulty';
 import { Country } from '../../models/country';
@@ -54,12 +54,16 @@ export class RecipeFormComponent {
   }
 
   addIngredient(): void {
+    const ingredientControl = new FormControl<Ingredient | null>(null, Validators.required);
+
     this.ingredientsFormArray.push(
       new FormGroup({
-        ingredient: new FormControl<Ingredient | null>(null, Validators.required),
+        ingredient: ingredientControl,
         grams: new FormControl<number | null>(null, [Validators.required, Validators.min(0)])
       })
     );
+
+    ingredientControl.valueChanges.subscribe(value => console.log(value));
   }
 
   addStep(): void{

@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Injector, Input, OnInit, inject } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR, NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Injector, Input, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR, NgControl, ValidationErrors } from '@angular/forms';
 import { blurrable } from 'src/app/shared/mixins/element-blur';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
@@ -19,10 +19,12 @@ import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
 })
 export class InputSelectComponent extends blurrable(DefaultValueAccessor) implements ControlValueAccessor, OnInit {
   private readonly injector: Injector = inject(Injector);
+  @ViewChildren("option") optionItems!: QueryList<ElementRef<HTMLLIElement>>;
+
   private _options: string[] = [];
   private options$!: BehaviorSubject<string[]>;
 
-  value?: string;
+  value: string = "";
   optionsObs$!: Observable<string[]>;
 
   @Input() label?: string;
@@ -42,6 +44,15 @@ export class InputSelectComponent extends blurrable(DefaultValueAccessor) implem
         return valid ? null : { invalidValue: { value: control.value } };
       }
     );
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (!this.open) return;
+
+    if(event.key === 'ArrowDown') {
+      const index = this.optionItems.find(item => item.nativeElement)
+    }
   }
 
   toggleSelect(event: Event): void {

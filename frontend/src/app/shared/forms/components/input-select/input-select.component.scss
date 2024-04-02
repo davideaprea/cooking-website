@@ -30,7 +30,7 @@ li {
   padding: .3em .8em;
   cursor: pointer;
 
-  &:hover {
+  &:hover, &:focus {
     color: white;
     background-color: $orange-400;
   }
