@@ -27,8 +27,6 @@ export class InputSelectComponent extends blurrable(DefaultValueAccessor) implem
   value: string = "";
   optionsObs$!: Observable<string[]>;
 
-  @Input() label?: string;
-  @Input() id?: string;
   @Input({ required: true }) set options(options: string[]) {
     this._options = options;
     this.options$ = new BehaviorSubject(options);
@@ -51,7 +49,7 @@ export class InputSelectComponent extends blurrable(DefaultValueAccessor) implem
     if (!this.open) return;
 
     if(event.key === 'ArrowDown') {
-      const index = this.optionItems.find(item => item.nativeElement)
+      /* const index = this.optionItems.find(item => item.nativeElement) */
     }
   }
 

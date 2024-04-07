@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, inject } from '@angular/core';
-import { BaseFormInput } from '../../models/base-form-input';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { FormControl } from '@angular/forms';
+import { InputLabel } from '../../models/base-form-input';
 
 @Component({
   selector: 'app-input-file',
@@ -8,7 +9,8 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./input-file.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputFileComponent extends BaseFormInput<null | File> {
+export class InputFileComponent extends InputLabel{
+  @Input() control!: FormControl<File | null>;
   @Input() accept: string = "";
   readonly cameraIcon = faCamera;
   host: ElementRef<HTMLElement> = inject(ElementRef<HTMLElement>);

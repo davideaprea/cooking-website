@@ -1,10 +1,7 @@
 import { Directive, Input } from "@angular/core";
-import { FormControl } from "@angular/forms";
 
 @Directive()
-export abstract class BaseFormInput<T>{
-  @Input() control!: FormControl<T>;
-  @Input() id?: string;
+export abstract class InputLabel{
   @Input() label?: string;
-  @Input() errorMessage?: string;
+  @Input() id?: string;
 }

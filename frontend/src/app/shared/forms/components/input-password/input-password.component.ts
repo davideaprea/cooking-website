@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
-import { BaseFormInput } from '../../models/base-form-input';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { ControlContainer } from '@angular/forms';
+import { ControlContainer, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input-password',
@@ -16,7 +15,8 @@ import { ControlContainer } from '@angular/forms';
     }
   ]
 })
-export class InputPasswordComponent extends BaseFormInput<string>{
+export class InputPasswordComponent{
+  @Input() control!: FormControl<string | null>;
   readonly closedEye = faEye;
   readonly openEye = faEyeSlash;
   view: boolean = false;

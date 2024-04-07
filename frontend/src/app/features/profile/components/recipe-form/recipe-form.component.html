@@ -4,18 +4,28 @@
   <app-input-file [control]="thumbnailImageControl" id="thumbnailImage" label="Choose the thumbnail image for your recipe" accept="image/*"></app-input-file>
 
   <fieldset class="fluid-grid-xs">
-    <app-input-text id="name" label="Name" [control]="nameControl"></app-input-text>
+    <app-input-container id="name" label="Name">
+      <input type="text" [formControl]="nameControl" id="name">
+    </app-input-container>
 
-    <app-input-select id="course" [formControl]="courseControl" [options]="courseOptions" label="Select the course type"></app-input-select>
+    <app-input-container label="Select the course type" id="course">
+      <app-input-select id="course" [formControl]="courseControl" [options]="courseOptions"></app-input-select>
+    </app-input-container>
 
     <app-input-time [formControl]="preparationTimeControl"></app-input-time>
     <app-input-time [formControl]="cookingTimeControl"></app-input-time>
 
-    <app-input-select id="difficulty" [formControl]="difficultyControl" [options]="difficultyOptions" label="Select the difficulty"></app-input-select>
+    <app-input-container label="Select the difficulty" id="difficulty">
+      <app-input-select id="difficulty" [formControl]="difficultyControl" [options]="difficultyOptions"></app-input-select>
+    </app-input-container>
 
-    <app-input-number [control]="servingsControl" id="servings" label="Servings"></app-input-number>
+    <app-input-container id="servings" label="Servings">
+      <input type="number" id="servings" [formControl]="servingsControl">
+    </app-input-container>
 
-    <app-input-number [control]="caloriesPerServingControl" id="caloriesPerServing" label="Calories per serving"></app-input-number>
+    <app-input-container id="caloriesPerServing" label="Calories per serving">
+      <input type="number" id="caloriesPerServing" [formControl]="caloriesPerServingControl">
+    </app-input-container>
 
     <app-input-select id="country" [formControl]="countryControl" [options]="countryOptions" label="Select the recipe country"></app-input-select>
   </fieldset>
@@ -28,10 +38,13 @@
 
     <fieldset class="ingredients" *ngFor="let group of ingredientsFormArray.controls; let i = index">
       <button class="icon-button" (click)="removeFromFormArray('ingredientsFormArray', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
+      <app-input-container id="ingredient{{i}}" label="Ingredient">
+        <app-input-select [options]="['']" id="ingredient{{i}}" [formControl]="getIngredientControl(i)"></app-input-select>
+      </app-input-container>
 
-      <app-input-select [options]="['']" id="ingredient{{i}}" label="Ingredient" [formControl]="getIngredientControl(i)"></app-input-select>
-
-      <app-input-number [control]="getGramsControl(i)" id="grams{{i}}" label="Grams"></app-input-number>
+      <app-input-container id="grams{{i}}" label="Grams">
+        <input type="number" id="grams{{i}}" [formControl]="getGramsControl(i)">
+      </app-input-container>
     </fieldset>
   </div>
 
@@ -44,7 +57,9 @@
     <fieldset *ngFor="let group of stepsFormArray.controls; let i = index">
       <button class="icon-button" (click)="removeFromFormArray('stepsFormArray', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
 
-      <app-text-editor id="step{{i}}" label="Step {{i+1}}" [control]="getStepControl(i)"></app-text-editor>
+      <app-input-container id="step{{i}}" label="Step {{i+1}}">
+        <quill-editor id="step{{i}}" [formControl]="getStepControl(i)"></quill-editor>
+      </app-input-container>
     </fieldset>
   </div>
 

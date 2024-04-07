@@ -1,20 +1,25 @@
 <h1 class="text-center">Register</h1>
 
 <form class="grid-row-flow" [formGroup]="form" (ngSubmit)="submit()">
-  <app-input-text [control]="$any(form.get('username'))" [label]="'Username*'"
-    [id]="'username'"></app-input-text>
+  <app-input-container id="username" label="Username*">
+    <input type="text" id="username" [formControl]="passwordControl">
+  </app-input-container>
 
-  <app-input-email [control]="$any(form.get('email'))" [label]="'Email*'"
-    [id]="'email'"></app-input-email>
+  <app-input-container id="email" label="Email*">
+    <input type="text" id="email" [formControl]="$any(form.get('email'))">
+  </app-input-container>
 
-  <app-input-password [control]="passwordControl" [label]="'Password*'" [id]="'psw'"
-    errorMessage="At least 8 characters, one uppercase, one lowercase, and one number."></app-input-password>
+  <!-- <app-input-container id="psw" label="Password*"  errorMessage="At least 8 characters, one uppercase, one lowercase, and one number.">
+    <app-input-password [control]="passwordControl" [id]="'psw'"></app-input-password>
+  </app-input-container>
 
-  <app-input-password [control]="confirmPasswordControl" [label]="'Confirm password*'" [id]="'confPsw'"
-    errorMessage="The given passwords are not equal."></app-input-password>
+  <app-input-container id="confPsw" label="Confirm password**"  errorMessage="The given passwords are not equal.">
+    <app-input-password [control]="confirmPasswordControl" [id]="'confPsw'"></app-input-password>
+  </app-input-container> -->
 
-  <app-input-checkbox *ngFor="let cb of checkboxes" [id]="cb.id" [label]="cb.label"
-    [control]="cb.control!"></app-input-checkbox>
+  <app-input-container *ngFor="let cb of checkboxes" [id]="cb.id" [label]="cb.label">
+    <input type="checkbox" [id]="cb.id" [formControl]="cb.control">
+  </app-input-container>
 
   <div class="text-center">
     <button class="submit-button">Submit</button>

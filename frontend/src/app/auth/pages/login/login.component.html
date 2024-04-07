@@ -1,11 +1,17 @@
 <h1 class="text-center">Log in</h1>
 
 <form class="grid-row-flow" [formGroup]="form" (ngSubmit)="submit()">
-  <app-input-email [control]="$any(form.get('email'))" [label]="'Email'" [id]="'email'"></app-input-email>
+  <app-input-container id="email" label="Email">
+    <input type="email" id="email" [formControl]="$any(form.get('email'))">
+  </app-input-container>
 
-  <app-input-password [control]="$any(form.get('password'))" [label]="'Password'" [id]="'psw'"></app-input-password>
+  <app-input-container id="psw" label="Password">
+    <app-input-password [control]="$any(form.get('password'))" [id]="'psw'"></app-input-password>
+  </app-input-container>
 
-  <app-input-checkbox [id]="'remember'" [label]="'Remember me'" [control]="$any(form.get('remember'))"></app-input-checkbox>
+  <app-input-container id="remember" label="Remember me">
+    <input type="checkbox" id="remember" [formControl]="$any(form.get('remember'))">
+  </app-input-container>
 
   <p>Don't have an account? Sign up <a class="text-underline" [routerLink]="['/auth', 'register']">here</a>.</p>
 

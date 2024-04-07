@@ -1,20 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { FormComponent } from 'src/app/core/models/form-component';
-import { BaseFormInput } from 'src/app/shared/forms/models/base-form-input';
-
-/* const Mixin = formGroupGetters(
-  class implements Form {
-    form: FormGroup = new FormGroup({
-      email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", Validators.required),
-      username: new FormControl("", Validators.required),
-      name: new FormControl(""),
-      newsletter: new FormControl(false)
-    });
-  }
-); */
 
 @Component({
   selector: 'app-register',
@@ -38,7 +24,7 @@ export class RegisterComponent {
   });
   error?: string;
 
-  readonly checkboxes: Partial<BaseFormInput<boolean>>[] = [
+  readonly checkboxes = [
     { id: "info", label: "Dichiaro di aver preso visione dell’Informativa fornita ai sensi dell'art. 13 del Regolamento (UE) 2016/679*", control: this.form.controls["info"] as FormControl },
     { id: "terms", label: "Dichiaro di aver preso visione delle Condizioni e Termini d'Uso del sito*", control: this.form.controls["terms"] as FormControl },
     { id: "ns", label: "Subscribe to our newsletter", control: this.form.controls["newsletter"] as FormControl },

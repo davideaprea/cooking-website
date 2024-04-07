@@ -1,0 +1,6 @@
+<label *ngIf="label" [for]="id">{{label}}</label>
+<div class="input-container">
+  <ng-content #input select="input, [control], [formControl], textarea"></ng-content>
+</div>
+<!-- <p *ngIf="errorMessage && control.dirty && control.touched && control.invalid" class="error">{{errorMessage}}</p>
+ -->

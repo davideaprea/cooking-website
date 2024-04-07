@@ -1,10 +1,4 @@
-@import "../../../../../styles/abstracts/variables";
-
-:host {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
+@import "../abstracts/variables";
 
 input[type="checkbox"] {
   $checkbox-size: 3rem;
