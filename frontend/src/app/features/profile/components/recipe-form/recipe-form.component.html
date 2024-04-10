@@ -1,33 +1,33 @@
 <h1>Create a new recipe</h1>
 
 <form class="fluid-container-xl grid-row-flow" [formGroup]="form" (submit)="submit()">
-  <app-input-file [control]="thumbnailImageControl" id="thumbnailImage" label="Choose the thumbnail image for your recipe" accept="image/*"></app-input-file>
+  <app-input-file [control]="form.controls.thumbnailImage" id="thumbnailImage" label="Choose the thumbnail image for your recipe" accept="image/*"></app-input-file>
 
   <fieldset class="fluid-grid-xs">
     <app-input-container id="name" label="Name">
-      <input type="text" [formControl]="nameControl" id="name">
+      <input type="text" [formControl]="form.controls.name" id="name">
     </app-input-container>
 
     <app-input-container label="Select the course type" id="course">
-      <app-input-select id="course" [formControl]="courseControl" [options]="courseOptions"></app-input-select>
+      <app-input-select id="course" [formControl]="form.controls.course" [options]="courseOptions"></app-input-select>
     </app-input-container>
 
-    <app-input-time [formControl]="preparationTimeControl"></app-input-time>
-    <app-input-time [formControl]="cookingTimeControl"></app-input-time>
+    <app-input-time [formControl]="form.controls.preparationTime"></app-input-time>
+    <app-input-time [formControl]="form.controls.cookingTime"></app-input-time>
 
     <app-input-container label="Select the difficulty" id="difficulty">
-      <app-input-select id="difficulty" [formControl]="difficultyControl" [options]="difficultyOptions"></app-input-select>
+      <app-input-select id="difficulty" [formControl]="form.controls.difficulty" [options]="difficultyOptions"></app-input-select>
     </app-input-container>
 
     <app-input-container id="servings" label="Servings">
-      <input type="number" id="servings" [formControl]="servingsControl">
+      <input type="number" id="servings" [formControl]="form.controls.servings">
     </app-input-container>
 
     <app-input-container id="caloriesPerServing" label="Calories per serving">
-      <input type="number" id="caloriesPerServing" [formControl]="caloriesPerServingControl">
+      <input type="number" id="caloriesPerServing" [formControl]="form.controls.caloriesPerServing">
     </app-input-container>
 
-    <app-input-select id="country" [formControl]="countryControl" [options]="countryOptions" label="Select the recipe country"></app-input-select>
+    <app-input-select id="country" [formControl]="form.controls.country" [options]="countryOptions" label="Select the recipe country"></app-input-select>
   </fieldset>
 
   <div class="grid-row-flow">
@@ -36,14 +36,14 @@
       <button class="tooltip icon-button" data-tooltip="Add a new ingredient" (click)="addIngredient()" type="button"><fa-icon [icon]="plusIcon"></fa-icon></button>
     </div>
 
-    <fieldset class="ingredients" *ngFor="let group of ingredientsFormArray.controls; let i = index">
-      <button class="icon-button" (click)="removeFromFormArray('ingredientsFormArray', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
+    <fieldset class="ingredients" *ngFor="let group of form.controls.ingredients.controls; let i = index">
+      <button class="icon-button" (click)="removeFromFormArray('ingredients', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
       <app-input-container id="ingredient{{i}}" label="Ingredient">
-        <app-input-select [options]="['']" id="ingredient{{i}}" [formControl]="getIngredientControl(i)"></app-input-select>
+        <app-input-select [options]="['']" id="ingredient{{i}}" [formControl]="form.controls.ingredients.controls[i].controls.ingredient"></app-input-select>
       </app-input-container>
 
       <app-input-container id="grams{{i}}" label="Grams">
-        <input type="number" id="grams{{i}}" [formControl]="getGramsControl(i)">
+        <input type="number" id="grams{{i}}" [formControl]="form.controls.ingredients.controls[i].controls.grams">
       </app-input-container>
     </fieldset>
   </div>
@@ -54,11 +54,11 @@
       <button class="tooltip icon-button" data-tooltip="Add a new step" (click)="addStep()" type="button"><fa-icon [icon]="plusIcon"></fa-icon></button>
     </div>
 
-    <fieldset *ngFor="let group of stepsFormArray.controls; let i = index">
-      <button class="icon-button" (click)="removeFromFormArray('stepsFormArray', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
+    <fieldset *ngFor="let group of form.controls.preparationSteps.controls; let i = index">
+      <button class="icon-button" (click)="removeFromFormArray('preparationSteps', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
 
       <app-input-container id="step{{i}}" label="Step {{i+1}}">
-        <quill-editor id="step{{i}}" [formControl]="getStepControl(i)"></quill-editor>
+        <quill-editor id="step{{i}}" [formControl]="form.controls.preparationSteps.controls[i]"></quill-editor>
       </app-input-container>
     </fieldset>
   </div>

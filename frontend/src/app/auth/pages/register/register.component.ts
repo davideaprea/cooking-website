@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { FormModel } from 'src/app/core/models/form-model.type';
+import { RegUser } from '../../models/reg-user.type';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent {
-  form: FormGroup = new FormGroup({
+  private _form: FormGroup<FormModel<RegUser>> = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$")]),
     confirmPassword: new FormControl("", [Validators.required, (control: AbstractControl): ValidationErrors | null => {
@@ -32,16 +34,12 @@ export class RegisterComponent {
 
   constructor(private authService: AuthService) { }
 
-  get confirmPasswordControl(){
-    return this.form.get("confirmPassword") as FormControl;
-  }
-
-  get passwordControl(){
-    return this.form.get("password") as FormControl;
+  get form() {
+    return this._form;
   }
 
   submit() {
-    this.authService.register(this.form.value).subscribe({
+    this.authService.register(this.form.value as Required<RegUser>).subscribe({
       next: res => { },
       error: e => this.error = e,
     });

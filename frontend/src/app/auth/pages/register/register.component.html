@@ -2,20 +2,20 @@
 
 <form class="grid-row-flow" [formGroup]="form" (ngSubmit)="submit()">
   <app-input-container id="username" label="Username*">
-    <input type="text" id="username" [formControl]="passwordControl">
+    <input type="text" id="username" [formControl]="form.controls.username">
   </app-input-container>
 
   <app-input-container id="email" label="Email*">
-    <input type="text" id="email" [formControl]="$any(form.get('email'))">
+    <input type="text" id="email" [formControl]="form.controls.email">
   </app-input-container>
 
-  <!-- <app-input-container id="psw" label="Password*"  errorMessage="At least 8 characters, one uppercase, one lowercase, and one number.">
-    <app-input-password [control]="passwordControl" [id]="'psw'"></app-input-password>
+  <app-input-container id="psw" label="Password*"  errorMessage="At least 8 characters, one uppercase, one lowercase, and one number.">
+    <app-input-password [control]="form.controls.password" [id]="'psw'"></app-input-password>
   </app-input-container>
 
   <app-input-container id="confPsw" label="Confirm password**"  errorMessage="The given passwords are not equal.">
-    <app-input-password [control]="confirmPasswordControl" [id]="'confPsw'"></app-input-password>
-  </app-input-container> -->
+    <app-input-password [control]="form.controls.confirmPassword" [id]="'confPsw'"></app-input-password>
+  </app-input-container>
 
   <app-input-container *ngFor="let cb of checkboxes" [id]="cb.id" [label]="cb.label">
     <input type="checkbox" [id]="cb.id" [formControl]="cb.control">

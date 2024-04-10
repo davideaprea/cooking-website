@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LogUser } from '../../models/log-user';
+import { LogUser } from '../../models/log-user.type';
 import { AuthService } from '../../services/auth.service';
+import { FormModel } from 'src/app/core/models/form-model.type';
 
 @Component({
   selector: 'app-login',
@@ -10,27 +11,25 @@ import { AuthService } from '../../services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
-  form!:FormGroup;
-  wrongCredentials=false;
+  private _form: FormGroup<FormModel<LogUser>> = new FormGroup({
+    username: new FormControl("", Validators.required),
+    password: new FormControl("", Validators.required),
+    remember: new FormControl<boolean>(false)
+  });
 
-  constructor(private authService:AuthService){
-    this.form=new FormGroup({
-      email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", Validators.required),
-      remember: new FormControl<boolean>(false)
-    });
+  private wrongCredentials = false;
+
+  constructor(private authService: AuthService) { }
+
+  get form() {
+    return this._form;
   }
 
-  submit(){
-    const credentials:LogUser={
-      username: this.form.value.email,
-      password: this.form.value.password
-    }
-
+  submit() {
     this.authService.login(credentials, this.form.value.remember[0]).subscribe(
       {
         error: e => {
-          this.wrongCredentials=true;
+          this.wrongCredentials = true;
           this.form.reset();
         }
       }

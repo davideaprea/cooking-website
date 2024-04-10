@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RegUser } from '../models/reg-user';
+import { RegUser } from '../models/reg-user.type';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, tap } from 'rxjs';
-import { LogUser } from '../models/log-user';
+import { LogUser } from '../models/log-user.type';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { RawUser } from '../models/raw-user';
+import { RawUser } from '../models/raw-user.type';
 import { environment } from 'src/environments/environment.development';
-import { DecodedToken } from '../models/decoded-token';
-import { User } from '../models/user';
+import { DecodedToken } from '../models/decoded-token.type';
+import { User } from '../models/user.type';
 import { UtilityService } from 'src/app/core/services/utility.service';
 
 @Injectable({
@@ -18,15 +18,15 @@ export class AuthService {
   private rawUser$ = new BehaviorSubject<undefined | RawUser>(undefined);
 
   user$ = this.rawUser$.asObservable().pipe(
-    map(rawUser$ => {
-      if (!rawUser$) return undefined;
+    map(rawUser => {
+      if (!rawUser) return undefined;
 
-      const decodedToken: DecodedToken = this.jwtHelper.decodeToken(rawUser$.accessToken)!;
+      const decodedToken: DecodedToken = this.jwtHelper.decodeToken(rawUser.accessToken)!;
       return <User>{
-        username: rawUser$.username,
+        username: rawUser.username,
         role: decodedToken.role[0].roleName,
-        accessToken: rawUser$.accessToken,
-        tokenType: rawUser$.tokenType
+        accessToken: rawUser.accessToken,
+        tokenType: rawUser.tokenType
       }
     })
   );

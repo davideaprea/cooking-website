@@ -1,5 +1,5 @@
-import { BaseRecipe } from "./base-recipe"
-import { RecipeType } from "./recipe-type"
+import { BaseRecipe } from "./base-recipe.type"
+import { RecipeType } from "./recipe-type.type"
 
 export type RecipeResponse = BaseRecipe & {
   readonly id: number,

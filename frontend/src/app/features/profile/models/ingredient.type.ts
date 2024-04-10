@@ -1,4 +1,4 @@
-import { Category } from "./category"
+import { Category } from "./category.enum"
 
 export type Ingredient = {
   readonly id: number,

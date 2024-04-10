@@ -1,4 +1,4 @@
-import { BaseRecipe } from "./base-recipe";
+import { BaseRecipe } from "./base-recipe.type";
 
 export type RecipePayload = BaseRecipe & {
   thumbnailImage: File

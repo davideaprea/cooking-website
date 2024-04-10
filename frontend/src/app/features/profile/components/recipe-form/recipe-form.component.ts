@@ -1,20 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Course } from '../../models/course';
-import { Difficulty } from '../../models/difficulty';
-import { Country } from '../../models/country';
+import { Course } from '../../models/course.enum';
+import { Difficulty } from '../../models/difficulty.enum';
+import { Country } from '../../models/country.enum';
 import { UtilityService } from 'src/app/core/services/utility.service';
-import { Ingredient } from '../../models/ingredient';
+import { Ingredient } from '../../models/ingredient.type';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Time } from '@angular/common';
+import { FormModel } from 'src/app/core/models/form-model.type';
+import { RecipePayload } from '../../models/recipe-payload.type';
 
-type IngredientGroup = FormGroup<{
-  ingredient: FormControl<Ingredient | null>;
-  grams: FormControl<number | null>;
-}>;
-
-type FormArrayProperty = "stepsFormArray" | "ingredientsFormArray";
+type FormArrayProperty = "ingredients" | "preparationSteps";
 
 @Component({
   selector: 'app-recipe-form',
@@ -32,7 +29,7 @@ export class RecipeFormComponent {
   readonly trashIcon = faTrash;
   readonly plusIcon = faPlus;
 
-  form = new FormGroup({
+  private _form = new FormGroup<FormModel<RecipePayload>>({
     name: new FormControl<string>("", Validators.required),
     course: new FormControl<Course | null>(null, Validators.required),
     thumbnailImage: new FormControl<File | null>(null, Validators.required),
@@ -41,7 +38,10 @@ export class RecipeFormComponent {
     preparationTime: new FormControl<Time | null>(null, Validators.required),
     servings: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
     caloriesPerServing: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
-    ingredients: new FormArray<IngredientGroup>([]),
+    ingredients: new FormArray<FormGroup<{
+      ingredient: FormControl<Ingredient | null>;
+      grams: FormControl<number | null>;
+    }>>([]),
     preparationSteps: new FormArray<FormControl<string | null>>([]),
     country: new FormControl<Country | null>(null, Validators.required),
     storage: new FormControl<string>("", Validators.required),
@@ -53,10 +53,14 @@ export class RecipeFormComponent {
     this.addStep();
   }
 
+  get form() {
+    return this._form;
+  }
+
   addIngredient(): void {
     const ingredientControl = new FormControl<Ingredient | null>(null, Validators.required);
 
-    this.ingredientsFormArray.push(
+    this.form.controls.ingredients.push(
       new FormGroup({
         ingredient: ingredientControl,
         grams: new FormControl<number | null>(null, [Validators.required, Validators.min(0)])
@@ -67,78 +71,14 @@ export class RecipeFormComponent {
   }
 
   addStep(): void{
-    this.stepsFormArray.push(new FormControl<string>("", [Validators.required, Validators.minLength(10)]));
+    this.form.controls.preparationSteps.push(new FormControl<string>("", [Validators.required, Validators.minLength(10)]));
   }
 
   removeFromFormArray(formArray: FormArrayProperty, index: number): void {
-    if (this[formArray].length > 1) this[formArray].removeAt(index);
+    if (this.form.controls[formArray].length > 1) this.form.controls[formArray].removeAt(index);
   }
 
   submit(): void{
-    console.log(this.courseControl.valid, this.courseControl.value)
-  }
 
-  get nameControl() {
-    return this.form.get('name') as FormControl<string>;
-  }
-
-  get courseControl() {
-    return this.form.get('course') as FormControl<Course | null>;
-  }
-
-  get thumbnailImageControl() {
-    return this.form.get('thumbnailImage') as FormControl<File | null>;
-  }
-
-  get difficultyControl() {
-    return this.form.get('difficulty') as FormControl<Difficulty>;
-  }
-
-  get cookingTimeControl() {
-    return this.form.get('cookingTime') as FormControl<Time | null>;
-  }
-
-  get preparationTimeControl() {
-    return this.form.get('preparationTime') as FormControl<Time | null>;
-  }
-
-  get servingsControl() {
-    return this.form.get('servings') as FormControl<number | null>;
-  }
-
-  get caloriesPerServingControl() {
-    return this.form.get('caloriesPerServing') as FormControl<number | null>;
-  }
-
-  get countryControl() {
-    return this.form.get('country') as FormControl<Country | null>;
-  }
-
-  get storageControl() {
-    return this.form.get('storage') as FormControl<string>;
-  }
-
-  get tipsControl() {
-    return this.form.get('tips') as FormControl<string>;
-  }
-
-  get ingredientsFormArray() {
-    return this.form.get('ingredients') as FormArray<IngredientGroup>;
-  }
-
-  get stepsFormArray() {
-    return this.form.get('preparationSteps') as FormArray<FormControl<string | null>>;
-  }
-
-  getIngredientControl(index: number) {
-    return this.ingredientsFormArray.at(index).get('ingredient') as FormControl<Ingredient | null>;
-  }
-
-  getGramsControl(index: number) {
-    return this.ingredientsFormArray.at(index).get('grams') as FormControl<number | null>;
-  }
-
-  getStepControl(index: number) {
-    return this.stepsFormArray.at(index) as FormControl<string | null>;
   }
 }
