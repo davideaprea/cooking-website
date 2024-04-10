@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment.development';
 import { DecodedToken } from '../models/decoded-token.type';
 import { User } from '../models/user.type';
 import { UtilityService } from 'src/app/core/services/utility.service';
+import { LogUserFormModel } from '../models/log-user-form-model.type';
 
 @Injectable({
   providedIn: 'root'
@@ -41,19 +42,19 @@ export class AuthService {
     return this.http.post(environment.register, user);
   }
 
-  login(user: LogUser, remember: boolean) {
-    return this.http.post<RawUser>(environment.login, user)
-      .pipe(
-        tap(
-          user => {
-            this.rawUser$.next(user);
+  login(userModel: LogUserFormModel) {
+    const {remember, ...user} = userModel;
+    return this.http.post<RawUser>(environment.login, user as LogUser).pipe(
+      tap(
+        user => {
+          this.rawUser$.next(user);
 
-            if (remember) localStorage.setItem("user", JSON.stringify(user));
-            else sessionStorage.setItem("user", JSON.stringify(user));
-            this.router.navigate(["/profile"]);
-          }
-        )
+          if (remember) localStorage.setItem("user", JSON.stringify(user));
+          else sessionStorage.setItem("user", JSON.stringify(user));
+          this.router.navigate(["/profile"]);
+        }
       )
+    )
   }
 
   logout() {
