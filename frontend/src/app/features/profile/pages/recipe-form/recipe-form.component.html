@@ -8,6 +8,10 @@
       <input type="text" [formControl]="form.controls.name" id="name">
     </app-input-container>
 
+    <app-input-container label="Select the recipe type" id="recipeType">
+      <app-input-select id="recipeType" [formControl]="form.controls.recipeType" [options]="recipeTypeOptions"></app-input-select>
+    </app-input-container>
+
     <app-input-container label="Select the course type" id="course">
       <app-input-select id="course" [formControl]="form.controls.course" [options]="courseOptions"></app-input-select>
     </app-input-container>
@@ -27,7 +31,19 @@
       <input type="number" id="caloriesPerServing" [formControl]="form.controls.caloriesPerServing">
     </app-input-container>
 
-    <app-input-select id="country" [formControl]="form.controls.country" [options]="countryOptions" label="Select the recipe country"></app-input-select>
+    <app-input-container id="country" label="Select the recipe country">
+      <app-input-select id="country" [formControl]="form.controls.country" [options]="countryOptions"></app-input-select>
+    </app-input-container>
+  </fieldset>
+
+  <fieldset class="fluid-grid-xs">
+    <app-input-container id="dairyFree" label="Is this recipe dairy free?">
+      <input type="checkbox" id="dairyFree" [formControl]="form.controls.isDairyFree">
+    </app-input-container>
+
+    <app-input-container id="glutenFree" label="Is this recipe gluten free?">
+      <input type="checkbox" id="glutenFree" [formControl]="form.controls.isGlutenFree">
+    </app-input-container>
   </fieldset>
 
   <div class="grid-row-flow">
@@ -39,7 +55,7 @@
     <fieldset class="ingredients" *ngFor="let group of form.controls.ingredients.controls; let i = index">
       <button class="icon-button" (click)="removeFromFormArray('ingredients', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
       <app-input-container id="ingredient{{i}}" label="Ingredient">
-        <app-input-select [options]="['']" id="ingredient{{i}}" [formControl]="form.controls.ingredients.controls[i].controls.ingredient"></app-input-select>
+        <input type="text" [formControl]="form.controls.ingredients.controls[i].controls.ingredient" id="ingredient{{i}}">
       </app-input-container>
 
       <app-input-container id="grams{{i}}" label="Grams">
@@ -58,7 +74,7 @@
       <button class="icon-button" (click)="removeFromFormArray('preparationSteps', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
 
       <app-input-container id="step{{i}}" label="Step {{i+1}}">
-        <quill-editor id="step{{i}}" [formControl]="form.controls.preparationSteps.controls[i]"></quill-editor>
+        <quill-editor [modules]="quillConfig" id="step{{i}}" [formControl]="form.controls.preparationSteps.controls[i]"></quill-editor>
       </app-input-container>
     </fieldset>
   </div>

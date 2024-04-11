@@ -1,6 +1,4 @@
-import { Ingredient } from "./ingredient.type"
-
 export type RecipeIngredient = {
-  ingredient: Ingredient,
+  ingredient: string,
   grams: number
 }

@@ -1,6 +1,7 @@
-import { Time } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import * as moment from 'moment';
+import { Duration } from 'moment';
 
 @Component({
   selector: 'app-input-time',
@@ -18,18 +19,24 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class InputTimeComponent extends DefaultValueAccessor{
   @ViewChild("hours") hours!: ElementRef<HTMLInputElement>;
   @ViewChild("minutes") minutes!: ElementRef<HTMLInputElement>;
-  value: Time | null = null;
+  private value: Duration = moment.duration({
+    minutes: 0,
+    hours: 0
+  });
 
   handleInput(inputType: "hours" | "minutes"): void {
     const input: HTMLInputElement = this[inputType].nativeElement;
     if (input.disabled) return;
-    const valueAsNumber = Number(input.value);
+
+    const timeUnit = inputType == "hours" ? "h" : "m";
     const limit = inputType == "hours" ? 23 : 59;
+
+    const valueAsNumber = Number(input.value);
     if(valueAsNumber > limit) input.value = String(limit);
     else if(valueAsNumber < 0) input.value = String(0);
 
-    if(!this.value) this.value = { hours: 0, minutes: 0 }
-    this.value[inputType] = Number(input.value);
+    this.value.subtract(this.value[inputType](), timeUnit);
+    this.value.add(valueAsNumber, timeUnit);
 
     this.onChange(this.value);
     this.onTouched();

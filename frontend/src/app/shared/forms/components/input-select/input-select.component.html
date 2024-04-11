@@ -8,6 +8,7 @@
       aria-haspopup="listbox"
       [attr.aria-expanded]="open"
       [value]="value"
+      readonly
       (focus)="toggleSelect($event)"
       (input)="filterOptions($event)">
     <fa-icon [icon]="angleDownIcon" class="icon" [ngClass]="{'icon-up': open}"></fa-icon>
@@ -19,12 +20,12 @@
     class="shadow-sm"
     [ngClass]="{'open-select': open}">
     <li
-      #option
       *ngFor="let option of optionsObs$ | async"
       role="option"
       [id]="option"
       (focus)="setValue($event, option)"
-      (click)="setValue($event, option)">
+      (click)="setValue($event, option)"
+      [attr.tabIndex]="open ? 0 : -1">
       {{option}}
     </li>
   </ul>

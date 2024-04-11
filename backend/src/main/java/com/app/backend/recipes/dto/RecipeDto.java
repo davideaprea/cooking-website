@@ -1,6 +1,6 @@
 package com.app.backend.recipes.dto;
 
-import java.time.LocalTime;
+import java.time.Duration;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -10,6 +10,7 @@ import com.app.backend.recipes.entities.RecipeIngredient;
 import com.app.backend.recipes.enums.Country;
 import com.app.backend.recipes.enums.Course;
 import com.app.backend.recipes.enums.Difficulty;
+import com.app.backend.recipes.enums.RecipeType;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -34,10 +35,10 @@ public class RecipeDto {
     private Difficulty difficulty;
 
     @NotNull
-    private LocalTime preparationTime;
+    private Duration preparationTime;
 
     @NotNull
-    private LocalTime cookingTime;
+    private Duration cookingTime;
 
     @Min(value = 1)
     private byte servings;
@@ -58,4 +59,10 @@ public class RecipeDto {
     private String storage;
     
     private String tips;
+
+    private RecipeType recipeType;
+
+    private boolean isDairyFree;
+    
+    private boolean isGlutenFree;
 }

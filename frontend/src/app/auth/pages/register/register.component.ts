@@ -40,7 +40,8 @@ export class RegisterComponent {
   }
 
   submit() {
-    this.authService.register(this.form.value as Required<RegUser>).subscribe({
+    const { confirmPassword, ...user } = this.form.value;
+    this.authService.register(user as Required<RegUser>).subscribe({
       next: res => { },
       error: e => this.error = e,
     });

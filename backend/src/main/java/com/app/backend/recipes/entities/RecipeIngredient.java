@@ -1,8 +1,9 @@
 package com.app.backend.recipes.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +12,11 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class RecipeIngredient {
-    @ManyToOne(optional = false)
-    private Ingredient ingredient;
+    @NotBlank
+    @Column(nullable = false)
+    private String ingredient;
 
     @Min(value = 1) @NotNull
+    @Column(nullable = false)
     private short grams;
 }

@@ -29,4 +29,9 @@ input[type="checkbox"] {
       display: block;
     }
   }
+
+  &:disabled {
+    border-color: $gray-400;
+    cursor: not-allowed;
+  }
 }

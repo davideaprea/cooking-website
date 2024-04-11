@@ -30,10 +30,16 @@ li {
   padding: .3em .8em;
   cursor: pointer;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     color: white;
     background-color: $orange-400;
   }
+}
+
+.focus {
+  color: white;
+  background-color: $orange-400;
 }
 
 .input-icon {

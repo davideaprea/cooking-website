@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Injector, Input, OnInit, QueryList, ViewChildren, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Injector, Input, OnInit, QueryList, Renderer2, ViewChild, ViewChildren, inject } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR, NgControl, ValidationErrors } from '@angular/forms';
 import { blurrable } from 'src/app/shared/mixins/element-blur';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
@@ -19,11 +19,13 @@ import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
 })
 export class InputSelectComponent extends blurrable(DefaultValueAccessor) implements ControlValueAccessor, OnInit {
   private readonly injector: Injector = inject(Injector);
-  @ViewChildren("option") optionItems!: QueryList<ElementRef<HTMLLIElement>>;
+  private readonly renderer: Renderer2 = inject(Renderer2);
 
   private _options: string[] = [];
   private options$!: BehaviorSubject<string[]>;
 
+  @ViewChildren("option") optionItems!: QueryList<ElementRef<HTMLLIElement>>;
+  @ViewChild("input") input!: ElementRef<HTMLInputElement>;
   value: string = "";
   optionsObs$!: Observable<string[]>;
 
@@ -32,6 +34,10 @@ export class InputSelectComponent extends blurrable(DefaultValueAccessor) implem
     this.options$ = new BehaviorSubject(options);
     this.optionsObs$ = this.options$.pipe(debounceTime(300));
   };
+
+  get options() {
+    return this._options;
+  }
 
   readonly angleDownIcon = faAngleDown;
 
@@ -44,12 +50,21 @@ export class InputSelectComponent extends blurrable(DefaultValueAccessor) implem
     );
   }
 
+  override onClose(): void {
+    this.input.nativeElement.blur();
+  }
+
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     if (!this.open) return;
 
-    if(event.key === 'ArrowDown') {
-      /* const index = this.optionItems.find(item => item.nativeElement) */
+    const index: number = this.options.indexOf(this.value);
+
+    if (event.key === 'ArrowDown') {
+      const selectedIndex: number = index + 1;
+      //this.renderer.removeClass(this.optionItems.get(selectedIndex - 1)?.nativeElement, "focus");
+
+      this.optionItems.get(selectedIndex)?.nativeElement.focus();
     }
   }
 
@@ -72,7 +87,7 @@ export class InputSelectComponent extends blurrable(DefaultValueAccessor) implem
   setValue(event: Event, value: string): void {
     event.stopPropagation();
     this.value = value;
-    this.open = false;
+    this.close();
     this.onChange(value);
     this.onTouched();
   }

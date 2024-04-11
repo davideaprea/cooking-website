@@ -44,7 +44,10 @@ public class RecipeService {
                 recipeDto.getIngredients(),
                 recipeDto.getPreparationSteps(),
                 recipeDto.getStorage(),
-                recipeDto.getTips()
+                recipeDto.getTips(),
+                recipeDto.getRecipeType(),
+                recipeDto.isDairyFree(),
+                recipeDto.isGlutenFree()
             );
 
             return recipeDao.save(recipe);

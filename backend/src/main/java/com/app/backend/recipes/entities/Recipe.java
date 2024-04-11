@@ -1,11 +1,10 @@
 package com.app.backend.recipes.entities;
 
-import java.time.Period;
+import java.time.Duration;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.app.backend.recipes.enums.Category;
 import com.app.backend.recipes.enums.Country;
 import com.app.backend.recipes.enums.Course;
 import com.app.backend.recipes.enums.Difficulty;
@@ -22,8 +21,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -66,11 +63,11 @@ public class Recipe {
 
     @NotNull
     @Column(nullable = false)
-    private Period preparationTime;
+    private Duration preparationTime;
 
     @NotNull
     @Column(nullable = false)
-    private Period cookingTime;
+    private Duration cookingTime;
 
     @Min(value = 1)
     @Column(nullable = false)
@@ -88,6 +85,7 @@ public class Recipe {
     @Column(nullable = false)
     private Country country;
 
+    @Size(min = 1)
     @ElementCollection
     private Set<RecipeIngredient> ingredients;
 
@@ -104,11 +102,10 @@ public class Recipe {
 
     @NotBlank
     private RecipeType recipeType = RecipeType.MEAT_OR_FISH_BASED;
-
-    private boolean isDairyFree = true;
-    private boolean isGlutenFree = true;
+    private boolean isDairyFree = false;
+    private boolean isGlutenFree = false;
     
-    public Recipe(User user, String name, Course course, String thumbnailImage, Difficulty difficulty, Period preparationTime, Period cookingTime, byte servings, Double caloriesPerServing, Country country, Set<RecipeIngredient> ingredients, LinkedHashSet<String> preparationSteps, String storage, String tips) {
+    public Recipe(User user, String name, Course course, String thumbnailImage, Difficulty difficulty, Duration preparationTime, Duration cookingTime, byte servings, Double caloriesPerServing, Country country, Set<RecipeIngredient> ingredients, LinkedHashSet<String> preparationSteps, String storage, String tips, RecipeType recipeType, boolean isDairyFree, boolean isGlutenFree) {
         this.user = user;
         this.name = name;
         this.course = course;
@@ -123,20 +120,8 @@ public class Recipe {
         this.preparationSteps = preparationSteps;
         this.storage = storage;
         this.tips = tips;
-    }
-
-    @PrePersist @PreUpdate
-    private void checkForIntollerances(){
-        List<Category> ingredientsCategories = this.ingredients
-                        .stream()
-                        .map(el -> el.getIngredient().getCategory())
-                        .toList();
-
-        if(ingredientsCategories.stream().anyMatch(category -> category == Category.MEAT && category == Category.FISH)) recipeType = RecipeType.MEAT_OR_FISH_BASED;
-        else if(ingredientsCategories.stream().anyMatch(category -> category.isAnimalBased())) recipeType = RecipeType.VEGETARIAN;
-        else recipeType = RecipeType.VEGAN;
-
-        isGlutenFree = !ingredientsCategories.contains(Category.CEREAL);
-        isDairyFree = !ingredientsCategories.contains(Category.DAIRY);
+        this.recipeType = recipeType;
+        this.isDairyFree = isDairyFree;
+        this.isGlutenFree = isGlutenFree;
     }
 }

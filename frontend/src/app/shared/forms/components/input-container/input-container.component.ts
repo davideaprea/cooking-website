@@ -1,6 +1,6 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, OnInit, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, QueryList, inject } from '@angular/core';
 import { InputLabel } from '../../models/base-form-input';
-import { AbstractControlDirective, FormControl, FormControlDirective } from '@angular/forms';
+import { FormControlDirective } from '@angular/forms';
 
 @Component({
   selector: 'app-input-container',
@@ -9,11 +9,12 @@ import { AbstractControlDirective, FormControl, FormControlDirective } from '@an
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputContainerComponent extends InputLabel implements AfterContentInit{
+  private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
   @ContentChildren(FormControlDirective) content!: QueryList<FormControlDirective>;
   @Input() errorMessage?: string;
 
   ngAfterContentInit(): void {
-    //if(this.content.length != 1) throw Error("An input element must be provided.");
+    this.control?.valueChanges?.subscribe(() => this.changeDetectorRef.markForCheck());
   }
 
   get control() {

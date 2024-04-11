@@ -39,6 +39,7 @@ export class AuthService {
   }
 
   register(user: RegUser) {
+    console.log(user)
     return this.http.post(environment.register, user);
   }
 
