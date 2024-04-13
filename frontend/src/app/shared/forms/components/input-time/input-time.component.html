@@ -1,11 +1,7 @@
 <div class="input-container">
-  <div class="input">
-    <label for="hours">Hours</label>
-    <input type="number" id="hours" #hours (input)="handleInput('hours')" value="0">
-  </div>
-  <span class="semi-column">:</span>
-  <div class="input">
-    <label for="minutes">Minutes</label>
-    <input type="number" id="minutes" #minutes (input)="handleInput('minutes')" value="0">
-  </div>
+  <input type="number" id="hours" #hours (input)="handleInput('hours', $event)" value="0">
+
+  <span>:</span>
+
+  <input type="number" id="minutes" #minutes (input)="handleInput('minutes', $event)" value="0">
 </div>

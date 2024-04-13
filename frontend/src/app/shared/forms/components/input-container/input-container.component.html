@@ -1,5 +1,5 @@
 <label *ngIf="label" [for]="id">{{label}}</label>
 <div #input class="input-container">
-  <ng-content select="[control], [formControl]"></ng-content>
+  <ng-content select="[formControl], [formControlName]"></ng-content>
 </div>
-<p *ngIf="(control && control.dirty && control.touched && control.invalid)" class="error">{{control.errors?.["required"] ? "Please, fill this field." : errorMessage}}</p>
+<p *ngIf="(form.submitted && form.invalid)" class="error">{{control.errors?.["required"] ? "Please, fill this field." : errorMessage}}</p>

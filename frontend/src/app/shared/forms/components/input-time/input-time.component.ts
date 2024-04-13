@@ -16,7 +16,7 @@ import { Duration } from 'moment';
     }
   ]
 })
-export class InputTimeComponent extends DefaultValueAccessor{
+export class InputTimeComponent extends DefaultValueAccessor {
   @ViewChild("hours") hours!: ElementRef<HTMLInputElement>;
   @ViewChild("minutes") minutes!: ElementRef<HTMLInputElement>;
   private value: Duration = moment.duration({
@@ -24,7 +24,8 @@ export class InputTimeComponent extends DefaultValueAccessor{
     hours: 0
   });
 
-  handleInput(inputType: "hours" | "minutes"): void {
+  handleInput(inputType: "hours" | "minutes", event: Event): void {
+    event.stopPropagation();
     const input: HTMLInputElement = this[inputType].nativeElement;
     if (input.disabled) return;
 
@@ -32,8 +33,8 @@ export class InputTimeComponent extends DefaultValueAccessor{
     const limit = inputType == "hours" ? 23 : 59;
 
     const valueAsNumber = Number(input.value);
-    if(valueAsNumber > limit) input.value = String(limit);
-    else if(valueAsNumber < 0) input.value = String(0);
+    if (valueAsNumber > limit) input.value = String(limit);
+    else if (valueAsNumber < 0) input.value = String(0);
 
     this.value.subtract(this.value[inputType](), timeUnit);
     this.value.add(valueAsNumber, timeUnit);

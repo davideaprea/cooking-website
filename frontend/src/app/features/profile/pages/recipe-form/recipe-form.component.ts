@@ -40,7 +40,7 @@ export class RecipeFormComponent extends BaseReactiveForm<RecipePayload>{
     ]
   };
 
-  protected _form = new FormGroup<FormModel<RecipePayload>>({
+  protected form = new FormGroup<FormModel<RecipePayload>>({
     name: new FormControl<string>("", Validators.required),
     course: new FormControl<Course | null>(null, Validators.required),
     thumbnailImage: new FormControl<File | null>(null, Validators.required),
@@ -96,14 +96,13 @@ export class RecipeFormComponent extends BaseReactiveForm<RecipePayload>{
   }
 
   submit(): void{
-    if(this.form.invalid) {
-      return;
-    }
+    if(this.form.invalid) return;
 
     const recipe = this.form.value as Required<RecipePayload>;
+    console.log(recipe)
     recipe.preparationTime.toISOString();
     recipe.cookingTime.toISOString();
 
-    this.recipeService.create(recipe).subscribe();
+    //this.recipeService.create(recipe).subscribe();
   }
 }

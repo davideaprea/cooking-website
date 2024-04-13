@@ -1,24 +1,32 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, inject } from '@angular/core';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import { FormControl } from '@angular/forms';
-import { InputLabel } from '../../models/base-form-input';
+import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-input-file',
   templateUrl: './input-file.component.html',
   styleUrls: ['./input-file.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: InputFileComponent,
+      multi: true
+    }
+  ]
 })
-export class InputFileComponent extends InputLabel {
-  @Input() control!: FormControl<File | null>;
-  @Input() accept: string = "";
-  readonly cameraIcon = faCamera;
+export class InputFileComponent extends DefaultValueAccessor {
   host: ElementRef<HTMLElement> = inject(ElementRef<HTMLElement>);
   renderer: Renderer2 = inject(Renderer2);
-  file: File | undefined = undefined;
+
+  @Input() accept: string = "";
+  @Input() label?: string;
+  @Input() id?: string;
+
+  readonly cameraIcon = faCamera;
 
   fileInput(event: Event) {
-    this.file = (event.target as HTMLInputElement).files![0];
-    if (this.file.type.startsWith("image")) this.renderer.setStyle(this.host.nativeElement, "backgroundImage", `url("${URL.createObjectURL(this.file)}")`);
+    const file = (event.target as HTMLInputElement).files![0];
+    if (file.type.startsWith("image")) this.renderer.setStyle(this.host.nativeElement, "backgroundImage", `url("${URL.createObjectURL(file)}")`);
   }
 }
