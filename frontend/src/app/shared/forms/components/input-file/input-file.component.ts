@@ -26,7 +26,9 @@ export class InputFileComponent extends DefaultValueAccessor {
   readonly cameraIcon = faCamera;
 
   fileInput(event: Event) {
+    event.stopPropagation();
     const file = (event.target as HTMLInputElement).files![0];
+    this.onChange(file);
     if (file.type.startsWith("image")) this.renderer.setStyle(this.host.nativeElement, "backgroundImage", `url("${URL.createObjectURL(file)}")`);
   }
 }

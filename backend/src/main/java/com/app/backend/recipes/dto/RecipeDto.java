@@ -20,7 +20,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public class RecipeDto {
     @NotBlank
     private String name;
@@ -57,12 +56,35 @@ public class RecipeDto {
 
     @NotBlank
     private String storage;
-    
+
     private String tips;
 
     private RecipeType recipeType;
 
     private boolean isDairyFree;
-    
+
     private boolean isGlutenFree;
+
+    public RecipeDto(String name, Course course, MultipartFile thumbnailImage, Difficulty difficulty,
+            Duration preparationTime, Duration cookingTime, byte servings, Double caloriesPerServing,
+            Country country, Set<RecipeIngredient> ingredients, LinkedHashSet<String> preparationSteps,
+            String storage, String tips, RecipeType recipeType, boolean isDairyFree, boolean isGlutenFree) {
+        System.out.println("Servings: "+servings);
+        this.name = name;
+        this.course = course;
+        this.thumbnailImage = thumbnailImage;
+        this.difficulty = difficulty;
+        this.preparationTime = preparationTime;
+        this.cookingTime = cookingTime;
+        this.servings = servings;
+        this.caloriesPerServing = caloriesPerServing;
+        this.country = country;
+        this.ingredients = ingredients;
+        this.preparationSteps = preparationSteps;
+        this.storage = storage;
+        this.tips = tips;
+        this.recipeType = recipeType;
+        this.isDairyFree = isDairyFree;
+        this.isGlutenFree = isGlutenFree;
+    }
 }
