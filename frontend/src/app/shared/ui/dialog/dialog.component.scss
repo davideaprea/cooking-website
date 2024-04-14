@@ -1,17 +1,18 @@
 dialog {
   background-color: white;
-  border-radius: 3em;
+  border-radius: 2em;
   width: Min(360px, 100%);
   border: 0;
   position: relative;
   padding: 1.5em;
   outline: 0;
 
-  fa-icon{
+  .close-icon{
     position: absolute;
     right: 18px;
-    top: 8px;
+    top: 10px;
     font-size: 2rem;
+    background-color: transparent;
   }
 
   &::backdrop {

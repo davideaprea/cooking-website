@@ -4,9 +4,12 @@ import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs';
 
 export const userNotLoggedGuard: CanActivateFn = (route, state) => {
-  return inject(AuthService).user$.pipe(
+  const authService: AuthService = inject(AuthService);
+  const router: Router = inject(Router);
+
+  return authService.user$.pipe(
     map(res => {
-      if(!res) inject(Router).navigate(["/auth", "login"]);
+      if(!res) router.navigate(["/auth", "login"]);
       return !!res;
     })
   );

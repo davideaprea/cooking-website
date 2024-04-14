@@ -3,6 +3,7 @@ package com.app.backend.security.service;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -74,11 +75,15 @@ public class AuthServiceImpl implements AuthService {
             throw new MyAPIException(HttpStatus.BAD_REQUEST, "This email is already taken.");
         }
 
+        if(!registerDto.isTerms() || !registerDto.isInfo()) {
+            throw new MyAPIException(HttpStatus.BAD_REQUEST, "You must agree to the terms and conditions.");
+        }
+
         User user = new User();
-        user.setName(registerDto.getName());
         user.setUsername(registerDto.getUsername());
         user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        user.setNewsLetter(registerDto.isNewsLetter());
 
         Set<Role> roles = new HashSet<>();
         

@@ -1,20 +1,12 @@
 <nav class="shadow-sm">
   <ul>
     <li><img src="../../../../../assets/default-profile-pic.jpg" alt="Profile pic"></li>
-    <li>
-      <a data-tooltip="Create a new recipe" class="tooltip" [routerLink]="['/new-recipe']">
-        <fa-icon [icon]="plusIcon"></fa-icon>
-      </a>
-    </li>
-    <li>
-      <a data-tooltip="Your recipes" class="tooltip" href="">
-        <fa-icon [icon]="utensilsIcon"></fa-icon>
-      </a>
-    </li>
-    <li>
-      <a data-tooltip="Settings" class="tooltip" href="">
-        <fa-icon [icon]="gearIcon"></fa-icon>
-      </a>
-    </li>
+    <ng-container *ngFor="let link of menuLinks">
+      <li *ngIf="link.canActivate == undefined || (link.canActivate)">
+        <a (click)="handleClick(link)" [attr.data-tooltip]="link.tooltipText" class="tooltip" [routerLink]="link.path">
+          <fa-icon [icon]="link.icon!"></fa-icon>
+        </a>
+      </li>
+    </ng-container>
   </ul>
 </nav>

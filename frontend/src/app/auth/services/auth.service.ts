@@ -39,7 +39,6 @@ export class AuthService {
   }
 
   register(user: RegUser) {
-    console.log(user)
     return this.http.post(environment.register, user);
   }
 
@@ -52,7 +51,6 @@ export class AuthService {
 
           if (remember) localStorage.setItem("user", JSON.stringify(user));
           else sessionStorage.setItem("user", JSON.stringify(user));
-          this.router.navigate(["/profile"]);
         }
       )
     )
