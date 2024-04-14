@@ -47,6 +47,6 @@ export class ProfileNavbarComponent {
   }
 
   handleClick(link: MenuLink): void {
-    if(link.callback) link.callback();
+    if (link.callback) link.callback();
   }
 }

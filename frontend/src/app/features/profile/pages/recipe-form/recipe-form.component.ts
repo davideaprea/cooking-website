@@ -96,12 +96,12 @@ export class RecipeFormComponent extends BaseReactiveForm<RecipePayload>{
   }
 
   submit(): void{
-    if(this.form.invalid) return;
+    //if(this.form.invalid) return;
 
     const recipe = this.form.value as Required<RecipePayload>;
-    console.log(recipe)
-    recipe.preparationTime.toISOString();
-    recipe.cookingTime.toISOString();
+    console.log(recipe.preparationTime);
+    console.log(recipe.preparationTime.toISOString());
+    //recipe.cookingTime.toISOString();
 
     //this.recipeService.create(recipe).subscribe();
   }

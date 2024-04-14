@@ -32,9 +32,10 @@ export class InputTimeComponent extends DefaultValueAccessor {
     const timeUnit = inputType == "hours" ? "h" : "m";
     const limit = inputType == "hours" ? 23 : 59;
 
-    const valueAsNumber = Number(input.value);
+    let valueAsNumber = Number(input.value);
     if (valueAsNumber > limit) input.value = String(limit);
     else if (valueAsNumber < 0) input.value = String(0);
+    valueAsNumber = Number(input.value);
 
     this.value.subtract(this.value[inputType](), timeUnit);
     this.value.add(valueAsNumber, timeUnit);
