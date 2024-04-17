@@ -1,7 +1,10 @@
 <nav>
   <input type="text" placeholder="Look for a recipe">
-  <button class="submit-button" (click)="openModal=true" type="button">Log In</button>
+
+  <button *ngIf="!user" class="submit-button" (click)="openModal=true" type="button">Log In</button>
+  <a *ngIf="user" (click)="goToProfile()"><img class="profile-pic" src="../../../../assets/default-profile-pic.jpg" alt="Profile pic"></a>
 </nav>
+
 <app-dialog [(open)]="openModal">
   <app-login></app-login>
 </app-dialog>

@@ -40,7 +40,8 @@ export class ProfileNavbarComponent {
         {
           tooltipText: "Logout",
           callback: () => { this.authService.logout(); },
-          icon: faArrowRightFromBracket
+          icon: faArrowRightFromBracket,
+          class: "logout-icon"
         }
       ];
     });

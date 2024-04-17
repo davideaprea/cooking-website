@@ -3,6 +3,7 @@ import { AbstractControl, ControlValueAccessor, DefaultValueAccessor, NG_VALUE_A
 import { blurrable } from 'src/app/shared/mixins/element-blur';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
+import { SelectItem } from 'src/app/core/models/select-item.type';
 
 @Component({
   selector: 'app-input-select',
@@ -17,19 +18,22 @@ import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
     }
   ]
 })
-export class InputSelectComponent extends blurrable(DefaultValueAccessor) implements ControlValueAccessor, OnInit {
+export class InputSelectComponent<T> extends blurrable(DefaultValueAccessor) implements ControlValueAccessor, OnInit {
   private readonly injector: Injector = inject(Injector);
   private readonly renderer: Renderer2 = inject(Renderer2);
 
-  private _options: string[] = [];
-  private options$!: BehaviorSubject<string[]>;
+  private _options: SelectItem<T>[] = [];
+  private options$!: BehaviorSubject<SelectItem<T>[]>;
 
   @ViewChildren("option") optionItems!: QueryList<ElementRef<HTMLLIElement>>;
   @ViewChild("input") input!: ElementRef<HTMLInputElement>;
-  value: string = "";
-  optionsObs$!: Observable<string[]>;
+  value: SelectItem = {
+    value: undefined,
+    label: ''
+  };
+  optionsObs$!: Observable<SelectItem<T>[]>;
 
-  @Input({ required: true }) set options(options: string[]) {
+  @Input({ required: true }) set options(options: SelectItem<T>[]) {
     this._options = options;
     this.options$ = new BehaviorSubject(options);
     this.optionsObs$ = this.options$.pipe(debounceTime(300));
@@ -42,19 +46,19 @@ export class InputSelectComponent extends blurrable(DefaultValueAccessor) implem
   readonly angleDownIcon = faAngleDown;
 
   ngOnInit(): void {
-    this.injector.get(NgControl).control!.addValidators(
+    /* this.injector.get(NgControl).control!.addValidators(
       (control: AbstractControl): ValidationErrors | null => {
         const valid = this._options.includes(control.value);
         return valid ? null : { invalidValue: { value: control.value } };
       }
-    );
+    ); */
   }
 
   override onClose(): void {
     this.input.nativeElement.blur();
   }
 
-  @HostListener('document:keydown', ['$event'])
+  /* @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     if (!this.open) return;
 
@@ -62,11 +66,11 @@ export class InputSelectComponent extends blurrable(DefaultValueAccessor) implem
 
     if (event.key === 'ArrowDown') {
       const selectedIndex: number = index + 1;
-      //this.renderer.removeClass(this.optionItems.get(selectedIndex - 1)?.nativeElement, "focus");
+      this.renderer.removeClass(this.optionItems.get(selectedIndex - 1)?.nativeElement, "focus");
 
       this.optionItems.get(selectedIndex)?.nativeElement.focus();
     }
-  }
+  } */
 
   toggleSelect(event: Event): void {
     event.stopPropagation();
@@ -74,21 +78,21 @@ export class InputSelectComponent extends blurrable(DefaultValueAccessor) implem
   }
 
   filterOptions(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
+    /* const value = (event.target as HTMLInputElement).value;
     this.value = value;
     const results = this._options.filter(option => {
       const lowerCaseOption = option.toLowerCase();
       const lowerCaseValue = value.toLowerCase();
       return lowerCaseOption.startsWith(lowerCaseValue);
     });
-    this.options$.next(results);
+    this.options$.next(results); */
   }
 
-  setValue(event: Event, value: string): void {
+  setValue(event: Event, value: SelectItem): void {
     event.stopPropagation();
     this.value = value;
     this.close();
-    this.onChange(value);
+    this.onChange(value.value);
     this.onTouched();
   }
 }

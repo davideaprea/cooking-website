@@ -3,7 +3,8 @@ package com.app.backend.recipes.services;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import org.springframework.util.StringUtils;
 
@@ -16,19 +17,26 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.backend.recipes.dto.RecipeDto;
 import com.app.backend.recipes.entities.Recipe;
+import com.app.backend.recipes.entities.RecipeIngredient;
 import com.app.backend.recipes.repositories.RecipeDAO;
 import com.app.backend.recipes.repositories.RecipePageableDAO;
 import com.app.backend.security.service.CustomUserDetailsService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class RecipeService {
     @Autowired private RecipeDAO recipeDao;
     @Autowired private RecipePageableDAO recipePageableDAO;
     @Autowired private CustomUserDetailsService userDetailsService;
+    @Autowired private ObjectMapper objectMapper;
 
     public Recipe save(RecipeDto recipeDto) {
         try {
-            final String baseImageUrl = "http://localhost:8080/recipes/cover/";
+            final String baseImageUrl = "http://localhost:8080/recipes/thumbnails/";
+
+            Set<RecipeIngredient> ingredients = objectMapper.readValue(recipeDto.getIngredients(), new TypeReference<Set<RecipeIngredient>>() {});
+            List<String> steps = objectMapper.readValue(recipeDto.getPreparationSteps(), new TypeReference<List<String>>() {});
 
             Recipe recipe = new Recipe(
                 userDetailsService.getAuthenticatedUser(),
@@ -41,8 +49,8 @@ public class RecipeService {
                 recipeDto.getServings(),
                 recipeDto.getCaloriesPerServing(),
                 recipeDto.getCountry(),
-                recipeDto.getIngredients(),
-                recipeDto.getPreparationSteps(),
+                ingredients,
+                steps,
                 recipeDto.getStorage(),
                 recipeDto.getTips(),
                 recipeDto.getRecipeType(),
@@ -61,13 +69,12 @@ public class RecipeService {
     }
 
     private String saveFileOnFolder(MultipartFile file) throws IOException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String path = System.getProperty("user.home") + "/Desktop/Programming/Recipes covers";
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename().replace(" ", ""));
+        String path = System.getProperty("user.home") + "/Desktop/Programming/Recipe covers";
         String coverImageName = UUID.randomUUID().toString() + "_" + fileName;
         Path coverImagePath = Path.of(path, coverImageName);
-        if (!Files.exists(coverImagePath.getParent()))
-            Files.createDirectories(coverImagePath.getParent());
-        Files.copy(file.getInputStream(), coverImagePath, StandardCopyOption.REPLACE_EXISTING);
+        if (!Files.exists(coverImagePath.getParent())) Files.createDirectories(coverImagePath.getParent());
+        Files.copy(file.getInputStream(), coverImagePath);
         return coverImageName;
     }
 }

@@ -1,7 +1,6 @@
 package com.app.backend.recipes.entities;
 
 import java.time.Duration;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -91,8 +90,8 @@ public class Recipe {
 
     @Size(min = 1)
     @ElementCollection
-    @Column(nullable = false)
-    private LinkedHashSet<String> preparationSteps;
+    @Column(nullable = false, length = 400)
+    private List<String> preparationSteps;
 
     @NotBlank
     @Column(nullable = false)
@@ -100,12 +99,13 @@ public class Recipe {
     
     private String tips;
 
-    @NotBlank
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private RecipeType recipeType = RecipeType.MEAT_OR_FISH_BASED;
     private boolean isDairyFree = false;
     private boolean isGlutenFree = false;
     
-    public Recipe(User user, String name, Course course, String thumbnailImage, Difficulty difficulty, Duration preparationTime, Duration cookingTime, byte servings, Double caloriesPerServing, Country country, Set<RecipeIngredient> ingredients, LinkedHashSet<String> preparationSteps, String storage, String tips, RecipeType recipeType, boolean isDairyFree, boolean isGlutenFree) {
+    public Recipe(User user, String name, Course course, String thumbnailImage, Difficulty difficulty, Duration preparationTime, Duration cookingTime, byte servings, Double caloriesPerServing, Country country, Set<RecipeIngredient> ingredients, List<String> preparationSteps, String storage, String tips, RecipeType recipeType, boolean isDairyFree, boolean isGlutenFree) {
         this.user = user;
         this.name = name;
         this.course = course;

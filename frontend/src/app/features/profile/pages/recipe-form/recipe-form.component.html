@@ -1,6 +1,6 @@
 <h1>Create a new recipe</h1>
 
-<form class="fluid-container-xl grid-row-flow" [formGroup]="form" (submit)="submit()">
+<form class="fluid-container-xl grid-row-flow" [formGroup]="form" (submit)="submit()" enctype="multipart/form-data">
   <app-input-file [formControl]="form.controls.thumbnailImage" id="thumbnailImage" label="Choose the thumbnail image for your recipe" accept="image/*"></app-input-file>
 
   <fieldset class="fluid-grid-xs">

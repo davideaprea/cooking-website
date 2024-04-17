@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SelectItem } from '../models/select-item.type';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,26 @@ export class UtilityService {
     return item ? JSON.parse(item) : undefined;
   }
 
-  getEnumAsArray<T = number | string>(e: {[k: number]: T}): T[] {
-    return Object.values(e);
+  getEnumAsSelectItems<T = number | string>(e: { [k: number]: T }): SelectItem<T>[] {
+    let arr: SelectItem[] = [];
+    for (const key in e) arr.push({
+      value: key,
+      label: e[key] as string
+    });
+    return arr;
+  }
+
+  toFormData(obj: {[key: string]: any}): FormData {
+    const formData = new FormData();
+
+    for (const key in obj) {
+      let value = obj[key];
+
+      if (value instanceof File || typeof value == "string") formData.append(key, value);
+      else if (value instanceof Array) formData.append(key, JSON.stringify(value));
+      else formData.append(key, value.toString());
+    };
+
+    return formData;
   }
 }

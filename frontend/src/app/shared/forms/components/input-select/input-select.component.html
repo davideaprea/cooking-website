@@ -7,7 +7,7 @@
       aria-controls="select"
       aria-haspopup="listbox"
       [attr.aria-expanded]="open"
-      [value]="value"
+      [value]="value.label"
       readonly
       (focus)="toggleSelect($event)"
       (input)="filterOptions($event)">
@@ -26,7 +26,7 @@
       (focus)="setValue($event, option)"
       (click)="setValue($event, option)"
       [attr.tabIndex]="open ? 0 : -1">
-      {{option}}
+      {{option.label}}
     </li>
   </ul>
 </div>

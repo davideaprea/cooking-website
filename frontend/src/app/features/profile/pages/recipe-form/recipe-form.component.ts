@@ -12,6 +12,8 @@ import { Duration } from 'moment';
 import { RecipeType } from '../../models/recipe-type.type';
 import { RecipeService } from '../../services/recipe.service';
 import { BaseReactiveForm } from 'src/app/core/models/base-reactive-form.class';
+import { SelectItem } from 'src/app/core/models/select-item.type';
+import * as moment from 'moment';
 
 type FormArrayProperty = "ingredients" | "preparationSteps";
 
@@ -24,10 +26,10 @@ type FormArrayProperty = "ingredients" | "preparationSteps";
 export class RecipeFormComponent extends BaseReactiveForm<RecipePayload>{
   private readonly utilityService = inject(UtilityService);
 
-  readonly difficultyOptions = this.utilityService.getEnumAsArray(Difficulty) as string[];
-  readonly courseOptions = this.utilityService.getEnumAsArray(Course) as string[];
-  readonly countryOptions = this.utilityService.getEnumAsArray(Country) as string[];
-  readonly recipeTypeOptions = this.utilityService.getEnumAsArray(RecipeType) as string[];
+  readonly difficultyOptions: SelectItem[] = this.utilityService.getEnumAsSelectItems(Difficulty);
+  readonly courseOptions: SelectItem[] = this.utilityService.getEnumAsSelectItems(Course);
+  readonly countryOptions: SelectItem[] = this.utilityService.getEnumAsSelectItems(Country);
+  readonly recipeTypeOptions: SelectItem[] = this.utilityService.getEnumAsSelectItems(RecipeType);
 
   readonly trashIcon = faTrash;
   readonly plusIcon = faPlus;
@@ -99,8 +101,8 @@ export class RecipeFormComponent extends BaseReactiveForm<RecipePayload>{
     if(this.form.invalid) return;
 
     const recipe = this.form.value as Required<RecipePayload>;
-    recipe.preparationTime = (recipe.preparationTime as Duration).toISOString();
-    recipe.cookingTime = (recipe.cookingTime as Duration).toISOString();
+    if(typeof recipe.preparationTime != "string") recipe.preparationTime = recipe.preparationTime.toISOString();
+    if(typeof recipe.cookingTime != "string") recipe.cookingTime = recipe.cookingTime.toISOString();
 
     this.recipeService.create(recipe).subscribe();
   }

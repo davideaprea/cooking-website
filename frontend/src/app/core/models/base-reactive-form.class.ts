@@ -3,5 +3,5 @@ import { FormModel } from "./form-model.type";
 
 export abstract class BaseReactiveForm<T> {
   protected abstract form: FormGroup<FormModel<T>>;
-  abstract submit(): void;
+  abstract submit(...args: any[]): void;
 }
