@@ -13,7 +13,6 @@ import { RecipeType } from '../../models/recipe-type.type';
 import { RecipeService } from '../../services/recipe.service';
 import { BaseReactiveForm } from 'src/app/core/models/base-reactive-form.class';
 import { SelectItem } from 'src/app/core/models/select-item.type';
-import * as moment from 'moment';
 
 type FormArrayProperty = "ingredients" | "preparationSteps";
 
@@ -23,7 +22,7 @@ type FormArrayProperty = "ingredients" | "preparationSteps";
   styleUrls: ['./recipe-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RecipeFormComponent extends BaseReactiveForm<RecipePayload>{
+export class RecipeFormComponent extends BaseReactiveForm<RecipePayload> {
   private readonly utilityService = inject(UtilityService);
 
   readonly difficultyOptions: SelectItem[] = this.utilityService.getEnumAsSelectItems(Difficulty);
@@ -57,14 +56,14 @@ export class RecipeFormComponent extends BaseReactiveForm<RecipePayload>{
     }>>([]),
     preparationSteps: new FormArray<FormControl<string | null>>([]),
     country: new FormControl<Country | null>(null, Validators.required),
-    storage: new FormControl<string>("", Validators.required),
-    tips: new FormControl<string>(""),
+    storage: new FormControl<string>("", [Validators.required, Validators.minLength(30), Validators.maxLength(255)]),
+    tips: new FormControl<string>("", [Validators.minLength(30), Validators.maxLength(255)]),
     recipeType: new FormControl<RecipeType | null>(null),
     isDairyFree: new FormControl<boolean>(false),
     isGlutenFree: new FormControl<boolean>(false)
   });
 
-  constructor(private recipeService: RecipeService){
+  constructor(private recipeService: RecipeService) {
     super();
     this.addIngredient();
     this.addStep();
@@ -72,11 +71,11 @@ export class RecipeFormComponent extends BaseReactiveForm<RecipePayload>{
     this.form.controls.recipeType.valueChanges.subscribe(value => {
       const dairyFreeControl = this.form.controls.isDairyFree;
 
-      if(value == RecipeType.VEGAN) {
+      if (value == RecipeType.VEGAN) {
         dairyFreeControl.reset();
         dairyFreeControl.disable();
       }
-      else if(dairyFreeControl.disabled) dairyFreeControl.enable();
+      else if (dairyFreeControl.disabled) dairyFreeControl.enable();
     });
   }
 
@@ -89,21 +88,31 @@ export class RecipeFormComponent extends BaseReactiveForm<RecipePayload>{
     );
   }
 
-  addStep(): void{
-    this.form.controls.preparationSteps.push(new FormControl<string>("", [Validators.required, Validators.minLength(10)]));
+  addStep(): void {
+    this.form.controls.preparationSteps.push(new FormControl<string>("", [Validators.required, Validators.minLength(10), Validators.maxLength(400)]));
   }
 
   removeFromFormArray(formArray: FormArrayProperty, index: number): void {
     if (this.form.controls[formArray].length > 1) this.form.controls[formArray].removeAt(index);
   }
 
-  submit(): void{
-    if(this.form.invalid) return;
+  submit(): void {
+    if (this.form.invalid) return;
 
     const recipe = this.form.value as Required<RecipePayload>;
-    if(typeof recipe.preparationTime != "string") recipe.preparationTime = recipe.preparationTime.toISOString();
-    if(typeof recipe.cookingTime != "string") recipe.cookingTime = recipe.cookingTime.toISOString();
+    if (typeof recipe.preparationTime != "string") recipe.preparationTime = recipe.preparationTime.toISOString();
+    if (typeof recipe.cookingTime != "string") recipe.cookingTime = recipe.cookingTime.toISOString();
 
-    this.recipeService.create(recipe).subscribe();
+    this.recipeService.create(recipe).subscribe(
+      {
+        next: () => {
+          this.form.reset();
+          this.form.controls.preparationSteps.clear();
+          this.form.controls.ingredients.clear();
+          this.addIngredient();
+          this.addStep();
+        }
+      }
+    );
   }
 }

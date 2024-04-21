@@ -16,7 +16,7 @@ nav {
     border-radius: 50%;
   }
 
-  ul{
+  ul {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     place-items: center;
@@ -26,6 +26,10 @@ nav {
 
 a {
   font-size: 2rem;
+}
+
+fa-icon {
+  display: block;
 }
 
 .logout-icon {

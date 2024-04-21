@@ -51,13 +51,6 @@
     </app-input-container>
   </fieldset>
 
-  <app-input-container id="storage" label="Storage">
-    <quill-editor [modules]="quillConfig" id="storage" [formControl]="form.controls.storage"></quill-editor>
-  </app-input-container>
-
-  <app-input-container id="tips" label="Tips">
-    <quill-editor [modules]="quillConfig" id="tips" [formControl]="form.controls.tips"></quill-editor>
-  </app-input-container>
 
   <div class="grid-row-flow">
     <div class="ingredients-label">
@@ -65,15 +58,17 @@
       <button class="tooltip icon-button" data-tooltip="Add a new ingredient" (click)="addIngredient()" type="button"><fa-icon [icon]="plusIcon"></fa-icon></button>
     </div>
 
-    <fieldset class="ingredients" *ngFor="let group of form.controls.ingredients.controls; let i = index">
-      <button class="icon-button" (click)="removeFromFormArray('ingredients', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
-      <app-input-container id="ingredient{{i}}" label="Ingredient">
-        <input type="text" [formControl]="form.controls.ingredients.controls[i].controls.ingredient" id="ingredient{{i}}">
-      </app-input-container>
+    <fieldset class="grid-row-flow formArray">
+      <div *ngFor="let group of form.controls.ingredients.controls; let i = index" class="ingredients">
+        <button class="icon-button" (click)="removeFromFormArray('ingredients', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
+        <app-input-container id="ingredient{{i}}" label="Ingredient">
+          <input type="text" [formControl]="form.controls.ingredients.controls[i].controls.ingredient" id="ingredient{{i}}">
+        </app-input-container>
 
-      <app-input-container id="grams{{i}}" label="Grams">
-        <input type="number" id="grams{{i}}" [formControl]="form.controls.ingredients.controls[i].controls.grams">
-      </app-input-container>
+        <app-input-container id="grams{{i}}" label="Grams">
+          <input type="number" id="grams{{i}}" [formControl]="form.controls.ingredients.controls[i].controls.grams">
+        </app-input-container>
+      </div>
     </fieldset>
   </div>
 
@@ -83,14 +78,24 @@
       <button class="tooltip icon-button" data-tooltip="Add a new step" (click)="addStep()" type="button"><fa-icon [icon]="plusIcon"></fa-icon></button>
     </div>
 
-    <fieldset *ngFor="let group of form.controls.preparationSteps.controls; let i = index">
-      <button class="icon-button" (click)="removeFromFormArray('preparationSteps', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
+    <fieldset class="grid-row-flow formArray">
+      <div *ngFor="let group of form.controls.preparationSteps.controls; let i = index">
+        <button class="icon-button" (click)="removeFromFormArray('preparationSteps', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
 
-      <app-input-container id="step{{i}}" label="Step {{i+1}}">
-        <quill-editor [modules]="quillConfig" id="step{{i}}" [formControl]="form.controls.preparationSteps.controls[i]"></quill-editor>
-      </app-input-container>
+        <app-input-container id="step{{i}}" label="Step {{i+1}}">
+          <quill-editor [modules]="quillConfig" id="step{{i}}" [formControl]="form.controls.preparationSteps.controls[i]"></quill-editor>
+        </app-input-container>
+      </div>
     </fieldset>
   </div>
+
+  <app-input-container id="storage" label="Storage">
+    <quill-editor [modules]="quillConfig" id="storage" [formControl]="form.controls.storage"></quill-editor>
+  </app-input-container>
+
+  <app-input-container id="tips" label="Tips">
+    <quill-editor [modules]="quillConfig" id="tips" [formControl]="form.controls.tips"></quill-editor>
+  </app-input-container>
 
   <button class="submit-button">Create recipe</button>
 </form>
