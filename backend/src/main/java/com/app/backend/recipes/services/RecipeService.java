@@ -24,6 +24,8 @@ import com.app.backend.security.service.CustomUserDetailsService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class RecipeService {
     @Autowired private RecipeDAO recipeDao;
@@ -77,5 +79,11 @@ public class RecipeService {
         if (!Files.exists(coverImagePath.getParent())) Files.createDirectories(coverImagePath.getParent());
         Files.copy(file.getInputStream(), coverImagePath);
         return coverImageName;
+    }
+
+    public Recipe findById(long id) {
+        if(!recipeDao.existsById(id)) throw new EntityNotFoundException("Couldn't find recipe.");
+
+        return recipeDao.findById(id).get();
     }
 }

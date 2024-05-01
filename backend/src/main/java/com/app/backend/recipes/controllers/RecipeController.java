@@ -44,6 +44,11 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getPage(pageable, creatorUsername));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable long id) {
+        return ResponseEntity.ok(recipeService.findById(id));
+    }
+
     @GetMapping("thumbnails/{coverName}")
     public ResponseEntity<?> getCover(@PathVariable String coverName) {
         String coverFolder = System.getProperty("user.home") + "/Desktop/Programming/Recipe covers";

@@ -32,7 +32,8 @@ import { InputContainerComponent } from './forms/components/input-container/inpu
     InputSelectComponent,
     InputFileComponent,
     InputTimeComponent,
-    InputContainerComponent
+    InputContainerComponent,
+    CardComponent
   ]
 })
 export class SharedModule { }

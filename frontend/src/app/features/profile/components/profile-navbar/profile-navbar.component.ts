@@ -22,13 +22,13 @@ export class ProfileNavbarComponent {
       this.menuLinks = [
         {
           tooltipText: "Create a new recipe",
-          path: ['/profile', 'new-recipe'],
+          path: ['new-recipe'],
           icon: faPlus,
           canActivate: this.user.role == Role.CREATOR
         },
         {
           tooltipText: "Your recipes",
-          path: [''],
+          path: ['your-recipes'],
           icon: faUtensils,
           canActivate: this.user.role == Role.CREATOR
         },

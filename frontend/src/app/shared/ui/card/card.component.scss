@@ -1,8 +1,20 @@
 :host {
   cursor: pointer;
+  display: block;
+  border-radius: 1em;
+  overflow: hidden;
 }
 
 h3 {
   text-wrap: nowrap;
   text-overflow: ellipsis;
+}
+
+img {
+  width: 100%;
+}
+
+.body {
+  background-color: white;
+  padding: 1em;
 }
