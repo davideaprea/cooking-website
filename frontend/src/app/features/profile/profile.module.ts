@@ -9,12 +9,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
+import { UserRecipesComponent } from './pages/user-recipes/user-recipes.component';
 
 @NgModule({
   declarations: [
     ProfileComponent,
     RecipeFormComponent,
     ProfileNavbarComponent,
+    UserRecipesComponent,
   ],
   imports: [
     CommonModule,

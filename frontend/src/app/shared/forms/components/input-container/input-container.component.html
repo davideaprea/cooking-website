@@ -2,4 +2,4 @@
 <div #input class="input-container">
   <ng-content select="[formControl], [formControlName]"></ng-content>
 </div>
-<p *ngIf="(form.submitted && form.invalid)" class="error">{{control.errors?.["required"] ? "Please, fill this field." : errorMessage}}</p>
+<p *ngIf="control.invalid && control.dirty && control.touched" class="error">{{errorMessage}}</p>

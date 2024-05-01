@@ -1,1 +1,8 @@
-<p>card works!</p>
+<img [src]="recipe.thumbnailImage" [alt]="recipe.name+' cover'">
+
+<div>
+  <p>{{recipe.course}}</p>
+  <h3>{{recipe.name}}</h3>
+  <!-- <span><fa-icon [icon]="clockIcon"></fa-icon> {{recipe.cookingTime + recipe.preparationTime}}</span> -->
+  <span><fa-icon [icon]="bowlIcon"></fa-icon> {{recipe.servings}}</span>
+</div>

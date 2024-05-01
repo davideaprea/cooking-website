@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Course } from '../../models/course.enum';
 import { Difficulty } from '../../models/difficulty.enum';
@@ -24,6 +24,7 @@ type FormArrayProperty = "ingredients" | "preparationSteps";
 })
 export class RecipeFormComponent extends BaseReactiveForm<RecipePayload> {
   private readonly utilityService = inject(UtilityService);
+  private readonly changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   readonly difficultyOptions: SelectItem[] = this.utilityService.getEnumAsSelectItems(Difficulty);
   readonly courseOptions: SelectItem[] = this.utilityService.getEnumAsSelectItems(Course);
@@ -107,10 +108,18 @@ export class RecipeFormComponent extends BaseReactiveForm<RecipePayload> {
       {
         next: () => {
           this.form.reset();
+
           this.form.controls.preparationSteps.clear();
           this.form.controls.ingredients.clear();
           this.addIngredient();
           this.addStep();
+
+          for(const key in this.form.controls) {
+            const control = this.form.controls[key as keyof FormModel<RecipePayload>];
+            control.setErrors(null);
+            control.markAsPristine();
+            control.markAsUntouched();
+          }
         }
       }
     );

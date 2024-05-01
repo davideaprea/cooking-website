@@ -64,7 +64,8 @@ public class RecipeService {
         }
     }
 
-    public Page<Recipe> getPage(Pageable pageable){
+    public Page<Recipe> getPage(Pageable pageable, String creatorUsername){
+        if(creatorUsername != null) return recipePageableDAO.findByUser(creatorUsername, pageable);
         return recipePageableDAO.findAll(pageable);
     }
 

@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Input, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { faBowlFood, faClock } from '@fortawesome/free-solid-svg-icons';
+import { RecipeResponse } from 'src/app/features/profile/models/recipe-response.type';
 
 @Component({
   selector: 'app-card',
@@ -7,5 +10,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent {
+  readonly router: Router = inject(Router);
+  @Input({required: true}) recipe!: RecipeResponse;
+  readonly clockIcon = faClock;
+  readonly bowlIcon = faBowlFood;
 
+  @HostListener('click', ['$event'])
+  private goToRecipeDetail() {
+    this.router.navigate();
+  }
 }
