@@ -19,7 +19,7 @@ export class RecipeService {
   }
 
   findById(id: number): Observable<RecipeResponse> {
-    return this.http.get<RecipeResponse>(environment.recipes + id);
+    return this.http.get<RecipeResponse>(environment.recipes + "/" + id);
   }
 
   getRecipesPage(pageable: Pageable): Observable<Page<RecipeResponse>> {

@@ -1,9 +1,11 @@
 @import '../abstracts/variables';
 
-.grid-row-flow {
-  display: grid;
-  grid-auto-flow: row;
-  row-gap: 2.5rem;
+@each $key, $value in $sizes {
+  .grid-row-flow-#{$key} {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: $value;
+  }
 }
 
 @each $key, $value in $breakpoints {

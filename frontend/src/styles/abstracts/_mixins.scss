@@ -6,6 +6,6 @@
   border: 2px solid rgb(233, 229, 238);
 }
 
-@mixin box-shadow() {
-
+@mixin box-shadow($alpha) {
+  box-shadow: 0px 7px 29px 0px rgba(100, 100, 111, $alpha);
 }

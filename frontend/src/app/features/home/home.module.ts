@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { RecipeDetailComponent } from './pages/recipe-detail/recipe-detail.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { RecipeDetailComponent } from './pages/recipe-detail/recipe-detail.compo
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    FontAwesomeModule
   ]
 })
 export class HomeModule { }

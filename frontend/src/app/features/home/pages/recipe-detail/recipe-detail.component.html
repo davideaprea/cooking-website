@@ -1,1 +1,70 @@
-<p>recipe-detail works!</p>
+<ng-container *ngIf="recipe">
+
+  <section class="grid-row-flow-sm">
+    <div>
+      <p>{{recipe.recipeType}}</p>
+      <p *ngIf="recipe.isDairyFree"><fa-icon [icon]="wheatIcon"></fa-icon> Dairy free</p>
+      <p *ngIf="recipe.isGlutenFree"><fa-icon [icon]="cowIcon"></fa-icon> Gluten free</p>
+    </div>
+    <h1>{{recipe.name}}</h1>
+
+    <div class="shadow-md general-info">
+      <img class="recipe-cover" [src]="recipe.thumbnailImage" [alt]="recipe.name + 'cover'">
+
+      <div class="info">
+        <p>
+          <fa-icon [icon]="skullIcon"></fa-icon>
+          <span> Difficulty: </span>
+          <span class="bold">{{recipe.difficulty}}</span>
+        </p>
+
+        <p>
+          <fa-icon [icon]="spoonIcon"></fa-icon>
+          <span> Preparation time: </span>
+          <span class="bold">{{recipe.preparationTime}}</span>
+        </p>
+
+        <p>
+          <fa-icon [icon]="clockIcon"></fa-icon>
+          <span> Cooking time: </span>
+          <span class="bold">{{recipe.cookingTime}}</span>
+        </p>
+
+        <p>
+          <fa-icon [icon]="foodIcon"></fa-icon>
+          <span> Servings: </span>
+          <span class="bold">{{recipe.servings}}</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-row-flow-sm ingrdients">
+    <h2 class="semi-underline">INGREDIENTS</h2>
+
+    <dl class="fluid-grid-xs">
+      <div class="ingredient" *ngFor="let ingredient of recipe.ingredients">
+        <dt><a>{{ingredient.ingredient}}</a></dt>
+        <dd>{{ingredient.grams}} g</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="grid-row-flow-sm">
+    <h2 class="semi-underline">PREPARATION</h2>
+
+    <ul class="grid-row-flow-md">
+      <li *ngFor="let step of recipe.preparationSteps" [innerHTML]="step"></li>
+    </ul>
+  </section>
+
+  <section class="grid-row-flow-sm">
+    <h2 class="semi-underline">STORAGE</h2>
+    <p [innerHTML]="recipe.storage"></p>
+  </section>
+
+  <section *ngIf="recipe.tips" class="grid-row-flow-sm">
+    <h2 class="semi-underline">TIPS</h2>
+    <p [innerHTML]="recipe.tips"></p>
+  </section>
+</ng-container>

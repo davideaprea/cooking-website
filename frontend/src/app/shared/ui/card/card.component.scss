@@ -1,4 +1,7 @@
+@import "../../../../styles/abstracts/mixins";
+
 :host {
+  @include box-shadow(0.4);
   cursor: pointer;
   display: block;
   border-radius: 1em;

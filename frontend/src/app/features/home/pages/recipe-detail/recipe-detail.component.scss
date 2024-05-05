@@ -1,0 +1,37 @@
+@import "../../../../../styles/abstracts/variables";
+
+dt {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+fa-icon {
+  color: $orange-400;
+}
+
+.general-info {
+  display: flex;
+  flex-wrap: wrap;
+
+  img {
+    flex: 2 0 400px;
+  }
+
+  .info {
+    flex: 1 0 200px;
+  }
+}
+
+.info {
+  padding: 1em;
+}
+
+.ingrdients {
+  background-color: #e4daee;
+  padding: 1em;
+}
+
+.ingredient {
+  display: flex;
+  gap: 1rem;
+}

@@ -15,7 +15,7 @@ export class CardComponent {
   readonly clockIcon = faClock;
   readonly bowlIcon = faBowlFood;
 
-  @HostListener('click', ['$event'])
+  @HostListener('click')
   private goToRecipeDetail() {
     this.router.navigate(["/home", "recipes", this.recipe.id]);
   }
