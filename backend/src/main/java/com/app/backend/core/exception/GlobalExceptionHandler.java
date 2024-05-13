@@ -1,4 +1,4 @@
-package com.app.backend.security.exception;
+package com.app.backend.core.exception;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;

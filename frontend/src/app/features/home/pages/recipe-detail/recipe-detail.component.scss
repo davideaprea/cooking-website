@@ -33,5 +33,14 @@ fa-icon {
 
 .ingredient {
   display: flex;
+  align-items: center;
   gap: 1rem;
+
+  &::before {
+    content: "";
+    height: .5em;
+    width: .5em;
+    border: 2px solid $orange-400;
+    border-radius: 50%;
+  }
 }

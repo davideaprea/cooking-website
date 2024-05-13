@@ -3,7 +3,6 @@ package com.app.backend.security.service;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,11 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.app.backend.core.exception.MyAPIException;
 import com.app.backend.security.component.JwtTokenProvider;
 import com.app.backend.security.entity.ERole;
 import com.app.backend.security.entity.Role;
 import com.app.backend.security.entity.User;
-import com.app.backend.security.exception.MyAPIException;
 import com.app.backend.security.payload.LoginDto;
 import com.app.backend.security.payload.RegisterDto;
 import com.app.backend.security.repository.RoleRepository;

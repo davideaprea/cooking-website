@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faBowlRice, faClock, faCow, faJarWheat, faSkull, faSpoon, faWheatAlt, faWheatAwn } from '@fortawesome/free-solid-svg-icons';
+import { faBowlRice, faClock, faCow, faCubesStacked, faJarWheat, faSkull, faSpoon, faWheatAlt, faWheatAwn } from '@fortawesome/free-solid-svg-icons';
 import { RecipeResponse } from 'src/app/features/profile/models/recipe-response.type';
 import { RecipeService } from 'src/app/features/profile/services/recipe.service';
 
@@ -18,6 +18,7 @@ export class RecipeDetailComponent {
   readonly foodIcon = faBowlRice;
   readonly clockIcon = faClock;
   readonly spoonIcon = faSpoon;
+  readonly kcalIcon = faCubesStacked;
 
   recipe!: RecipeResponse;
 

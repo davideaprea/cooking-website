@@ -3,6 +3,8 @@
   <section class="grid-row-flow-sm">
     <div>
       <p>{{recipe.recipeType}}</p>
+      <p>{{recipe.country}}</p>
+      <p>{{recipe.course}}</p>
       <p *ngIf="recipe.isDairyFree"><fa-icon [icon]="wheatIcon"></fa-icon> Dairy free</p>
       <p *ngIf="recipe.isGlutenFree"><fa-icon [icon]="cowIcon"></fa-icon> Gluten free</p>
     </div>
@@ -34,6 +36,12 @@
           <fa-icon [icon]="foodIcon"></fa-icon>
           <span> Servings: </span>
           <span class="bold">{{recipe.servings}}</span>
+        </p>
+
+        <p>
+          <fa-icon [icon]="kcalIcon"></fa-icon>
+          <span> Calories per serving: </span>
+          <span class="bold">{{recipe.caloriesPerServing}}</span>
         </p>
       </div>
     </div>

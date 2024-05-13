@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import com.app.backend.core.exception.MyAPIException;
 import com.app.backend.security.entity.User;
-import com.app.backend.security.exception.MyAPIException;
 import com.app.backend.security.repository.UserRepository;
 
 import java.security.Key;
