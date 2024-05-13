@@ -1,12 +1,12 @@
 @import "../abstracts/variables";
 
 input[type="checkbox"] {
-  $checkbox-size: 3rem;
+  $checkbox-size: 2em;
   appearance: none;
   height: $checkbox-size;
   width: $checkbox-size;
   background-color: transparent;
-  border: 2px solid $orange-400;
+  border: .18em solid $orange-400;
   cursor: pointer;
   display: flex;
   align-items: center;

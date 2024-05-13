@@ -1,6 +1,6 @@
 <h1>Create a new recipe</h1>
 
-<form class="grid-row-flow" [formGroup]="form" (submit)="submit()" enctype="multipart/form-data">
+<form class="grid-row-flow-md" [formGroup]="form" (submit)="submit()" enctype="multipart/form-data">
   <app-input-file [formControl]="form.controls.thumbnailImage" id="thumbnailImage" label="Choose the thumbnail image for your recipe" accept="image/*"></app-input-file>
 
   <fieldset class="fluid-grid-xs">
@@ -52,13 +52,13 @@
   </fieldset>
 
 
-  <div class="grid-row-flow">
+  <div class="grid-row-flow-sm">
     <div class="ingredients-label">
       <h3 class="semi-underline">Ingredients</h3>
       <button class="tooltip icon-button" data-tooltip="Add a new ingredient" (click)="addIngredient()" type="button"><fa-icon [icon]="plusIcon"></fa-icon></button>
     </div>
 
-    <fieldset class="grid-row-flow formArray">
+    <fieldset class="grid-row-flow-md formArray">
       <div *ngFor="let group of form.controls.ingredients.controls; let i = index" class="ingredients">
         <button class="icon-button" (click)="removeFromFormArray('ingredients', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
         <app-input-container id="ingredient{{i}}" label="Ingredient">
@@ -72,13 +72,13 @@
     </fieldset>
   </div>
 
-  <div class="grid-row-flow">
+  <div class="grid-row-flow-sm">
     <div class="ingredients-label">
       <h3 class="semi-underline">Preparation steps</h3>
       <button class="tooltip icon-button" data-tooltip="Add a new step" (click)="addStep()" type="button"><fa-icon [icon]="plusIcon"></fa-icon></button>
     </div>
 
-    <fieldset class="grid-row-flow formArray">
+    <fieldset class="grid-row-flow-md formArray">
       <div *ngFor="let group of form.controls.preparationSteps.controls; let i = index">
         <button class="icon-button" (click)="removeFromFormArray('preparationSteps', i)" type="button"><fa-icon [icon]="trashIcon"></fa-icon></button>
 
