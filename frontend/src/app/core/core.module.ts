@@ -6,15 +6,19 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthModule } from '../auth/auth.module';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { FooterComponent } from './components/footer/footer.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    AuthModule
+    AuthModule,
+    FontAwesomeModule
   ],
   providers: [
     {
@@ -29,7 +33,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     }
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ]
 })
 export class CoreModule { }
