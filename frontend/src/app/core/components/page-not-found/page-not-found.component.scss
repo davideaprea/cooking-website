@@ -1,0 +1,17 @@
+@import "../../../../styles/abstracts/variables";
+
+:host {
+  display: block;
+}
+
+h1 {
+  text-align: center;
+  & + p {
+    font-weight: bold;
+  }
+}
+
+a {
+  color: $orange-400;
+  text-decoration: underline;
+}
