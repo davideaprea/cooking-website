@@ -12,25 +12,25 @@ import { MenuLink } from 'src/app/core/models/menu-link.type';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileNavbarComponent {
-  user!: User;
+  user?: User;
 
   menuLinks: MenuLink[] = [];
 
   constructor(private authService: AuthService) {
     this.authService.user$.subscribe(user => {
-      this.user = user!;
+      this.user = user;
       this.menuLinks = [
         {
           tooltipText: "Create a new recipe",
           path: ['new-recipe'],
           icon: faPlus,
-          canActivate: this.user.role == Role.CREATOR
+          canActivate: this.user?.role == Role.CREATOR
         },
         {
           tooltipText: "Your recipes",
           path: ['your-recipes'],
           icon: faUtensils,
-          canActivate: this.user.role == Role.CREATOR
+          canActivate: this.user?.role == Role.CREATOR
         },
         {
           tooltipText: "Settings",

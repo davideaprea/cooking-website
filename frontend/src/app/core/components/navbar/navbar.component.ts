@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/auth/models/user.type';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -13,8 +13,11 @@ export class NavbarComponent {
   openModal: boolean = false;
   user: User | undefined = undefined;
 
-  constructor(private authService: AuthService, private router: Router) {
-    authService.user$.subscribe(user => this.user = user);
+  constructor(private authService: AuthService, private router: Router, private changeDetectorRef: ChangeDetectorRef) {
+    authService.user$.subscribe(user => {
+      this.user = user;
+      changeDetectorRef.markForCheck();
+    });
   }
 
   goToProfile(): void {
