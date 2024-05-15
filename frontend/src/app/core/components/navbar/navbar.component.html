@@ -5,7 +5,6 @@
   <a *ngIf="user" (click)="goToProfile()"><img class="profile-pic" src="../../../../assets/default-profile-pic.jpg" alt="Profile pic"></a>
 </nav>
 
-<app-dialog [(open)]="openModal">
+<app-dialog *ngIf="!user" [(open)]="openModal">
   <app-login></app-login>
 </app-dialog>
-

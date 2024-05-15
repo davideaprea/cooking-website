@@ -28,9 +28,11 @@ export class LoginComponent {
   submit() {
     this.authService.login(this.form.value as Required<LogUserFormModel>).subscribe(
       {
+        next: () => {
+          this.form.reset();
+        },
         error: e => {
           this.wrongCredentials = true;
-          this.form.reset();
         }
       }
     );
