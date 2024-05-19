@@ -1,4 +1,4 @@
-@import "../../../../../styles/abstracts/variables";
+@import "variables";
 
 dt {
   font-weight: bold;
@@ -7,6 +7,12 @@ dt {
 
 fa-icon {
   color: $orange-400;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .general-info {

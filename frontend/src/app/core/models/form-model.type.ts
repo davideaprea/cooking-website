@@ -1,6 +1,16 @@
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
 
-type PayloadObject = Record<string, string | number | boolean>;
+type Primitive = string | number | boolean;
+
+type PayloadObject = {
+  [key: string]:
+  Primitive
+  | PayloadObject
+  | string[]
+  | number[]
+  | boolean[]
+  | PayloadObject[];
+};
 
 type GroupOrControl<T> = T extends PayloadObject ? FormGroup<FormModel<T>> : FormControl<T | null>;
 

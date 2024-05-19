@@ -32,11 +32,11 @@ export class ProfileNavbarComponent {
           icon: faUtensils,
           canActivate: this.user?.role == Role.CREATOR
         },
-        {
+        /* {
           tooltipText: "Settings",
           path: [''],
           icon: faGear
-        },
+        }, */
         {
           tooltipText: "Logout",
           callback: () => { this.authService.logout(); },

@@ -17,6 +17,6 @@ export class CardComponent {
 
   @HostListener('click')
   private goToRecipeDetail() {
-    this.router.navigate(["/home", "recipes", this.recipe.id]);
+    this.router.navigate(["/recipes", this.recipe.id]);
   }
 }

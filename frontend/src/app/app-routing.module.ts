@@ -16,7 +16,7 @@ const routes: Routes = [
     canActivate: [userNotLoggedGuard]
   },
   {
-    path: 'home',
+    path: '',
     loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)
   },
   {

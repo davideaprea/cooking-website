@@ -3,7 +3,7 @@
     <li><img src="../../../../../assets/default-profile-pic.jpg" alt="Profile pic"></li>
     <ng-container *ngFor="let link of menuLinks">
       <li *ngIf="link.canActivate == undefined || (link.canActivate)">
-        <a (click)="handleClick(link)" [attr.data-tooltip]="link.tooltipText" class="tooltip" [routerLink]="link.path">
+        <a routerLinkActive="active-link" (click)="handleClick(link)" [attr.data-tooltip]="link.tooltipText" class="tooltip" [routerLink]="link.path">
           <fa-icon [icon]="link.icon!" [class]="link.class"></fa-icon>
         </a>
       </li>

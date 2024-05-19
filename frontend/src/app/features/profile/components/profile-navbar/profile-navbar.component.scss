@@ -1,3 +1,5 @@
+@import 'variables';
+
 :host {
   display: block;
   align-self: flex-start;
@@ -25,13 +27,18 @@ nav {
 }
 
 a {
-  font-size: 2rem;
-}
-
-fa-icon {
-  display: block;
+  display: flex;
+  min-width: 2.5em;
+  min-height: 2.5em;
+  align-items: center;
+  justify-content: center;
 }
 
 .logout-icon {
   transform: rotate(180deg);
+}
+
+.active-link {
+  border: 2px solid $orange-400;
+  border-radius: 50%;
 }
