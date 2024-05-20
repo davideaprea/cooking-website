@@ -45,4 +45,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         String credential = authentication.getName();
         return userRepository.findByUsernameOrEmail(credential, credential).get();
     }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow();
+    }
 }
