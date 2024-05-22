@@ -28,25 +28,25 @@ public class RecipeRunner implements ApplicationRunner{
 
     @Autowired private RecipeDAO recipeDao;
     @Autowired private CustomUserDetailsService userDetailsService;
+    private Faker faker = new Faker();
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Faker faker = new Faker();
         long recipesNumber = recipeDao.count();
-
+        
         for(long i = recipesNumber; i < 100; i++) {
             Set<RecipeIngredient> ingredients = new HashSet<RecipeIngredient>();
             List<String> preparationSteps = new LinkedList<String>();
-
+            
             for(int j = 0; j < faker.number().numberBetween(5, 14); j++) {
                 ingredients.add(new RecipeIngredient(
                     faker.food().ingredient(),
                     (short) faker.number().numberBetween(1, 800)
-                ));
-            }
-
+                    ));
+                }
+                
             for(int j = 0; j < faker.number().numberBetween(4, 10); j++) {
-                preparationSteps.add(faker.lorem().characters(50, 400, true));
+                preparationSteps.add(getRandomSentence(50, 400));
             }
 
 
@@ -63,8 +63,8 @@ public class RecipeRunner implements ApplicationRunner{
                 getRandomEnumValue(Country.class),
                 ingredients,
                 preparationSteps,
-                faker.lorem().characters(50, 255, true),
-                faker.lorem().characters(50, 255, true),
+                getRandomSentence(50, 255),
+                getRandomSentence(50, 255),
                 getRandomEnumValue(RecipeType.class),
                 faker.bool().bool(),
                 faker.bool().bool()
@@ -72,6 +72,20 @@ public class RecipeRunner implements ApplicationRunner{
 
             recipeDao.save(recipe);
         }
+    }
+
+    private String getRandomSentence(int min, int max) {
+        StringBuilder sb = new StringBuilder();
+        int wordNumber = faker.number().numberBetween(min, max);
+                    
+        while(sb.length() < wordNumber) {
+            String sentence = faker.lorem().sentence(1);
+            sb.append(sentence).append(" ");
+        }
+
+        if (sb.length() > wordNumber) sb.setLength(wordNumber);
+
+        return sb.toString();
     }
     
     private <T extends Enum<?>> T getRandomEnumValue(Class<T> enumClass) {
