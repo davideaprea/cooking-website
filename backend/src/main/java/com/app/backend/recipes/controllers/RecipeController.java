@@ -3,6 +3,7 @@ package com.app.backend.recipes.controllers;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -18,10 +19,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.backend.core.dto.SearchFilterDto;
 import com.app.backend.recipes.dto.RecipeDto;
 import com.app.backend.recipes.entities.Recipe;
 import com.app.backend.recipes.services.RecipeService;
@@ -30,8 +33,7 @@ import com.app.backend.recipes.services.RecipeService;
 @RestController
 @RequestMapping("/recipes")
 public class RecipeController {
-    @Autowired
-    private RecipeService recipeService;
+    @Autowired private RecipeService recipeService;
 
     @PreAuthorize("hasRole('CREATOR')")
     @PostMapping
@@ -42,6 +44,11 @@ public class RecipeController {
     @GetMapping
     public ResponseEntity<Page<Recipe>> getPage(Pageable pageable, @RequestParam(required = false) String creatorUsername) {
         return ResponseEntity.ok(recipeService.getPage(pageable, creatorUsername));
+    }
+
+    @PostMapping
+    public ResponseEntity<Page<Recipe>> getPageByFilters(@RequestBody List<SearchFilterDto<Recipe>> filters, Pageable pageable) {
+        return ResponseEntity.ok(recipeService.findByFilters(filters, pageable));
     }
 
     @GetMapping("/{id}")

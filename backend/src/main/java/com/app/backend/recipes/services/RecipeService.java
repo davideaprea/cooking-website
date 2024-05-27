@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.backend.core.classes.SpecCreator;
+import com.app.backend.core.dto.SearchFilterDto;
 import com.app.backend.recipes.dto.RecipeDto;
 import com.app.backend.recipes.entities.Recipe;
 import com.app.backend.recipes.entities.RecipeIngredient;
@@ -85,5 +87,9 @@ public class RecipeService {
         if(!recipeDao.existsById(id)) throw new EntityNotFoundException("Couldn't find recipe.");
 
         return recipeDao.findById(id).get();
+    }
+
+    public Page<Recipe> findByFilters(List<SearchFilterDto<Recipe>> filters, Pageable pageable) {
+        return recipePageableDAO.findAll(SpecCreator.filtersToSpecification(filters), pageable);
     }
 }
