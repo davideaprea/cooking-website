@@ -1,4 +1,4 @@
-import { FormArray, FormGroup } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import { FormModel } from "./form-model.type";
 
 export abstract class BaseReactiveForm<T> {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SelectItem } from '../models/select-item.type';
+import { Enum } from '../models/enum.type';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UtilityService {
     return item ? JSON.parse(item) : undefined;
   }
 
-  getEnumAsSelectItems<T = number | string>(e: { [k: number]: T }): SelectItem<T>[] {
+  getEnumAsSelectItems<T extends number | string>(e: Enum<T>): SelectItem<T>[] {
     let arr: SelectItem[] = [];
     for (const key in e) arr.push({
       value: key,
