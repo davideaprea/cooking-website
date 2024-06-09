@@ -5,8 +5,8 @@ import { environment } from 'src/environments/environment.development';
 import { Observable } from 'rxjs';
 import { RecipeResponse } from '../models/recipe-response.type';
 import { UtilityService } from 'src/app/core/services/utility.service';
-import { Pageable } from 'src/app/core/models/pageable.type';
-import { Page } from 'src/app/core/models/page.type';
+import { Pageable } from 'src/app/core/models/backend-dto/pageable.type';
+import { Page } from 'src/app/core/models/backend-dto/page.type';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +23,8 @@ export class RecipeService {
   }
 
   getRecipesPage(pageable: Pageable): Observable<Page<RecipeResponse>> {
-    const sortParams: string = pageable.sortParams?.reduce((str, param) => `${str}&sort=${param.name},${param.order}`, "") ?? "";
+    const sortParams: string[] = pageable.sortParams?.map(param => `&sort=${param.name},${param.order}`) || [];
 
-    return this.http.get<Page<RecipeResponse>>(`${environment.recipes}?page=${pageable.pageNumber}&size=${pageable.pageSize}${sortParams}`);
+    return this.http.get<Page<RecipeResponse>>(`${environment.recipes}?page=${pageable.pageNumber}&size=${pageable.pageSize}${sortParams.join("")}`);
   }
 }

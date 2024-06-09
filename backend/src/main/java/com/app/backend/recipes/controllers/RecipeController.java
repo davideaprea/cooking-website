@@ -47,7 +47,7 @@ public class RecipeController {
     }
 
     @PostMapping
-    public ResponseEntity<Page<Recipe>> getPageByFilters(@RequestBody List<SearchFilterDto<Recipe>> filters, Pageable pageable) {
+    public ResponseEntity<Page<Recipe>> getPageByFilters(@RequestBody List<SearchFilterDto> filters, Pageable pageable) {
         return ResponseEntity.ok(recipeService.findByFilters(filters, pageable));
     }
 

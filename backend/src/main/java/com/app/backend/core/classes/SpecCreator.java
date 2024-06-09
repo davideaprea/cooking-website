@@ -27,12 +27,12 @@ public class SpecCreator<T> {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(columnName), value);
     }
 
-    public static <T> Specification<T> filtersToSpecification(List<SearchFilterDto<T>> filters) {
+    public static <T> Specification<T> filtersToSpecification(List<SearchFilterDto> filters) {
         Specification<T> spec = Specification.where(null);
 
-        for(SearchFilterDto<T> filter : filters) {
+        for(SearchFilterDto filter : filters) {
             String field = filter.getFieldName();
-            T value = filter.getValue();
+            Object value = filter.getValue();
             
             switch (filter.getOperation()) {
                 case CONTAINS:

@@ -11,8 +11,8 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchFilterDto<T> {
+public class SearchFilterDto {
     String fieldName;
-    T value;
+    Object value;
     SearchOperation operation;
 }

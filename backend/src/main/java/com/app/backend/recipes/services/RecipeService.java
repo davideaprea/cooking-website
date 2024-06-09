@@ -89,7 +89,7 @@ public class RecipeService {
         return recipeDao.findById(id).get();
     }
 
-    public Page<Recipe> findByFilters(List<SearchFilterDto<Recipe>> filters, Pageable pageable) {
+    public Page<Recipe> findByFilters(List<SearchFilterDto> filters, Pageable pageable) {
         return recipePageableDAO.findAll(SpecCreator.filtersToSpecification(filters), pageable);
     }
 }
