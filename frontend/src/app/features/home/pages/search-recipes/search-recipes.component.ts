@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { RecipeSearchDto } from '../../models/recipe-search-dto.type';
-import { SearchOperation } from 'src/app/core/models/backend-dto/search-operation.type';
 import { ActivatedRoute } from '@angular/router';
 import { RecipeService } from 'src/app/features/profile/services/recipe.service';
 import { RecipeResponse } from 'src/app/features/profile/models/recipe-response.type';
