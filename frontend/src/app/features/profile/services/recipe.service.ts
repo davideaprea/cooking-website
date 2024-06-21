@@ -7,6 +7,7 @@ import { RecipeResponse } from '../models/recipe-response.type';
 import { UtilityService } from 'src/app/core/services/utility.service';
 import { Pageable } from 'src/app/core/models/backend-dto/pageable.type';
 import { Page } from 'src/app/core/models/backend-dto/page.type';
+import { RecipeSearchDto } from '../../home/models/recipe-search-dto.type';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,11 @@ export class RecipeService {
     const sortParams: string[] = pageable.sortParams?.map(param => `&sort=${param.name},${param.order}`) || [];
 
     return this.http.get<Page<RecipeResponse>>(`${environment.recipes}?page=${pageable.pageNumber}&size=${pageable.pageSize}${sortParams.join("")}`);
+  }
+
+  filter(filters: RecipeSearchDto, pageable: Pageable): Observable<Page<RecipeResponse>> {
+    const sortParams: string[] = pageable.sortParams?.map(param => `&sort=${param.name},${param.order}`) || [];
+
+    return this.http.post<Page<RecipeResponse>>(`${environment.recipes}/filter?page=${pageable.pageNumber}&size=${pageable.pageSize}${sortParams.join("")}`, filters);
   }
 }

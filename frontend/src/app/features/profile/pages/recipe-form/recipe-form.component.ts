@@ -22,7 +22,7 @@ type FormArrayProperty = "ingredients" | "preparationSteps";
   styleUrls: ['./recipe-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RecipeFormComponent extends BaseReactiveForm<RecipePayload> {
+export class RecipeFormComponent implements BaseReactiveForm<RecipePayload> {
   private readonly utilityService = inject(UtilityService);
 
   readonly difficultyOptions: SelectItem[] = this.utilityService.getEnumAsSelectItems(Difficulty);
@@ -41,7 +41,7 @@ export class RecipeFormComponent extends BaseReactiveForm<RecipePayload> {
     ]
   };
 
-  protected form = new FormGroup<FormModel<RecipePayload>>({
+  form = new FormGroup<FormModel<RecipePayload>>({
     name: new FormControl<string>("", Validators.required),
     course: new FormControl<Course | null>(null, Validators.required),
     thumbnailImage: new FormControl<File | null>(null, Validators.required),
@@ -64,7 +64,6 @@ export class RecipeFormComponent extends BaseReactiveForm<RecipePayload> {
   });
 
   constructor(private recipeService: RecipeService) {
-    super();
     this.addIngredient();
     this.addStep();
 

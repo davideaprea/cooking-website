@@ -1,0 +1,33 @@
+<app-dialog [(open)]="openFilters">
+</app-dialog>
+<form [formGroup]="form" (submit)="submit()">
+  <app-input-container label="Difficulty" id="difficulty">
+    <app-input-select [formControl]="form.controls.difficulty" id="difficulty" [options]="difficultyOptions"></app-input-select>
+  </app-input-container>
+
+  <app-input-container label="Cooking time" id="cookingTime">
+    <app-input-time [formControl]="form.controls.cookingTime" id="cookingTime"></app-input-time>
+  </app-input-container>
+
+  <app-input-container label="Recipe type" id="recipeType">
+    <app-input-select [formControl]="form.controls.recipeType" id="recipeType" [options]="recipeTypeOptions"></app-input-select>
+  </app-input-container>
+
+  <app-input-container label="Gluten free" id="Gluten free">
+    <input type="checkbox" [formControl]="form.controls.isGlutenFree" id="isGlutenFree">
+  </app-input-container>
+
+  <app-input-container label="Dairy free" id="isDairyFree">
+    <input type="checkbox" [formControl]="form.controls.isDairyFree" id="isDairyFree">
+  </app-input-container>
+
+  <app-input-container label="Preparation time" id="preparationTime">
+    <app-input-time [formControl]="form.controls.preparationTime" id="preparationTime"></app-input-time>
+  </app-input-container>
+
+  <app-input-container label="Course" id="course">
+    <app-input-select [formControl]="form.controls.course" id="course" [options]="courseOptions"></app-input-select>
+  </app-input-container>
+
+  <button class="submit-button">Create recipe</button>
+</form>

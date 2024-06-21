@@ -1,8 +1,8 @@
 import { Primitive } from "../primitive.type";
 import { SearchOperation } from "./search-operation.type";
 
-export type SearchFilterDto = {
+export type SearchFilterDto<T extends Primitive> = {
   fieldName: string;
-  value: Primitive;
+  value: T;
   operation: SearchOperation;
 }

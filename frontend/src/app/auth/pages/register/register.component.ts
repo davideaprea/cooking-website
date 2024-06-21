@@ -12,8 +12,8 @@ import { BaseReactiveForm } from 'src/app/core/models/base-reactive-form.class';
   styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegisterComponent extends BaseReactiveForm<RegUserFormModel>{
-  protected form: FormGroup<FormModel<RegUserFormModel>> = new FormGroup({
+export class RegisterComponent implements BaseReactiveForm<RegUserFormModel> {
+  form: FormGroup<FormModel<RegUserFormModel>> = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$")]),
     confirmPassword: new FormControl("", [Validators.required, (control: AbstractControl): ValidationErrors | null => {
@@ -33,9 +33,7 @@ export class RegisterComponent extends BaseReactiveForm<RegUserFormModel>{
     { id: "ns", label: "Subscribe to our newsletter", control: this.form.controls.newsletter },
   ];
 
-  constructor(private authService: AuthService) {
-    super();
-  }
+  constructor(private authService: AuthService) { }
 
   submit() {
     const { confirmPassword, ...user } = this.form.value;

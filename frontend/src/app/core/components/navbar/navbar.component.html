@@ -1,5 +1,6 @@
 <nav>
-  <input type="text" placeholder="Look for a recipe">
+  <input #recipeSearch type="text" placeholder="Look for a recipe">
+  <button (click)="searchRecipes(recipeSearch)">Search</button>
 
   <button *ngIf="!user" class="submit-button" (click)="openModal=true" type="button">Log In</button>
   <a *ngIf="user" (click)="goToProfile()"><img class="profile-pic" src="../../../../assets/default-profile-pic.jpg" alt="Profile pic"></a>

@@ -1,14 +1,10 @@
 package com.app.backend.core.classes;
 
-import java.util.List;
-
 import org.springframework.data.jpa.domain.Specification;
-
-import com.app.backend.core.dto.SearchFilterDto;
 
 public class SpecCreator<T> {
     public static <T> Specification<T> containsString(String columnName, String string) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(columnName), "%" + string + "%");
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.get(columnName)), "%" + string.toLowerCase() + "%");
     }
 
     public static <T> Specification<T> numberBetween(String columnName, long min, long max) {
@@ -25,36 +21,5 @@ public class SpecCreator<T> {
 
     public static <T, K> Specification<T> equals(String columnName, K value) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(columnName), value);
-    }
-
-    public static <T> Specification<T> filtersToSpecification(List<SearchFilterDto> filters) {
-        Specification<T> spec = Specification.where(null);
-
-        for(SearchFilterDto filter : filters) {
-            String field = filter.getFieldName();
-            Object value = filter.getValue();
-            
-            switch (filter.getOperation()) {
-                case CONTAINS:
-                    spec.and(containsString(field, (String) value));
-                    break;
-
-                case GREATER_THAN:
-                    spec.and(numberGreaterThan(field, (long) value));
-                    break;
-
-                case LESS_THAN:
-                    spec.and(numberLessThan(field, (long) value));
-                    break;
-
-                case EQUAL:
-                    spec.and(equals(field, value));
-
-                default:
-                    break;
-            }
-        }
-
-        return spec;
     }
 }

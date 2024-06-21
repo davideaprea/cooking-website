@@ -23,4 +23,8 @@ export class NavbarComponent {
   goToProfile(): void {
     this.router.navigate(['/profile']);
   }
+
+  searchRecipes(input: HTMLInputElement): void {
+    this.router.navigate(["/search", input.value]);
+  }
 }

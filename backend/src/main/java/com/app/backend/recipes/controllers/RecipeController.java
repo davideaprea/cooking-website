@@ -1,9 +1,9 @@
 package com.app.backend.recipes.controllers;
 
 import java.io.IOException;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.backend.core.dto.SearchFilterDto;
 import com.app.backend.recipes.dto.RecipeDto;
+import com.app.backend.recipes.dto.RecipeSearchDto;
 import com.app.backend.recipes.entities.Recipe;
 import com.app.backend.recipes.services.RecipeService;
 
@@ -46,8 +46,8 @@ public class RecipeController {
         return ResponseEntity.ok(recipeService.getPage(pageable, creatorUsername));
     }
 
-    @PostMapping
-    public ResponseEntity<Page<Recipe>> getPageByFilters(@RequestBody List<SearchFilterDto> filters, Pageable pageable) {
+    @PostMapping("/filter")
+    public ResponseEntity<Page<Recipe>> getPageByFilters(@RequestBody RecipeSearchDto filters, Pageable pageable) {
         return ResponseEntity.ok(recipeService.findByFilters(filters, pageable));
     }
 

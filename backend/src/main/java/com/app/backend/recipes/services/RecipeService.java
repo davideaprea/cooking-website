@@ -3,6 +3,7 @@ package com.app.backend.recipes.services;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -10,14 +11,15 @@ import org.springframework.util.StringUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.backend.core.classes.SpecCreator;
-import com.app.backend.core.dto.SearchFilterDto;
 import com.app.backend.recipes.dto.RecipeDto;
+import com.app.backend.recipes.dto.RecipeSearchDto;
 import com.app.backend.recipes.entities.Recipe;
 import com.app.backend.recipes.entities.RecipeIngredient;
 import com.app.backend.recipes.repositories.RecipeDAO;
@@ -89,7 +91,29 @@ public class RecipeService {
         return recipeDao.findById(id).get();
     }
 
-    public Page<Recipe> findByFilters(List<SearchFilterDto> filters, Pageable pageable) {
-        return recipePageableDAO.findAll(SpecCreator.filtersToSpecification(filters), pageable);
+    public Page<Recipe> findByFilters(RecipeSearchDto filters, Pageable pageable) {
+        List<Specification<Recipe>> specs = new ArrayList<Specification<Recipe>>();
+
+        if(filters.isDairyFree()) specs.add((SpecCreator.equals("isDairyFree", filters.isDairyFree())));
+        if(filters.isGlutenFree()) specs.add((SpecCreator.equals("isGlutenFree", filters.isGlutenFree())));
+        if(filters.getCookingTime() != null) specs.add((SpecCreator.numberLessThan("cookingTime", filters.getCookingTime().toMillis())));
+        if(filters.getPreparationTime() != null) specs.add((SpecCreator.numberLessThan("preparationTime", filters.getPreparationTime().toMillis())));
+        if(filters.getCountry() != null) specs.add((SpecCreator.equals("country", filters.getCountry())));
+        if(filters.getName() != null) specs.add((SpecCreator.containsString("name", filters.getName())));
+        if(filters.getDifficulty() != null) specs.add((SpecCreator.equals("difficulty", filters.getDifficulty())));
+        if(filters.getRecipeType() != null) specs.add((SpecCreator.equals("recipeType", filters.getRecipeType())));
+
+        Specification<Recipe> finalSpec;
+
+        if(specs.size() == 0) finalSpec = Specification.where(null);
+        else {
+            finalSpec = Specification.where(specs.get(0));
+
+            for(int i = 1; i < specs.size() - 1; i++) {
+                finalSpec = finalSpec.and(specs.get(i));
+            }
+        }
+
+        return recipePageableDAO.findAll(finalSpec, pageable);
     }
 }

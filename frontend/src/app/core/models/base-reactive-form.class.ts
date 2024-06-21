@@ -1,7 +1,7 @@
 import { FormGroup } from "@angular/forms";
 import { FormModel } from "./form-model.type";
 
-export abstract class BaseReactiveForm<T> {
-  protected abstract form: FormGroup<FormModel<T>>;
-  abstract submit(...args: any[]): void;
+export interface BaseReactiveForm<T> {
+  form: FormGroup<FormModel<T>>;
+  submit(...args: any[]): void;
 }

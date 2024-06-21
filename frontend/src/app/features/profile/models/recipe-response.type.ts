@@ -4,8 +4,5 @@ import { RecipeType } from "./recipe-type.type"
 export type RecipeResponse = BaseRecipe & {
   readonly id: number,
   readonly user: string,
-  thumbnailImage: string,
-  recipeType: RecipeType,
-  isDairyFree: boolean,
-  isGlutenFree: boolean
+  thumbnailImage: string
 }

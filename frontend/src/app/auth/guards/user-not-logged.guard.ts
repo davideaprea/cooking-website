@@ -7,8 +7,6 @@ export const userNotLoggedGuard: CanActivateFn = (route, state) => {
   const authService: AuthService = inject(AuthService);
 
   return authService.user$.pipe(
-    map(res => {
-      return !!res;
-    })
+    map(res => !!res)
   );
 };
