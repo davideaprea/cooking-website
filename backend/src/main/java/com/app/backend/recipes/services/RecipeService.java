@@ -93,15 +93,17 @@ public class RecipeService {
 
     public Page<Recipe> findByFilters(RecipeSearchDto filters, Pageable pageable) {
         List<Specification<Recipe>> specs = new ArrayList<Specification<Recipe>>();
+        System.out.println(filters.isGlutenFree());
 
-        if(filters.isDairyFree()) specs.add((SpecCreator.equals("isDairyFree", filters.isDairyFree())));
-        if(filters.isGlutenFree()) specs.add((SpecCreator.equals("isGlutenFree", filters.isGlutenFree())));
+        specs.add((SpecCreator.equals("isDairyFree", filters.isDairyFree())));
+        specs.add((SpecCreator.equals("isGlutenFree", filters.isGlutenFree())));
         if(filters.getCookingTime() != null) specs.add((SpecCreator.numberLessThan("cookingTime", filters.getCookingTime().toMillis())));
         if(filters.getPreparationTime() != null) specs.add((SpecCreator.numberLessThan("preparationTime", filters.getPreparationTime().toMillis())));
         if(filters.getCountry() != null) specs.add((SpecCreator.equals("country", filters.getCountry())));
         if(filters.getName() != null) specs.add((SpecCreator.containsString("name", filters.getName())));
         if(filters.getDifficulty() != null) specs.add((SpecCreator.equals("difficulty", filters.getDifficulty())));
         if(filters.getRecipeType() != null) specs.add((SpecCreator.equals("recipeType", filters.getRecipeType())));
+        if(filters.getCourse() != null) specs.add((SpecCreator.equals("course", filters.getCourse())));
 
         Specification<Recipe> finalSpec;
 
@@ -109,7 +111,7 @@ public class RecipeService {
         else {
             finalSpec = Specification.where(specs.get(0));
 
-            for(int i = 1; i < specs.size() - 1; i++) {
+            for(int i = 1; i < specs.size(); i++) {
                 finalSpec = finalSpec.and(specs.get(i));
             }
         }
