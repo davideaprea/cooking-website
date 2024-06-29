@@ -9,6 +9,7 @@ import { InputFileComponent } from './forms/components/input-file/input-file.com
 import { CardComponent } from './ui/card/card.component';
 import { InputTimeComponent } from './forms/components/input-time/input-time.component';
 import { InputContainerComponent } from './forms/components/input-container/input-container.component';
+import { PaginatorComponent } from './ui/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { InputContainerComponent } from './forms/components/input-container/inpu
     InputFileComponent,
     CardComponent,
     InputTimeComponent,
-    InputContainerComponent
+    InputContainerComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { InputContainerComponent } from './forms/components/input-container/inpu
     InputFileComponent,
     InputTimeComponent,
     InputContainerComponent,
-    CardComponent
+    CardComponent,
+    PaginatorComponent
   ]
 })
 export class SharedModule { }

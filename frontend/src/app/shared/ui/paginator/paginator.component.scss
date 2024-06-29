@@ -1,0 +1,23 @@
+@import "variables";
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+button {
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  padding: .5em;
+}
+
+.edge {
+  background-color: $orange-400;
+  color: white;
+}
+
+.selected-page {
+  background-color: white;
+}
