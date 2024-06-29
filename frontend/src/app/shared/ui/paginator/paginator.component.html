@@ -6,37 +6,15 @@
   <fa-icon [icon]="leftArrow"></fa-icon>
 </button>
 
-<ng-container *ngIf="pageNumber < 10">
-  <button
-    (click)="goTo(page)"
-    type="button"
-    [ngClass]="{'selected-page': page == pageNumber}"
-    *ngFor="let page of leftEdge">
-    {{page + 1}}
-  </button>
-</ng-container>
-
-<ng-container *ngIf="pageNumber > totalPages - 10 && totalPages > 9">
-  <button
-    (click)="goTo(page)"
-    type="button"
-    [ngClass]="{'selected-page': page == pageNumber}"
-    *ngFor="let page of rightEdge">
-    {{page + 1}}
-  </button>
-</ng-container>
-
-<ng-container *ngIf="pageNumber >= 10 && pageNumber < totalPages - 11">
-  <span>...</span>
-  <button
-    (click)="goTo(page)"
-    type="button"
-    [ngClass]="{'selected-page': page == pageNumber}"
-    *ngFor="let page of middle">
-    {{page + 1}}
-  </button>
-  <span>...</span>
-</ng-container>
+<span *ngIf="pageNumber >= 10 && pageNumber <= totalPages - 11">...</span>
+<button
+  (click)="goTo(page)"
+  type="button"
+  [ngClass]="{'selected-page': page == pageNumber}"
+  *ngFor="let page of pages">
+  {{page + 1}}
+</button>
+<span *ngIf="pageNumber >= 10 && pageNumber <= totalPages - 11">...</span>
 
 <button
   (click)="goToNext()"

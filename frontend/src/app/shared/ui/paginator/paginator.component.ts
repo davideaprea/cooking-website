@@ -16,9 +16,7 @@ export class PaginatorComponent implements OnChanges {
   @Input() pageNumber: number = 0;
   @Input({ required: true }) totalPages: number = 0;
 
-  leftEdge: number[] = []
-  middle: number[] = [];
-  rightEdge: number[] = [];
+  pages: number[] = []
 
   ngOnChanges(changes: SimpleChanges): void {
     const totPages: number | undefined = changes["totalPages"]?.currentValue;
@@ -26,39 +24,38 @@ export class PaginatorComponent implements OnChanges {
     if (!totPages) return;
 
     this.totalPages = totPages;
-
-    this.leftEdge = Array.from({ length: Math.min(totPages, 10) }, (_, i) => i);
-
-    if (totPages > 10) {
-      this.rightEdge = [];
-      for (let i = totPages - 10; i < totPages; i++) this.rightEdge.push(i);
-    }
+    this.renderPages();
   }
 
   goTo(page: number): void {
     this.pageNumberChange.emit(this.pageNumber = page);
-    this.renderMiddlePages();
+    this.renderPages();
   }
 
   goToPrevious(): void {
     this.pageNumberChange.emit(--this.pageNumber);
-    this.renderMiddlePages();
+    this.renderPages();
   }
 
   goToNext(): void {
     this.pageNumberChange.emit(++this.pageNumber);
-    this.renderMiddlePages();
+    this.renderPages();
   }
 
-  private renderMiddlePages(): void {
-    if (
-      this.pageNumber < 10 &&
-      this.pageNumber >= this.totalPages - 11
-    ) return;
-
-    this.middle = [];
-    for (let page = this.pageNumber - 2; page < this.pageNumber + 3; page++) {
-      this.middle.push(page);
+  private renderPages(): void {
+    this.pages = [];
+    if (this.pageNumber >= 10 && this.pageNumber <= this.totalPages - 11) {
+      for (let page = this.pageNumber - 2; page < this.pageNumber + 3; page++) {
+        this.pages.push(page);
+      }
+    }
+    else if (this.pageNumber < 10) {
+      this.pages = Array.from({ length: Math.min(this.totalPages, 10) }, (_, i) => i);
+    }
+    else {
+      for (let i = this.totalPages - 10; i < this.totalPages; i++) {
+        this.pages.push(i);
+      }
     }
   }
 }

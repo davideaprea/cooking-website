@@ -6,7 +6,7 @@
   <app-card *ngFor="let recipe of recipes" [recipe]="recipe"></app-card>
 </div>
 
-<app-paginator [totalPages]="120" (pageNumberChange)="onPageNumberChange($event)"></app-paginator>
+<app-paginator [totalPages]="30" (pageNumberChange)="onPageNumberChange($event)"></app-paginator>
 
 <app-dialog [(open)]="openFilters">
   <form [formGroup]="form" (submit)="submit($event)">
