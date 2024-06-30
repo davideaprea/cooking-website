@@ -6,10 +6,15 @@
   <app-card *ngFor="let recipe of recipes" [recipe]="recipe"></app-card>
 </div>
 
-<app-paginator [totalPages]="30" (pageNumberChange)="onPageNumberChange($event)"></app-paginator>
+<app-paginator
+  *ngIf="totalPages > 0"
+  [totalPages]="totalPages"
+  [pageNumber]="pageNumber"
+  (pageNumberChange)="changePage($event)">
+</app-paginator>
 
 <app-dialog [(open)]="openFilters">
-  <form [formGroup]="form" (submit)="submit($event)">
+  <form [formGroup]="form" (submit)="changePage(0, $event)">
     <app-input-container label="Difficulty" id="difficulty">
       <app-input-select [formControl]="form.controls.difficulty" id="difficulty" [options]="difficultyOptions"></app-input-select>
     </app-input-container>

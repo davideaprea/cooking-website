@@ -35,7 +35,8 @@ export class RegisterComponent implements BaseReactiveForm<RegUserFormModel> {
 
   constructor(private authService: AuthService) { }
 
-  submit() {
+  submit(event: SubmitEvent) {
+    event.preventDefault();
     const { confirmPassword, ...user } = this.form.value;
     this.authService.register(user as Required<RegUser>).subscribe({
       next: res => { },

@@ -34,7 +34,7 @@ public class RecipeRunner implements ApplicationRunner{
     public void run(ApplicationArguments args) throws Exception {
         long recipesNumber = recipeDao.count();
         
-        for(long i = recipesNumber; i < 100; i++) {
+        for(long i = recipesNumber; i < 500; i++) {
             Set<RecipeIngredient> ingredients = new HashSet<RecipeIngredient>();
             List<String> preparationSteps = new LinkedList<String>();
             
@@ -42,8 +42,8 @@ public class RecipeRunner implements ApplicationRunner{
                 ingredients.add(new RecipeIngredient(
                     faker.food().ingredient(),
                     (short) faker.number().numberBetween(1, 800)
-                    ));
-                }
+                ));
+            }
                 
             for(int j = 0; j < faker.number().numberBetween(4, 10); j++) {
                 preparationSteps.add(getRandomSentence(50, 400));
@@ -52,7 +52,7 @@ public class RecipeRunner implements ApplicationRunner{
 
             Recipe recipe = new Recipe(
                 userDetailsService.getUserByUsername("daviaprea"),
-                faker.name().title(),
+                getUniqueName(),
                 getRandomEnumValue(Course.class),
                 "http://localhost:8080/recipes/thumbnails/b0e464b8-15cc-4228-af48-7c091df312d7_risottomilanese.avif",
                 getRandomEnumValue(Difficulty.class),
@@ -92,5 +92,13 @@ public class RecipeRunner implements ApplicationRunner{
         Random random = new Random();
         T[] enumValues = enumClass.getEnumConstants();
         return enumValues[random.nextInt(enumValues.length)];
+    }
+
+    private String getUniqueName() {
+        String name = faker.name().title();
+        while(recipeDao.existsByName(name)) {
+            name = faker.name().title();
+        }
+        return name;
     }
 }

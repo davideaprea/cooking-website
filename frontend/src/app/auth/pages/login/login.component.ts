@@ -25,7 +25,8 @@ export class LoginComponent {
     return this._form;
   }
 
-  submit() {
+  submit(event: SubmitEvent) {
+    event.preventDefault();
     this.authService.login(this.form.value as Required<LogUserFormModel>).subscribe(
       {
         next: () => {

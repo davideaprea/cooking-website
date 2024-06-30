@@ -28,6 +28,7 @@ import com.app.backend.security.service.CustomUserDetailsService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -38,6 +39,10 @@ public class RecipeService {
     @Autowired private ObjectMapper objectMapper;
 
     public Recipe save(RecipeDto recipeDto) {
+        if(recipeDao.existsByName(recipeDto.getName())) {
+            throw new EntityExistsException("This recipe's already been created.");
+        }
+
         try {
             final String baseImageUrl = "http://localhost:8080/recipes/thumbnails/";
 

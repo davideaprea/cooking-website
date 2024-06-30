@@ -20,10 +20,11 @@ export class PaginatorComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     const totPages: number | undefined = changes["totalPages"]?.currentValue;
+    const pageNumber: number | undefined = changes["pageNumber"]?.currentValue;
 
-    if (!totPages) return;
+    if (totPages) this.totalPages = totPages;
+    if(pageNumber) this.pageNumber = pageNumber;
 
-    this.totalPages = totPages;
     this.renderPages();
   }
 

@@ -95,7 +95,9 @@ export class RecipeFormComponent implements BaseReactiveForm<RecipePayload> {
     if (this.form.controls[formArray].length > 1) this.form.controls[formArray].removeAt(index);
   }
 
-  submit(): void {
+  submit(event: SubmitEvent): void {
+    event.preventDefault();
+
     if (this.form.invalid) return;
 
     const recipe = this.form.value as Required<RecipePayload>;

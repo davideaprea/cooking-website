@@ -1,6 +1,6 @@
 <h1 class="text-center">Log in</h1>
 
-<form class="grid-row-flow-md" [formGroup]="form" (ngSubmit)="submit()">
+<form class="grid-row-flow-md" [formGroup]="form" (ngSubmit)="submit($event)">
   <app-input-container id="username" label="Username">
     <input type="text" id="username" [formControl]="form.controls.username">
   </app-input-container>

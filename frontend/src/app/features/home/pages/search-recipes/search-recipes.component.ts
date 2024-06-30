@@ -53,7 +53,7 @@ export class SearchRecipesComponent implements BaseReactiveForm<RecipeSearchDto>
   ) {
     this.paramSubscription = route.params.subscribe(param => {
       this.form.controls.name.setValue(param['name']);
-      //this.submit();
+      this.changePage(0);
     });
   }
 
@@ -61,13 +61,13 @@ export class SearchRecipesComponent implements BaseReactiveForm<RecipeSearchDto>
     this.paramSubscription.unsubscribe();
   }
 
-  onPageNumberChange(pageNumber: number) {
+  changePage(pageNumber: number, event?: SubmitEvent) {
+    event?.preventDefault();
     this.pageNumber = pageNumber;
-    console.log(pageNumber);
+    this.submit();
   }
 
-  submit(event?: SubmitEvent): void {
-    event?.preventDefault();
+  submit(): void {
     this.openFilters = false;
     this.recipeService.filter(this.form.value as Required<RecipeSearchDto>, { pageNumber: this.pageNumber, pageSize: 10 }).subscribe(page => {
       this.recipes = page.content;
